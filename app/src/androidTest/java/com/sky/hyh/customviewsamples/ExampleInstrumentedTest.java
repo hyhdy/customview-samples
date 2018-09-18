@@ -1,4 +1,4 @@
-package com.lmy.hyh.customviewdemo;
+package com.sky.hyh.customviewsamples;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

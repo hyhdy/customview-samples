@@ -1,4 +1,4 @@
-package com.lmy.hyh.customviewdemo;
+package com.sky.hyh.customviewsamples;
 
 import org.junit.Test;
 
