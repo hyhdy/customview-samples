@@ -13,9 +13,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         CustomEmojiPanel customEmojiPanel = findViewById(R.id.cmp_emoji);
-        //customEmojiPanel.setLineCount(5);
-        //customEmojiPanel.setItemCountPerLine(3);
 
+        customEmojiPanel.setItemCountPerLine(5);
         customEmojiPanel.setEmojiList(new String[]{
                 "😀", "😁", "😂", "🤣", "😃", "😄", "😅", "😆", "😉", "😊", "😋", "😎",
                 "😄", "😅", "😆", "😉", "😊", "😋", "😎"
