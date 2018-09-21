@@ -13,4 +13,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         />
+
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/rv_list"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+
+    <!--</android.support.v7.widget.RecyclerView> -->
+
+    <!--<FrameLayout-->
+        <!--android:id="@+id/fl_fragment_container"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+
+    <!--</FrameLayout>-->
 </android.support.constraint.ConstraintLayout>
