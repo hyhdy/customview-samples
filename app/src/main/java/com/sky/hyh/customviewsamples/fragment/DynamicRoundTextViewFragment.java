@@ -38,7 +38,7 @@ public class DynamicRoundTextViewFragment extends BaseFragment implements View.O
                 mDynamicRoundTextView.close();
                 break;
             case R.id.tv_click_appear:
-                mDynamicRoundTextView.appear();
+                mDynamicRoundTextView.appear(null);
                 break;
 
         }

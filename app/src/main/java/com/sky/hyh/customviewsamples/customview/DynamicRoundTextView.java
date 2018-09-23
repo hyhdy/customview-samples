@@ -78,9 +78,13 @@ public class DynamicRoundTextView extends AppCompatTextView {
             buildSpreadAnimSpring();
             mState = STATE_SPREAD;
         }else if(mState == STATE_DISAPPEAR){
-            appear();
-            spread();
-            mState = STATE_SPREAD;
+            appear(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    spread();
+                    mState = STATE_SPREAD;
+                }
+            });
         }
     }
 
@@ -120,10 +124,11 @@ public class DynamicRoundTextView extends AppCompatTextView {
     /**
      * 出现
      */
-    public void appear(){
+    public void appear(AnimatorListenerAdapter animatorListenerAdapter){
         if(mState == STATE_DISAPPEAR) {
             setVisibility(View.VISIBLE);
             Animator animator = buildAppearAnimator();
+            animator.addListener(animatorListenerAdapter);
             animator.start();
             mState = STATE_NORMAL;
         }
