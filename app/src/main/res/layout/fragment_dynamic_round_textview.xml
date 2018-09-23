@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    >
+
+   <com.sky.hyh.customviewsamples.customview.DynamicRoundTextView
+       android:id="@+id/drt_round"
+       android:layout_width="36dp"
+       android:layout_height="36dp"
+       android:background="@drawable/dynamic_round_bg_selector"
+       android:layout_alignParentRight="true"
+       android:layout_marginTop="20dp"
+       android:layout_marginRight="20dp"
+       android:textSize="16sp"
+       android:textColor="#ffffff"
+       android:gravity="center"
+       android:singleLine="true"
+       android:ellipsize="none"
+       />
+
+   <LinearLayout
+       android:layout_width="wrap_content"
+       android:layout_height="200dp"
+       android:layout_centerInParent="true"
+       android:orientation="vertical"
+       >
+      <TextView
+          android:id="@+id/tv_click_spread"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="点击展开"
+          android:layout_weight="1"
+          />
+      <TextView
+          android:id="@+id/tv_click_close"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="点击缩回"
+          android:layout_weight="1"
+          />
+
+      <TextView
+          android:id="@+id/tv_click_appear"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="点击出现"
+          android:layout_weight="1"
+          />
+
+   </LinearLayout>
+</RelativeLayout>

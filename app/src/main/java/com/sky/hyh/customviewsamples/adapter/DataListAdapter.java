@@ -10,8 +10,10 @@ import android.widget.TextView;
 
 import com.sky.hyh.customviewsamples.Factory.BaseFragmentFactory;
 import com.sky.hyh.customviewsamples.Factory.CustomEmojiPanelFactory;
+import com.sky.hyh.customviewsamples.Factory.DynamicRoundTextViewFactory;
 import com.sky.hyh.customviewsamples.R;
 import com.sky.hyh.customviewsamples.adapter.viewholder.BaseViewHolder;
+import com.sky.hyh.customviewsamples.customview.DynamicRoundTextView;
 import com.sky.hyh.customviewsamples.fragment.CustomEmojiPanelFragment;
 
 import java.util.ArrayList;
@@ -22,6 +24,7 @@ public class DataListAdapter extends RecyclerView.Adapter {
     private static List<Class> sDataList = new ArrayList<>();
     static {
         sDataList.add(CustomEmojiPanelFactory.class);
+        sDataList.add(DynamicRoundTextViewFactory.class);
     }
     private OnClickCallBack mOnClickCallBack;
     private Context mContext;

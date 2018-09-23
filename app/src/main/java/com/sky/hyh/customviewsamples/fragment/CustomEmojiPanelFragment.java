@@ -28,13 +28,14 @@ public class CustomEmojiPanelFragment extends BaseFragment {
         Log.d("hyh", "CustomEmojiPanelFragment: onCreate");
     }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Log.d("hyh", "CustomEmojiPanelFragment: onCreateView ");
-        View view = inflater.inflate(RES_ID, null);
+    protected int getResId() {
+        return RES_ID;
+    }
 
-        CustomEmojiPanel customEmojiPanel = view.findViewById(R.id.cmp_emoji);
+    @Override
+    protected void initViews(View rootView) {
+        CustomEmojiPanel customEmojiPanel = rootView.findViewById(R.id.cmp_emoji);
         customEmojiPanel.setItemCountPerLine(5);
         customEmojiPanel.setEmojiList(new String[]{
                 "😀", "😁", "😂", "🤣", "😃", "😄", "😅", "😆", "😉", "😊", "😋", "😎",
@@ -42,7 +43,6 @@ public class CustomEmojiPanelFragment extends BaseFragment {
         });
         customEmojiPanel.setEmojiSize(26);
         customEmojiPanel.setButtonMoreSize(40);
-        return view;
     }
 
     @Override
