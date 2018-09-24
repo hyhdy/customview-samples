@@ -128,7 +128,9 @@ public class DynamicRoundTextView extends AppCompatTextView {
         if(mState == STATE_DISAPPEAR) {
             setVisibility(View.VISIBLE);
             Animator animator = buildAppearAnimator();
-            animator.addListener(animatorListenerAdapter);
+            if(animatorListenerAdapter!=null){
+                animator.addListener(animatorListenerAdapter);
+            }
             animator.start();
             mState = STATE_NORMAL;
         }
