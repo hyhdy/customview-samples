@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="dynamic_round_bg_color">#00cadd</color>
+    <color name="pure_white">#ffffff</color>
+    <color name="pure_black">#000000</color>
 </resources>
