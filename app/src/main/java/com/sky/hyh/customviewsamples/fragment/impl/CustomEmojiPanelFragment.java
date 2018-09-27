@@ -1,4 +1,4 @@
-package com.sky.hyh.customviewsamples.fragment;
+package com.sky.hyh.customviewsamples.fragment.impl;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.sky.hyh.customviewsamples.R;
 import com.sky.hyh.customviewsamples.customview.CustomEmojiPanel;
+import com.sky.hyh.customviewsamples.fragment.BaseFragment;
 
 public class CustomEmojiPanelFragment extends BaseFragment {
     public static final int RES_ID = R.layout.fragment_custom_emoji_panel;

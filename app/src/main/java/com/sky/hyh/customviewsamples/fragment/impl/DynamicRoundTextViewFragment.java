@@ -1,10 +1,11 @@
-package com.sky.hyh.customviewsamples.fragment;
+package com.sky.hyh.customviewsamples.fragment.impl;
 
 import android.view.View;
 import android.widget.TextView;
 
 import com.sky.hyh.customviewsamples.R;
 import com.sky.hyh.customviewsamples.customview.DynamicRoundTextView;
+import com.sky.hyh.customviewsamples.fragment.BaseFragment;
 
 public class DynamicRoundTextViewFragment extends BaseFragment implements View.OnClickListener{
     DynamicRoundTextView mDynamicRoundTextView;

@@ -1,7 +1,8 @@
-package com.sky.hyh.customviewsamples.Factory;
+package com.sky.hyh.customviewsamples.factory.impl;
 
+import com.sky.hyh.customviewsamples.factory.BaseFragmentFactory;
 import com.sky.hyh.customviewsamples.fragment.BaseFragment;
-import com.sky.hyh.customviewsamples.fragment.ClipChildrenFragment;
+import com.sky.hyh.customviewsamples.fragment.impl.ClipChildrenFragment;
 
 /**
  * Created by hyh on 2018/9/25 14:05

@@ -1,7 +1,8 @@
-package com.sky.hyh.customviewsamples.Factory;
+package com.sky.hyh.customviewsamples.factory.impl;
 
+import com.sky.hyh.customviewsamples.factory.BaseFragmentFactory;
 import com.sky.hyh.customviewsamples.fragment.BaseFragment;
-import com.sky.hyh.customviewsamples.fragment.DynamicRoundTextViewFragment;
+import com.sky.hyh.customviewsamples.fragment.impl.DynamicRoundTextViewFragment;
 
 public class DynamicRoundTextViewFactory extends BaseFragmentFactory {
     @Override

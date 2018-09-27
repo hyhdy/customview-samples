@@ -8,10 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.sky.hyh.customviewsamples.Factory.BaseFragmentFactory;
-import com.sky.hyh.customviewsamples.Factory.CustomEmojiPanelFactory;
-import com.sky.hyh.customviewsamples.Factory.DynamicRoundTextViewFactory;
-import com.sky.hyh.customviewsamples.Factory.ClipChildrenFactory;
+import com.sky.hyh.customviewsamples.factory.BaseFragmentFactory;
+import com.sky.hyh.customviewsamples.factory.impl.CustomEmojiPanelFactory;
+import com.sky.hyh.customviewsamples.factory.impl.DynamicRoundTextViewFactory;
+import com.sky.hyh.customviewsamples.factory.impl.ClipChildrenFactory;
 import com.sky.hyh.customviewsamples.R;
 import com.sky.hyh.customviewsamples.adapter.viewholder.BaseViewHolder;
 

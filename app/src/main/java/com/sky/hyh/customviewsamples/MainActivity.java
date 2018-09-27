@@ -1,6 +1,5 @@
 package com.sky.hyh.customviewsamples;
 
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -10,9 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
-import com.sky.hyh.customviewsamples.Factory.BaseFragmentFactory;
+import com.sky.hyh.customviewsamples.factory.BaseFragmentFactory;
 import com.sky.hyh.customviewsamples.adapter.DataListAdapter;
-import com.sky.hyh.customviewsamples.customview.CustomEmojiPanel;
 import com.sky.hyh.customviewsamples.fragment.BaseFragment;
 
 public class MainActivity extends AppCompatActivity {

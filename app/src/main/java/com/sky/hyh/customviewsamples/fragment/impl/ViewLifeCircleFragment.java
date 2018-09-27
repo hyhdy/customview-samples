@@ -1,4 +1,4 @@
-package com.sky.hyh.customviewsamples.fragment;
+package com.sky.hyh.customviewsamples.fragment.impl;
 
 import android.app.Fragment;
 

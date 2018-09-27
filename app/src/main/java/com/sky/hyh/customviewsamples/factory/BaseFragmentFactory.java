@@ -1,6 +1,4 @@
-package com.sky.hyh.customviewsamples.Factory;
-
-import android.support.v4.app.Fragment;
+package com.sky.hyh.customviewsamples.factory;
 
 import com.sky.hyh.customviewsamples.fragment.BaseFragment;
 
