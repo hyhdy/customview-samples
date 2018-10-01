@@ -14,6 +14,7 @@ import com.sky.hyh.customviewsamples.factory.impl.DynamicRoundTextViewFactory;
 import com.sky.hyh.customviewsamples.factory.impl.ClipChildrenFactory;
 import com.sky.hyh.customviewsamples.R;
 import com.sky.hyh.customviewsamples.adapter.viewholder.BaseViewHolder;
+import com.sky.hyh.customviewsamples.factory.impl.LimitedEditTextFactory;
 import com.sky.hyh.customviewsamples.factory.impl.RoundMaskViewFactory;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class DataListAdapter extends RecyclerView.Adapter {
         sDataList.add(DynamicRoundTextViewFactory.class);
         sDataList.add(ClipChildrenFactory.class);
         sDataList.add(RoundMaskViewFactory.class);
+        sDataList.add(LimitedEditTextFactory.class);
     }
     private OnClickCallBack mOnClickCallBack;
     private Context mContext;
