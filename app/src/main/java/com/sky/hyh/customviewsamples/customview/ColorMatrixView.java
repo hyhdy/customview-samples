@@ -43,7 +43,7 @@ public class ColorMatrixView extends View {
                 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0,
                 0, 0, 0, 1, 0};
-        mBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.camera_edit_addtext_fontfamily_mountains_bg);
+        mBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.image_1);
         mMatrix = new Matrix();
         mPaint = new Paint();
     }
