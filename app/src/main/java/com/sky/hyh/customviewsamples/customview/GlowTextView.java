@@ -1,6 +1,8 @@
 package com.sky.hyh.customviewsamples.customview;
 
 import android.content.Context;
+import android.graphics.BlurMaskFilter;
+import android.graphics.Canvas;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.widget.TextView;
@@ -16,5 +18,13 @@ public class GlowTextView extends AppCompatTextView {
 
     public GlowTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        setShadowLayer(30,5,5,0xffffbe00);
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        //getPaint().setMaskFilter(new BlurMaskFilter(10, BlurMaskFilter.Blur.INNER));
+        //getPaint().setMaskFilter(new BlurMaskFilter(40, BlurMaskFilter.Blur.OUTER));
+        super.onDraw(canvas);
     }
 }
