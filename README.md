@@ -17,6 +17,6 @@
 
 | name      | display    | 
 | ---------- | :-----------:  |
-| [CustomEmojiPanel](https://github.com/hyhdy/customview-samples/blob/master/app/src/main/java/com/sky/hyh/customviewsamples/customview/CustomEmojiPanel.java) 自定义表情面板     | <img width="300" height="500" src="https://github.com/hyhdy/customview-samples/blob/master/img-folder/QQ%E5%9B%BE%E7%89%8720181207231008.gif"/>
-| [DynamicRoundTextView](https://github.com/hyhdy/customview-samples/blob/master/app/src/main/java/com/sky/hyh/customviewsamples/customview/DynamicRoundTextView.java) 自定义弹性滑出的提示栏     | <img width="300" height="500" src="https://github.com/hyhdy/customview-samples/blob/master/img-folder/DynamicRoundTextView.gif"/>
-
+| [CustomEmojiPanel](https://github.com/hyhdy/customview-samples/blob/master/app/src/main/java/com/sky/hyh/customviewsamples/customview/CustomEmojiPanel.java) 自定义表情面板     | <img width="300" height="500" src="https://github.com/hyhdy/customview-samples/blob/master/img-folder/QQ%E5%9B%BE%E7%89%8720181207231008.gif"/> |
+| [DynamicRoundTextView](https://github.com/hyhdy/customview-samples/blob/master/app/src/main/java/com/sky/hyh/customviewsamples/customview/DynamicRoundTextView.java) 自定义弹性滑出的提示栏     | <img width="300" height="500" src="https://github.com/hyhdy/customview-samples/blob/master/img-folder/DynamicRoundTextView.gif"/> |
+| [RoundMaskView](https://github.com/hyhdy/customview-samples/blob/master/app/src/main/java/com/sky/hyh/customviewsamples/customview/RoundMaskView.java) 高亮遮罩     | <img width="350" height="550" src="https://github.com/hyhdy/customview-samples/blob/master/img-folder/maskview.jpg"/> |
