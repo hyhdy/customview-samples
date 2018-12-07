@@ -1,7 +1,7 @@
 # customview-samples
 ## [CustomEmojiPanel](https://github.com/hyhdy/customview-samples/blob/master/app/src/main/java/com/sky/hyh/customviewsamples/customview/CustomEmojiPanel.java) 自定义表情面板
 ### 效果图：
-![](https://github.com/hyhdy/customview-samples/blob/master/img-folder/CustomEmojiPanel.gif)
+<img width="350" height="550" src="https://github.com/hyhdy/customview-samples/blob/master/img-folder/QQ%E5%9B%BE%E7%89%8720181207231008.gif"/>
 
 ## [DynamicRoundTextView](https://github.com/hyhdy/customview-samples/blob/master/app/src/main/java/com/sky/hyh/customviewsamples/customview/DynamicRoundTextView.java) 自定义弹性滑出的提示栏
 ### 效果图：
