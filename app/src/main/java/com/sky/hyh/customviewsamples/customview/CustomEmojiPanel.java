@@ -21,20 +21,23 @@ import com.sky.hyh.customviewsamples.utils.DensityUtil;
 import com.sky.hyh.customviewsamples.utils.RectUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
- * Created by hyh on 2018/9/14 14:57
- * E-Mail Address：fjnuhyh122@gmail.com
+ * 自定义表情面板
  */
-public class CustomEmojiPanel extends View {
+public class CustomEmojiPanel extends BaseSplitGridView {
+    private static final int TYPE_EMOJI = 0;
+    private static final int TYPE_MORE = 1;
     /**
      * 默认值常量
      */
     private static final float DEFAULT_SIZE_ROUND_RADIUS_DP = 12;//圆角半径dp
     private static final float DEFAULLT_SIZE_BUTTON_MORE_DP = 42;//按钮大小dp
     private static final float DEFAULT_SIZE_EMOJI_TEXT_SP = 36;//emoji大小Sp
-    private static final int DEFAULT_NUM_VERTICAL = 6;//列数
+
     public static final String[] sSeizeEmojiList = new String[]{
             "😀", "😁", "😂", "🤣", "😃", "😄", "😅", "😆", "😉", "😊", "😋", "😎"
     };
@@ -42,22 +45,10 @@ public class CustomEmojiPanel extends View {
     private float mRadius;
     private int mButtonMoreSize;
     private float mEmojiSize;
-    private int mItemCountPerLine = DEFAULT_NUM_VERTICAL;//列数
-    private String[] mEmojiList = sSeizeEmojiList;
-    private int mWidth;//表情面板宽度
-    private int mHeight;//表情面板高度
 
     private TextPaint mTextPaint;
-    private GestureDetector mGestureDetector;
     private Drawable mDrawable;
-    /**
-     * 存放每个表情的显示区域
-     */
-    private List<Rect> mEmojiRectList;
-    /**
-     * 存放更多按钮的显示区域
-     */
-    private Rect mButtonMoreRect;
+    private Map<Rect,FakeView<String>> mFakeViewMap;
 
     public CustomEmojiPanel(Context context) {
         this(context,null);
@@ -70,89 +61,59 @@ public class CustomEmojiPanel extends View {
         mTextPaint.setAntiAlias(true);
         mTextPaint.setStyle(Paint.Style.FILL);
 
-        mEmojiRectList = new ArrayList<>();
+        mFakeViewMap = new HashMap<>();
 
         mRadius = DensityUtil.dip2px(context, DEFAULT_SIZE_ROUND_RADIUS_DP);
         mButtonMoreSize = DensityUtil.dip2px(context, DEFAULLT_SIZE_BUTTON_MORE_DP);
         mEmojiSize = DensityUtil.sp2px(context, DEFAULT_SIZE_EMOJI_TEXT_SP);
 
         mDrawable = getContext().getResources().getDrawable(R.drawable.btn_more);
-        //int drawableWidth = mDrawable.getIntrinsicWidth();
-        //int drawableHeight = mDrawable.getIntrinsicHeight();
-        //Log.d("hyh", "PraiseEmojiPanelSmall: onDraw: drawableWidth="+drawableWidth+" ,drawableHeight="+drawableHeight+" ,mBtnMoreSize="+DensityUtil.dip2px(getContext(),mBtnMoreSize));
-        //
-        //BitmapFactory.Options options = new BitmapFactory.Options();
-        //Bitmap bitmap = BitmapFactory.decodeResource(getContext().getResources(),R.drawable.btn_more,options);
-        //Log.d("hyh", "PraiseEmojiPanelSmall: onDraw: bitmapWidth="+options.outWidth+" ,bitmapHeight="+options.outHeight);
-
-        mGestureDetector = new GestureDetector(getContext(),new GestureDetector.SimpleOnGestureListener() {
-            @Override
-            public boolean onSingleTapConfirmed(MotionEvent e) {
-                //点击事件
-                int x = (int) e.getX();
-                int y = (int) e.getY();
-
-                for(int i=0;i<mEmojiRectList.size();i++){
-                    if(RectUtil.isOverLay(mEmojiRectList.get(i),x,y)){
-                        Toast.makeText(getContext(),"点击了第"+i+"个emoji",Toast.LENGTH_SHORT).show();
-                        break;
-                    }
-                }
-
-                if(RectUtil.isOverLay(mButtonMoreRect,x,y)){
-                    Toast.makeText(getContext(),"点击了更多按钮",Toast.LENGTH_SHORT).show();
-                }
-
-                return true;
-            }
-
-            @Override
-            public boolean onDown(MotionEvent e) {
-                //这里需要返回true，不然不会调用到其他方法
-                return true;
-            }
-        });
-
-        setOnTouchListener(new OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return mGestureDetector.onTouchEvent(event);
-            }
-        });
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        Log.d("hyh", "CustomEmojiPanel: onSizeChanged: w="+w+" ,h="+h+" ,oldw="+oldw+" ,oldh="+oldh);
-        mWidth = w;
-        mHeight = h;
+        if(w!=oldw||h!=oldh){
+            loadData();
+        }
+    }
 
-        int lineCount = mEmojiList.length/mItemCountPerLine + 1;
+    private void loadData(){
+        int rectSize = mRectList.size();
+        int size = Math.min(rectSize,sSeizeEmojiList.length+1);
+        mFakeViewMap.clear();
+        for(int i=0;i<size;i++){
+            FakeView<String> fakeView = new FakeView<>();
+            fakeView.rect = mRectList.get(i);
+            if(i == size-1){
+                fakeView.type = TYPE_MORE;
+            }else{
+                fakeView.type = TYPE_EMOJI;
+                fakeView.data = sSeizeEmojiList[i];
+            }
+            mFakeViewMap.put(fakeView.rect,fakeView);
+        }
+    }
 
-        int perWidth = mWidth/ mItemCountPerLine;
-        int perHeight = mHeight/ lineCount;
-        Log.d("hyh", "CustomEmojiPanel: onSizeChanged: perWidth="+perWidth+" ,perHeight="+perHeight);
+    @Override
+    protected int getLineCount() {
+        return 3;
+    }
 
-        int index = 0;
-        //计算每个表情的显示区域
-        for(int i = 0; i< lineCount; i++){
-            for(int j = 0; j< mItemCountPerLine; j++){
-                index++;
-                if(index>mEmojiList.length+1){
-                    break;
-                }
-                Rect rect = new Rect();
-                int l = perWidth * j;
-                int t = perHeight * i;
-                rect.set(l,t,l+perWidth,t+perHeight);
+    @Override
+    protected int getPerLineCount() {
+        return 5;
+    }
 
-                if(index == mEmojiList.length+1){
-                    //最后一个是按钮
-                    mButtonMoreRect = rect;
-                }else{
-                    mEmojiRectList.add(rect);
-                }
+    @Override
+    protected void onClickView(Rect rect) {
+        FakeView<String> fakeView = mFakeViewMap.get(rect);
+        if(fakeView!=null){
+            int type = fakeView.type;
+            if(type == TYPE_MORE){
+                Toast.makeText(getContext(),"点击了更多按钮",Toast.LENGTH_SHORT).show();
+            }else if(type == TYPE_EMOJI){
+                Toast.makeText(getContext(),"点击了"+fakeView.data,Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -168,53 +129,28 @@ public class CustomEmojiPanel extends View {
         mTextPaint.setColor(Color.parseColor("#ffffff"));
         mTextPaint.setTextSize(mEmojiSize);
         Paint.FontMetrics fontMetrics = mTextPaint.getFontMetrics();
-        //Log.d("hyh", "PraiseEmojiPanelSmall: PraiseEmojiPanelSmall: top="+fontMetrics.top+" ,ascent="+fontMetrics.ascent+" ,descent="+fontMetrics.descent+" ,bottom="+fontMetrics.bottom+" ,leading="+fontMetrics.leading);
-        for(int i=0;i<mEmojiRectList.size();i++){
-            if(i<mEmojiList.length) {
-                String emoji = mEmojiList[i];
+        for(FakeView<String> fakeView: mFakeViewMap.values()){
+            int type = fakeView.type;
+            if(type == TYPE_MORE){
+                //3.绘制图片按钮
+                int left = (fakeView.rect.right - fakeView.rect.left - mButtonMoreSize)/2 + fakeView.rect.left;
+                int top = (fakeView.rect.bottom - fakeView.rect.top - mButtonMoreSize)/2 + fakeView.rect.top;
+                int right = left + mButtonMoreSize;
+                int bottom = top + mButtonMoreSize;
+                mDrawable.setBounds(left,top,right,bottom);
+                mDrawable.draw(canvas);
+            }else if(type == TYPE_EMOJI){
+                String emoji = fakeView.data;
                 float emojiWidth = mTextPaint.measureText(emoji);
-                Log.d("hyh", "CustomEmojiPanel: onDraw: emojiWidth=" + emojiWidth);
-
-                Rect rect = mEmojiRectList.get(i);
-                Log.d("hyh", "CustomEmojiPanel: onDraw: rect=" + rect.toString());
+                Rect rect = fakeView.rect;
 
                 //每个表情显示区域rect的y轴中心点
                 int centerY = (rect.top + rect.bottom) / 2;
                 //计算绘制文本的基线
                 float baseLineX = (rect.right - rect.left - emojiWidth) / 2 + rect.left;
                 float baseLineY = centerY - (fontMetrics.bottom - fontMetrics.top) / 2 - fontMetrics.top;
-                Log.d("hyh", "CustomEmojiPanel: onDraw: baseLineX=" + baseLineX + " ,baseLineY=" + baseLineY);
                 canvas.drawText(emoji, baseLineX, baseLineY, mTextPaint);
             }
         }
-
-        //3.绘制图片按钮
-        int left = (mButtonMoreRect.right - mButtonMoreRect.left - mButtonMoreSize)/2 + mButtonMoreRect.left;
-        int top = (mButtonMoreRect.bottom - mButtonMoreRect.top - mButtonMoreSize)/2 + mButtonMoreRect.top;
-        int right = left + mButtonMoreSize;
-        int bottom = top + mButtonMoreSize;
-        mDrawable.setBounds(left,top,right,bottom);
-        mDrawable.draw(canvas);
-
-    }
-
-    public void setRadius(float radius) {
-        mRadius = DensityUtil.dip2px(getContext(),radius);
-    }
-
-    public void setButtonMoreSize(int buttonMoreSize) {
-        mButtonMoreSize = DensityUtil.dip2px(getContext(),buttonMoreSize);
-    }
-
-    public void setEmojiSize(float emojiSize) {
-        mEmojiSize = DensityUtil.sp2px(getContext(),emojiSize);
-    }
-
-    public void setItemCountPerLine(int itemCountPerLine) {
-        mItemCountPerLine = itemCountPerLine;
-    }
-
-    public void setEmojiList(String[] emojiList) {
-        mEmojiList = emojiList;
     }
 }

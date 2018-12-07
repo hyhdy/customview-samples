@@ -36,14 +36,7 @@ public class CustomEmojiPanelFragment extends BaseFragment {
 
     @Override
     protected void initViews(View rootView) {
-        CustomEmojiPanel customEmojiPanel = rootView.findViewById(R.id.cmp_emoji);
-        customEmojiPanel.setItemCountPerLine(5);
-        customEmojiPanel.setEmojiList(new String[]{
-                "😀", "😁", "😂", "🤣", "😃", "😄", "😅", "😆", "😉", "😊", "😋", "😎",
-                "😄", "😅", "😆", "😉", "😊", "😋", "😎"
-        });
-        customEmojiPanel.setEmojiSize(26);
-        customEmojiPanel.setButtonMoreSize(40);
+
     }
 
     @Override
