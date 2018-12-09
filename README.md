@@ -7,8 +7,8 @@
 | [RoundMaskView](https://github.com/hyhdy/customview-samples/blob/master/app/src/main/java/com/sky/hyh/customviewsamples/customview/RoundMaskView.java) 高亮遮罩     | <img width="270" height="450" src="https://github.com/hyhdy/customview-samples/blob/master/img-folder/maskview.jpg"/> |
 | [HollowTextView](https://github.com/hyhdy/customview-samples/blob/master/app/src/main/java/com/sky/hyh/customviewsamples/customview/HollowTextView.java) 镂空字体     | <img width="270" height="450" src="https://github.com/hyhdy/customview-samples/blob/master/img-folder/hollowview.jpg"/> |
 | [LimitedLinesEditText](https://github.com/hyhdy/customview-samples/blob/master/app/src/main/java/com/sky/hyh/customviewsamples/customview/LimitedLinesEditText.java) 限制最大输入行数的EditText |   
-<figure class="half">
+<center class="half">
 <img width="270" height="450" src="https://github.com/hyhdy/customview-samples/blob/master/img-folder/LimitedEditText2.gif"/> 
 <img width="270" height="450" src="https://github.com/hyhdy/customview-samples/blob/master/img-folder/limitedEditText1.gif"/>
-</figure> |
+</center> |
 
