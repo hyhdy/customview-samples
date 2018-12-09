@@ -8,4 +8,5 @@
     <color name="transparent">#00ffffff</color>
     <color name="pure_black">#000000</color>
     <color name="pure_red">#FF0000</color>
+    <color name="input_edittext_bg_color">#99000000</color>
 </resources>

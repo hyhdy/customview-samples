@@ -1,4 +1,4 @@
-package com.sky.hyh.customviewsamples.customview;
+package com.sky.hyh.customviewsamples.utils;
 
 import android.os.Handler;
 import android.os.Message;
