@@ -18,6 +18,7 @@ import com.sky.hyh.customviewsamples.adapter.viewholder.BaseViewHolder;
 import com.sky.hyh.customviewsamples.factory.impl.HollowTextViewFactory;
 import com.sky.hyh.customviewsamples.factory.impl.LimitedEditTextFactory;
 import com.sky.hyh.customviewsamples.factory.impl.RoundMaskViewFactory;
+import com.sky.hyh.customviewsamples.factory.impl.SpanFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,7 @@ public class DataListAdapter extends RecyclerView.Adapter {
         sDataList.add(LimitedEditTextFactory.class);
         sDataList.add(ColorMatrixFactory.class);
         sDataList.add(HollowTextViewFactory.class);
+        sDataList.add(SpanFactory.class);
     }
     private OnClickCallBack mOnClickCallBack;
     private Context mContext;
