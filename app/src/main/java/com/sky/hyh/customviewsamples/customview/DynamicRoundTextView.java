@@ -150,7 +150,7 @@ public class DynamicRoundTextView extends AppCompatTextView {
             mSpreadWidth = mWidthClose;
         }else{
             TextPaint textPaint = getPaint();
-            mSpreadWidth = textPaint.measureText(mTips)+DensityUtil.dip2px(getContext(),30);
+            mSpreadWidth = textPaint.measureText(mTips)+DensityUtil.dip2px(30);
         }
         setText(mTips);
     }

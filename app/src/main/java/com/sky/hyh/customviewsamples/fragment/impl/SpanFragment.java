@@ -31,8 +31,8 @@ public class SpanFragment extends BaseFragment {
         char EXTRA_SPACE = ' ';
         original = String.format("%s%s",original,EXTRA_SPACE);
         SpannableString spannableString = new SpannableString(original);
-        CustomSpan customSpan1 = new CustomSpan(DensityUtil.sp2px(getContext(),16), Typeface.create(Typeface.SANS_SERIF,Typeface.BOLD_ITALIC), Color.WHITE,0);
-        CustomSpan customSpan2 = new CustomSpan(DensityUtil.sp2px(getContext(),14), Typeface.create(Typeface.SANS_SERIF,Typeface.BOLD), Color.WHITE,DensityUtil.dip2px(getContext(),4));
+        CustomSpan customSpan1 = new CustomSpan(DensityUtil.sp2px(16), Typeface.create(Typeface.SANS_SERIF,Typeface.BOLD_ITALIC), Color.WHITE,0);
+        CustomSpan customSpan2 = new CustomSpan(DensityUtil.sp2px(14), Typeface.create(Typeface.SANS_SERIF,Typeface.BOLD), Color.WHITE,DensityUtil.dip2px(4));
         spannableString.setSpan(customSpan1,0,2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         spannableString.setSpan(customSpan2,2,original.length()-1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         mTvStr.setText(spannableString);
@@ -48,27 +48,25 @@ public class SpanFragment extends BaseFragment {
         char EXTRA_SPACE = ' ';
         original = String.format("%s%s",original,EXTRA_SPACE);
         SpannableString spannableString = new SpannableString(original);
-        CustomSpan customSpan1 = new CustomSpan(DensityUtil.sp2px(getContext(),20),
+        CustomSpan customSpan1 = new CustomSpan(DensityUtil.sp2px(20),
                 Typeface.create(Typeface.SANS_SERIF,Typeface.NORMAL),
                 Color.WHITE,0);
-        CustomSpan customSpan2 = new CustomSpan(DensityUtil.sp2px(getContext(),20),
+        CustomSpan customSpan2 = new CustomSpan(DensityUtil.sp2px(20),
                 Typeface.create(Typeface.SANS_SERIF,Typeface.NORMAL),
                 Color.WHITE,
-                DensityUtil.dip2px(getContext(),0));
-        CustomSpan customSpan3 = new CustomSpan(DensityUtil.sp2px(getContext(),20),
+                DensityUtil.dip2px(-8));
+        CustomSpan customSpan3 = new CustomSpan(DensityUtil.sp2px(20),
                 Typeface.create(Typeface.SANS_SERIF,Typeface.NORMAL),
                 Color.WHITE,
-                DensityUtil.dip2px(getContext(),0));
-        CustomSpan customSpan4 = new CustomSpan(DensityUtil.sp2px(getContext(),10),
+                DensityUtil.dip2px(-8));
+        CustomSpan customSpan4 = new CustomSpan(DensityUtil.sp2px(10),
                 Typeface.create(Typeface.SANS_SERIF,Typeface.BOLD_ITALIC),
                 0x99ffffff,
-                DensityUtil.dip2px(getContext(),
-                2));
-        CustomSpan customSpan5 = new CustomSpan(DensityUtil.sp2px(getContext(),16),
+                DensityUtil.dip2px(10));
+        CustomSpan customSpan5 = new CustomSpan(DensityUtil.sp2px(16),
                 Typeface.create(Typeface.SANS_SERIF,Typeface.BOLD_ITALIC),
                 Color.WHITE,
-                DensityUtil.dip2px(getContext(),
-                2));
+                DensityUtil.dip2px(2));
         spannableString.setSpan(customSpan1,0,2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         spannableString.setSpan(customSpan2,2,4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         spannableString.setSpan(customSpan3,4,6, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);

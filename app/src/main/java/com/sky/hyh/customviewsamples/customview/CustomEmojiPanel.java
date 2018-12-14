@@ -63,9 +63,9 @@ public class CustomEmojiPanel extends BaseSplitGridView {
 
         mFakeViewMap = new HashMap<>();
 
-        mRadius = DensityUtil.dip2px(context, DEFAULT_SIZE_ROUND_RADIUS_DP);
-        mButtonMoreSize = DensityUtil.dip2px(context, DEFAULLT_SIZE_BUTTON_MORE_DP);
-        mEmojiSize = DensityUtil.sp2px(context, DEFAULT_SIZE_EMOJI_TEXT_SP);
+        mRadius = DensityUtil.dip2px(DEFAULT_SIZE_ROUND_RADIUS_DP);
+        mButtonMoreSize = DensityUtil.dip2px(DEFAULLT_SIZE_BUTTON_MORE_DP);
+        mEmojiSize = DensityUtil.sp2px(DEFAULT_SIZE_EMOJI_TEXT_SP);
 
         mDrawable = getContext().getResources().getDrawable(R.drawable.btn_more);
     }

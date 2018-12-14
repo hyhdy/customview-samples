@@ -36,7 +36,7 @@ public class RoundMaskView extends View {
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPorterDuffXfermode = new PorterDuffXfermode(PorterDuff.Mode.CLEAR);
         mRectF = new RectF();
-        mRadius = DensityUtil.dip2px(getContext(),30);
+        mRadius = DensityUtil.dip2px(30);
     }
 
     @Override
