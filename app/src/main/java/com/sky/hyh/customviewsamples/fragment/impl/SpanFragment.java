@@ -54,11 +54,11 @@ public class SpanFragment extends BaseFragment {
         CustomSpan customSpan2 = new CustomSpan(DensityUtil.sp2px(20),
                 Typeface.create(Typeface.SANS_SERIF,Typeface.NORMAL),
                 Color.WHITE,
-                DensityUtil.dip2px(-8));
+                DensityUtil.dip2px(-6));
         CustomSpan customSpan3 = new CustomSpan(DensityUtil.sp2px(20),
                 Typeface.create(Typeface.SANS_SERIF,Typeface.NORMAL),
                 Color.WHITE,
-                DensityUtil.dip2px(-8));
+                DensityUtil.dip2px(-6));
         CustomSpan customSpan4 = new CustomSpan(DensityUtil.sp2px(10),
                 Typeface.create(Typeface.SANS_SERIF,Typeface.BOLD_ITALIC),
                 0x99ffffff,
