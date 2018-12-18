@@ -9,8 +9,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.sky.hyh.customviewsamples.R;
-import com.sky.hyh.customviewsamples.customview.CustomSpan;
 import com.sky.hyh.customviewsamples.fragment.BaseFragment;
+import com.sky.hyh.customviewsamples.span.CustomTextSpan;
 import com.sky.hyh.customviewsamples.utils.DensityUtil;
 
 public class SpanFragment extends BaseFragment {
@@ -31,8 +31,8 @@ public class SpanFragment extends BaseFragment {
         char EXTRA_SPACE = ' ';
         original = String.format("%s%s",original,EXTRA_SPACE);
         SpannableString spannableString = new SpannableString(original);
-        CustomSpan customSpan1 = new CustomSpan(DensityUtil.sp2px(16), Typeface.create(Typeface.SANS_SERIF,Typeface.BOLD_ITALIC), Color.WHITE,0);
-        CustomSpan customSpan2 = new CustomSpan(DensityUtil.sp2px(14), Typeface.create(Typeface.SANS_SERIF,Typeface.BOLD), Color.WHITE,DensityUtil.dip2px(4));
+        CustomTextSpan customSpan1 = new CustomTextSpan(DensityUtil.sp2px(16), Typeface.create(Typeface.SANS_SERIF,Typeface.BOLD_ITALIC), Color.WHITE,0);
+        CustomTextSpan customSpan2 = new CustomTextSpan(DensityUtil.sp2px(14), Typeface.create(Typeface.SANS_SERIF,Typeface.BOLD), Color.WHITE,DensityUtil.dip2px(4));
         spannableString.setSpan(customSpan1,0,2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         spannableString.setSpan(customSpan2,2,original.length()-1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         mTvStr.setText(spannableString);
@@ -48,25 +48,25 @@ public class SpanFragment extends BaseFragment {
         char EXTRA_SPACE = ' ';
         original = String.format("%s%s",original,EXTRA_SPACE);
         SpannableString spannableString = new SpannableString(original);
-        CustomSpan customSpan1 = new CustomSpan(DensityUtil.sp2px(20),
+        CustomTextSpan customSpan1 = new CustomTextSpan(DensityUtil.sp2px(20),
                 Typeface.create(Typeface.SANS_SERIF,Typeface.NORMAL),
-                Color.WHITE,0);
-        CustomSpan customSpan2 = new CustomSpan(DensityUtil.sp2px(20),
-                Typeface.create(Typeface.SANS_SERIF,Typeface.NORMAL),
-                Color.WHITE,
-                DensityUtil.dip2px(-6));
-        CustomSpan customSpan3 = new CustomSpan(DensityUtil.sp2px(20),
+                Color.WHITE,0,CustomTextSpan.ALIGN_CENTER);
+        CustomTextSpan customSpan2 = new CustomTextSpan(DensityUtil.sp2px(20),
                 Typeface.create(Typeface.SANS_SERIF,Typeface.NORMAL),
                 Color.WHITE,
-                DensityUtil.dip2px(-6));
-        CustomSpan customSpan4 = new CustomSpan(DensityUtil.sp2px(10),
+                DensityUtil.dip2px(-6),CustomTextSpan.ALIGN_CENTER);
+        CustomTextSpan customSpan3 = new CustomTextSpan(DensityUtil.sp2px(20),
+                Typeface.create(Typeface.SANS_SERIF,Typeface.NORMAL),
+                Color.WHITE,
+                DensityUtil.dip2px(-6),CustomTextSpan.ALIGN_CENTER);
+        CustomTextSpan customSpan4 = new CustomTextSpan(DensityUtil.sp2px(10),
                 Typeface.create(Typeface.SANS_SERIF,Typeface.BOLD_ITALIC),
                 0x99ffffff,
-                DensityUtil.dip2px(10));
-        CustomSpan customSpan5 = new CustomSpan(DensityUtil.sp2px(16),
+                DensityUtil.dip2px(10), CustomTextSpan.ALIGN_CENTER);
+        CustomTextSpan customSpan5 = new CustomTextSpan(DensityUtil.sp2px(16),
                 Typeface.create(Typeface.SANS_SERIF,Typeface.BOLD_ITALIC),
                 Color.WHITE,
-                DensityUtil.dip2px(2));
+                DensityUtil.dip2px(2),CustomTextSpan.ALIGN_CENTER);
         spannableString.setSpan(customSpan1,0,2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         spannableString.setSpan(customSpan2,2,4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         spannableString.setSpan(customSpan3,4,6, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
