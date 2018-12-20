@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.sky.hyh.customviewsamples.customview.customviewpager.HorizontalTitleBar
+        android:id="@+id/ll_title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        >
+    </com.sky.hyh.customviewsamples.customview.customviewpager.HorizontalTitleBar>
+
+    <com.sky.hyh.customviewsamples.customview.customviewpager.ScrollTabView
+        android:id="@+id/stv_indicator"
+        android:layout_below="@+id/ll_title"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_content"
+        android:layout_below="@+id/stv_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+    </android.support.v4.view.ViewPager>
+
+</merge>

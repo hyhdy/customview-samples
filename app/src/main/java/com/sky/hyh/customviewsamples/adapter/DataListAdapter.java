@@ -15,6 +15,7 @@ import com.sky.hyh.customviewsamples.factory.impl.DynamicRoundTextViewFactory;
 import com.sky.hyh.customviewsamples.factory.impl.ClipChildrenFactory;
 import com.sky.hyh.customviewsamples.R;
 import com.sky.hyh.customviewsamples.adapter.viewholder.BaseViewHolder;
+import com.sky.hyh.customviewsamples.factory.impl.GraduleTitleViewPagerFactory;
 import com.sky.hyh.customviewsamples.factory.impl.HollowTextViewFactory;
 import com.sky.hyh.customviewsamples.factory.impl.LimitedEditTextFactory;
 import com.sky.hyh.customviewsamples.factory.impl.RoundMaskViewFactory;
@@ -35,6 +36,7 @@ public class DataListAdapter extends RecyclerView.Adapter {
         sDataList.add(ColorMatrixFactory.class);
         sDataList.add(HollowTextViewFactory.class);
         sDataList.add(SpanFactory.class);
+        sDataList.add(GraduleTitleViewPagerFactory.class);
     }
     private OnClickCallBack mOnClickCallBack;
     private Context mContext;
