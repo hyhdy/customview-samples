@@ -20,9 +20,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final RecyclerView mRvList = findViewById(R.id.rv_list);
+        final RecyclerView rvList = findViewById(R.id.rv_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        mRvList.setLayoutManager(layoutManager);
+        rvList.setLayoutManager(layoutManager);
         DataListAdapter dataListAdapter = new DataListAdapter(this, new DataListAdapter.OnClickCallBack() {
             @Override
             public void onClick(BaseFragmentFactory baseFragmentFactory) {
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
                 fragment.setOnDestroyCallBack(new BaseFragment.OnDestroyCallBack() {
                     @Override
                     public void onDestroy() {
-                        mRvList.setVisibility(View.VISIBLE);
+                        rvList.setVisibility(View.VISIBLE);
                     }
                 });
                 transaction.replace(R.id.fl_fragment_container, fragment);
@@ -40,10 +40,10 @@ public class MainActivity extends AppCompatActivity {
                 transaction.addToBackStack(null);
                 transaction.commit();
                 Log.d("hyh", "MainActivity: onClick ");
-                mRvList.setVisibility(View.GONE);
+                rvList.setVisibility(View.GONE);
             }
         });
-        mRvList.setAdapter(dataListAdapter);
+        rvList.setAdapter(dataListAdapter);
 
     }
 }

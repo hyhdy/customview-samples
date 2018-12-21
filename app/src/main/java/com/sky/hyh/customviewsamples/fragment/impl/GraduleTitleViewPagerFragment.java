@@ -3,14 +3,17 @@ package com.sky.hyh.customviewsamples.fragment.impl;
 import android.view.View;
 
 import com.sky.hyh.customviewsamples.R;
+import com.sky.hyh.customviewsamples.annotation.FindViewByIdAno;
 import com.sky.hyh.customviewsamples.customview.customviewpager.GraduleTitleViewpager;
 import com.sky.hyh.customviewsamples.customview.customviewpager.ViewPagerAdapter;
 import com.sky.hyh.customviewsamples.fragment.BaseFragment;
+import com.sky.hyh.customviewsamples.utils.InjectUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GraduleTitleViewPagerFragment extends BaseFragment {
+    @FindViewByIdAno(R.id.gtv_view_pager)
     private GraduleTitleViewpager mGraduleTitleViewpager;
 
     @Override
@@ -20,8 +23,6 @@ public class GraduleTitleViewPagerFragment extends BaseFragment {
 
     @Override
     protected void initViews(View rootView) {
-        mGraduleTitleViewpager = rootView.findViewById(R.id.gtv_view_pager);
-
         //准备数据源
         List<String> datas=new ArrayList<>();
         datas.add("#990000");

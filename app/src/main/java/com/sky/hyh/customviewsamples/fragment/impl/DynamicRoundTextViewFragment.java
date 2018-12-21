@@ -4,10 +4,13 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.sky.hyh.customviewsamples.R;
+import com.sky.hyh.customviewsamples.annotation.FindViewByIdAno;
 import com.sky.hyh.customviewsamples.customview.DynamicRoundTextView;
 import com.sky.hyh.customviewsamples.fragment.BaseFragment;
+import com.sky.hyh.customviewsamples.utils.InjectUtil;
 
 public class DynamicRoundTextViewFragment extends BaseFragment implements View.OnClickListener{
+    @FindViewByIdAno(R.id.drt_round)
     DynamicRoundTextView mDynamicRoundTextView;
 
     @Override
@@ -24,7 +27,6 @@ public class DynamicRoundTextViewFragment extends BaseFragment implements View.O
         TextView tvAppear = rootView.findViewById(R.id.tv_click_appear);
         tvAppear.setOnClickListener(this);
 
-        mDynamicRoundTextView = rootView.findViewById(R.id.drt_round);
         mDynamicRoundTextView.setUnReadCount(1);
         mDynamicRoundTextView.setTips("1条新提示");
     }

@@ -9,12 +9,16 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.sky.hyh.customviewsamples.R;
+import com.sky.hyh.customviewsamples.annotation.FindViewByIdAno;
 import com.sky.hyh.customviewsamples.fragment.BaseFragment;
 import com.sky.hyh.customviewsamples.span.CustomTextSpan;
 import com.sky.hyh.customviewsamples.utils.DensityUtil;
+import com.sky.hyh.customviewsamples.utils.InjectUtil;
 
 public class SpanFragment extends BaseFragment {
+    @FindViewByIdAno(R.id.tv_text)
     private TextView mTvStr;
+    @FindViewByIdAno(R.id.tv_count)
     private TextView mTvCount;
 
     @Override
@@ -24,9 +28,6 @@ public class SpanFragment extends BaseFragment {
 
     @Override
     protected void initViews(View rootView) {
-        mTvStr = rootView.findViewById(R.id.tv_text);
-        mTvCount = rootView.findViewById(R.id.tv_count);
-
         String original = "89人看过";
         char EXTRA_SPACE = ' ';
         original = String.format("%s%s",original,EXTRA_SPACE);
