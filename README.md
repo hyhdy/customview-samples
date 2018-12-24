@@ -8,3 +8,5 @@
 | [GraduleTitleViewpager](https://github.com/hyhdy/customview-samples/blob/master/app/src/main/java/com/sky/hyh/customviewsamples/customview/customviewpager/GraduleTitleViewpager.java) </br>滑动顶部标题栏渐变效果的viewpager | <img width="35%" src="https://github.com/hyhdy/customview-samples/blob/master/img-folder/graduletitleviewpager.gif"/> |
 | [RoundMaskView](https://github.com/hyhdy/customview-samples/blob/master/app/src/main/java/com/sky/hyh/customviewsamples/customview/RoundMaskView.java) </br>高亮遮罩 | <img width="35%" src="https://github.com/hyhdy/customview-samples/blob/master/img-folder/maskview.jpg"/> |
 | [HollowTextView](https://github.com/hyhdy/customview-samples/blob/master/app/src/main/java/com/sky/hyh/customviewsamples/customview/HollowTextView.java) </br>镂空字体 | <img width="35%" src="https://github.com/hyhdy/customview-samples/blob/master/img-folder/hollowview.jpg"/> |
+| [StrokeTextView](https://github.com/hyhdy/customview-samples/blob/master/app/src/main/java/com/sky/hyh/customviewsamples/customview/StrokeTextView.java) </br>描边文字效果 | <img width="35%" src="https://github.com/hyhdy/customview-samples/blob/master/img-folder/strokeTextView.jpg"/> |
+
