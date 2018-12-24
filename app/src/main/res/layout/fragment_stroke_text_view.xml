@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#99000000">
+
+    <com.sky.hyh.customviewsamples.customview.StrokeTextView
+        android:id="@+id/stv_text_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/stv_text_2"
+        android:layout_marginBottom="100dp"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:text="哎呦，不错哦"
+        android:layout_centerInParent="true"
+        />
+
+    <com.sky.hyh.customviewsamples.customview.StrokeTextView
+        android:id="@+id/stv_text_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:text="测试多行和中文，英文字母，数字，符号等多种字符一起的情况啦。。。abcdABCDJla!!!"
+        android:layout_centerInParent="true"
+        android:textColor="#fffeada7"
+        />
+
+    <com.sky.hyh.customviewsamples.customview.StrokeTextView
+        android:id="@+id/stv_text_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/stv_text_2"
+        android:layout_marginTop="100dp"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:text="测试宽度为match_parent的情况。"
+        android:layout_centerInParent="true"
+        />
+
+</RelativeLayout>
