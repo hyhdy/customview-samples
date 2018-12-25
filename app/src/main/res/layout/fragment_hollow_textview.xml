@@ -4,16 +4,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_1">
+    android:background="@drawable/flower">
 
     <com.sky.hyh.customviewsamples.customview.HollowTextView
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:textSize="40sp"
-        android:text="哈喽HelloWorld"
-        android:textColor="@color/pure_red"
+        android:textSize="50sp"
+        android:text="天青色等烟雨"
+        android:textStyle="bold"
         android:gravity="center"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
