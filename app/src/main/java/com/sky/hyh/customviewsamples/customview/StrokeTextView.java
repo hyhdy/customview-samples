@@ -38,7 +38,8 @@ public class StrokeTextView extends AppCompatTextView{
         mBorderPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mBorderPaint.setStyle(Paint.Style.STROKE);
         mBorderPaint.setStrokeWidth(DensityUtil.dip2px(mStrokeWidth));
-
+        //设置path的连接处为圆弧，实现光滑描边
+        mBorderPaint.setStrokeJoin(Paint.Join.ROUND);
         mTextWidth = (int) getPaint().measureText(getText().toString());
     }
 

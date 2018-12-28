@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textSize="30sp"
-        android:text="测试多行和中文，英文字母，数字，符号组合的情况啦。。。abcdABCDJla!!!"
+        android:text="测试多行和中文，英文字母，数字，符号组合的情况啦。。。abcdWwCDJla!!!"
         android:layout_centerInParent="true"
         />
 
