@@ -4,41 +4,38 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Path;
 import android.support.v7.widget.AppCompatTextView;
-import android.text.Layout;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import com.sky.hyh.customviewsamples.utils.DensityUtil;
 
 /**
- * Created by hyh on 2018/12/26 21:56
+ * Created by hyh on 2018/12/24 15:27
  * E-Mail Address：fjnuhyh122@gmail.com
- * 思路：获取text的path，再以strokePaint根据path来绘制文本作为描边背景
+ * 描边文字的简单实现
+ * 实现思路：先把textview的paint的style设置为stroke绘制文字，作为描边背景，然后再把textview的paint的style设置为fill再叠加绘制一遍文字。
  */
-public class StrokeTextView extends AppCompatTextView{
+public class StrokeTextViewSimple extends AppCompatTextView {
     public static final int EXTRA_SPACE = 10;
     /**
      * 描边颜色
      */
     private int mBorderColor =  Color.WHITE;
+    /**
+     * 文字颜色
+     */
+    private int mTextColor = 0xfffeada7;
     private int mStrokeWidth = 8;
 
     private int mTextWidth;
     private int mMaxWidth = Integer.MAX_VALUE;
 
-    private Paint mBorderPaint;
-
-    public StrokeTextView(Context context) {
+    public StrokeTextViewSimple(Context context) {
         this(context,null);
     }
 
-    public StrokeTextView(Context context, AttributeSet attrs) {
+    public StrokeTextViewSimple(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mBorderPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mBorderPaint.setStyle(Paint.Style.STROKE);
-        mBorderPaint.setStrokeWidth(DensityUtil.dip2px(mStrokeWidth));
-
         mTextWidth = (int) getPaint().measureText(getText().toString());
     }
 
@@ -63,46 +60,22 @@ public class StrokeTextView extends AppCompatTextView{
 
     @Override
     protected void onDraw(Canvas canvas) {
-        drawStrokeBorder(canvas);
+        getPaint().setStyle(Paint.Style.STROKE);
+        getPaint().setStrokeWidth(DensityUtil.dip2px(mStrokeWidth));
+        setTextColor(mBorderColor);
+        super.onDraw(canvas);
+        getPaint().setStyle(Paint.Style.FILL);
+        setTextColor(mTextColor);
         super.onDraw(canvas);
     }
 
     public void setColor(int borderColor,int textColor){
-        setTextColor(textColor);
         mBorderColor = borderColor;
+        mTextColor = textColor;
         invalidate();
     }
 
     public void setStrokeWidth(int strokeWidth) {
         mStrokeWidth = strokeWidth;
-    }
-
-    private void drawStrokeBorder(Canvas canvas){
-        Layout layout = getLayout();
-        if(layout!=null){
-            String text = getText().toString();
-            int lineCount = getLineCount();
-            //第一行文字顶部与控件顶部的距离
-            int totalPaddingTop = getTotalPaddingTop();
-            for (int i = 0; i < lineCount; i++) {
-                int start = layout.getLineStart(i);
-                int end = layout.getLineEnd(i);
-                String rowStr = text.substring(start, end);
-
-                float x = layout.getLineLeft(i)+getPaddingLeft();
-                int y = totalPaddingTop + getBaseLine(i);
-
-                Path textPath = new Path();
-                getPaint().getTextPath(rowStr,0,rowStr.length(),x,y,textPath);
-                mBorderPaint.setColor(mBorderColor);
-                canvas.drawPath(textPath,mBorderPaint);
-            }
-        }
-    }
-
-    private int getBaseLine(int line){
-        int lbottom = getLayout().getLineTop(line + 1);
-        int lbaseline = lbottom - getLayout().getLineDescent(line);
-        return lbaseline;
     }
 }

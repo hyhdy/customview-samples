@@ -3,7 +3,6 @@ package com.sky.hyh.customviewsamples.fragment.impl;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.View;
-import android.widget.TextView;
 import com.sky.hyh.customviewsamples.R;
 import com.sky.hyh.customviewsamples.annotation.FindViewByIdAno;
 import com.sky.hyh.customviewsamples.customview.StrokeTextView;
@@ -31,9 +30,12 @@ public class StrokeTextViewFragment extends BaseFragment {
     protected void initViews(View rootView) {
         InjectUtil.injectView(this);
         mStrokeTextView.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "camera_addtext_font_jimu.ttf"));
+        mStrokeTextView.setColor(Color.WHITE,0xfffeada7);
+
         mStrokeTextView2.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "camera_addtext_font_jimu.ttf"));
         mStrokeTextView2.setLineSpacing(0,1.5f);
         mStrokeTextView2.setColor(Color.WHITE,Color.BLUE);
+
         mStrokeTextView3.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "camera_addtext_font_jimu.ttf"));
         mStrokeTextView3.setColor(Color.WHITE,Color.RED);
     }
