@@ -8,11 +8,11 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 
 /**
- * 可以限制最大输入行数的EditText，
+ * 可以限制最大输入行数的EditText，支持文本宽度动态调整
  * 当输入的文字大于最大行数时会自动截断多余的文字，
  * 截断过程不会触发视图重绘，用户无感知，达到完美体验
  */
-public class LimitedLinesEditText extends AppCompatEditText {
+public class DyLimitedLinesEditText extends AppCompatEditText {
     public static final int MAX_INPUT_LINES = 3;
     private TextPaint mTextPaint;
     /**
@@ -24,21 +24,17 @@ public class LimitedLinesEditText extends AppCompatEditText {
      */
     private float mSingleMinWidth;
 
-    public LimitedLinesEditText(Context context) {
+    public DyLimitedLinesEditText(Context context) {
         this(context,null);
     }
 
-    public LimitedLinesEditText(Context context, AttributeSet attrs) {
+    public DyLimitedLinesEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
         initViews();
         initListeners();
     }
 
     private void initViews() {
-        //这两个属性必须设置
-        setHorizontallyScrolling(false);
-        setMaxLines(Integer.MAX_VALUE);
-
         mTextPaint = getPaint();
         //默认单行最大宽度为填满10个中文符号宽度，多余的部分换行显示
         mSingleMaxWidth = mTextPaint.measureText("我是占位用的拉拉拉拉")+getPaddingLeft()+getPaddingRight();
@@ -75,7 +71,7 @@ public class LimitedLinesEditText extends AppCompatEditText {
                 }
 
                 int lineCount = getLineCount();
-                if (lineCount > LimitedLinesEditText.MAX_INPUT_LINES) {
+                if (lineCount > DyLimitedLinesEditText.MAX_INPUT_LINES) {
                     //发现输入的内容大于最大行数，则删除多余的内容
                     deleteExtra();
                 }

@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.sky.hyh.customviewsamples.factory.BaseFragmentFactory;
 import com.sky.hyh.customviewsamples.factory.impl.ColorMatrixFactory;
+import com.sky.hyh.customviewsamples.factory.impl.ConLimitedEditTextFactory;
 import com.sky.hyh.customviewsamples.factory.impl.CustomEmojiPanelFactory;
 import com.sky.hyh.customviewsamples.factory.impl.DynamicRoundTextViewFactory;
 import com.sky.hyh.customviewsamples.factory.impl.ClipChildrenFactory;
@@ -17,7 +18,7 @@ import com.sky.hyh.customviewsamples.R;
 import com.sky.hyh.customviewsamples.adapter.viewholder.BaseViewHolder;
 import com.sky.hyh.customviewsamples.factory.impl.GraduleTitleViewPagerFactory;
 import com.sky.hyh.customviewsamples.factory.impl.HollowTextViewFactory;
-import com.sky.hyh.customviewsamples.factory.impl.LimitedEditTextFactory;
+import com.sky.hyh.customviewsamples.factory.impl.DyLimitedEditTextFactory;
 import com.sky.hyh.customviewsamples.factory.impl.RoundMaskViewFactory;
 import com.sky.hyh.customviewsamples.factory.impl.SpanFactory;
 
@@ -33,7 +34,8 @@ public class DataListAdapter extends RecyclerView.Adapter {
         sDataList.add(DynamicRoundTextViewFactory.class);
         sDataList.add(ClipChildrenFactory.class);
         sDataList.add(RoundMaskViewFactory.class);
-        sDataList.add(LimitedEditTextFactory.class);
+        sDataList.add(ConLimitedEditTextFactory.class);
+        sDataList.add(DyLimitedEditTextFactory.class);
         sDataList.add(ColorMatrixFactory.class);
         sDataList.add(HollowTextViewFactory.class);
         sDataList.add(SpanFactory.class);
