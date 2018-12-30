@@ -1,6 +1,8 @@
 package com.sky.hyh.customviewsamples.fragment.impl;
 
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.sky.hyh.customviewsamples.R;
 import com.sky.hyh.customviewsamples.fragment.BaseFragment;

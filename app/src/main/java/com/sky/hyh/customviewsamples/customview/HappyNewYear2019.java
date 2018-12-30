@@ -36,12 +36,12 @@ public class HappyNewYear2019 extends View {
     public static final double ALPHA_UN_TRANSPARENT = 255;
     public static final int SIZE_COUNT_DOWN_SP = 200;
     public static final String SYMBOL_SPLITE = ",";
-    public static final int  TIMES_CYCLE = 10+1;
+    public static final int  TIMES_CYCLE = 6+1;
 
-    public static final String COLOR_BUBBLE_TEXT = "#FFFDFA";
+    public static final String COLOR_BUBBLE_TEXT = "#EDFFF2";
     public static final String COLOR_BG = "#66000000";
-    public static final String NAME_FONT = "HYXinXiuTiW-2.ttf";
-
+    public static final String NAME_FONT = "HYTangMeiRenJ-2.ttf";
+    
     private String mContent = "新,年,快,乐,2,0,1,9";
     private String[] mContentSegment;
     private int mCurIndex = -1;
