@@ -181,7 +181,7 @@ public class HappyNewYear2019 extends View {
                     });
                     animatorSpring.setEndValue(1);
                 }
-            }, startTime);
+            }, startTime + 1600);
 
             return null;
         }else{
@@ -248,14 +248,14 @@ public class HappyNewYear2019 extends View {
         if (w != oldw || h != oldh) {
             int perWidth = w/4;
             int lineCount = getLineCount();
-            int perHeight = h/(lineCount);
             int sinHeight = mBubbleTextPaint.getFontMetricsInt(null);
+            int startY = (h - sinHeight *lineCount)/2;
             mPoints = new Point[lineCount*4];
             int index = 0;
             for(int i=0;i<lineCount;i++){
                 for(int j=0;j<4;j++){
                     int x = (int) (perWidth * j + (perWidth - mSinWidth)/2);
-                    int y =  sinHeight * i + perHeight/2;
+                    int y =  sinHeight * i + startY+getBaseLine();
                     mPoints[index++] = new Point(x,y);
                 }
             }
@@ -314,14 +314,23 @@ public class HappyNewYear2019 extends View {
         Animator animator = startBubbleEnterAnimSpring(0,0);
         animatorSetList.add(animator);
         long sumTime = 0;
-        double timeInternal = 100 ;
-        for (int i = 1; i < totalTimes; i++) {
+        double timeInternal = 80 ;
+        for (int i = 1; i < totalTimes - mContentSegment.length; i++) {
             sumTime += timeInternal;
             animator = startBubbleEnterAnimSpring(i,sumTime);
             if(animator!=null) {
                 animatorSetList.add(animator);
             }
         }
+
+        for (int i = totalTimes - mContentSegment.length; i < totalTimes; i++) {
+            sumTime += 4*timeInternal;
+            animator = startBubbleEnterAnimSpring(i,sumTime);
+            if(animator!=null) {
+                animatorSetList.add(animator);
+            }
+        }
+
         animatorSet.playTogether(animatorSetList);
         animatorSet.start();
     }
