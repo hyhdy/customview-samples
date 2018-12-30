@@ -16,6 +16,5 @@
         android:paddingBottom="5dp"
         android:textSize="20sp"
         android:textColor="@color/pure_white"
-        android:inputType="text"
         android:textStyle="bold"/>
 </RelativeLayout>
