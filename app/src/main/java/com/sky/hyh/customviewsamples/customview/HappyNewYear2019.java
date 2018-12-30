@@ -98,7 +98,7 @@ public class HappyNewYear2019 extends View {
 
         List<Animator> animatorList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(this, valuesHolder, valuesHolderA);
+            final ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(this, valuesHolder, valuesHolderA);
             animator.setDuration(DURING_COUNT_DOWN_MILLIS);
             animator.setStartDelay(DURING_COUNT_DOWN_MILLIS * i);
             //animator.setInterpolator(new SpringInterpolator(0.8f));
@@ -115,6 +115,7 @@ public class HappyNewYear2019 extends View {
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     mCountDownNum--;
+                    animator.cancel();
                 }
             });
 
@@ -143,16 +144,15 @@ public class HappyNewYear2019 extends View {
         }
 
         final Spring animatorSpring = mSpringSystem.createSpring();
+        BubbleTextStruct bubbleTextStruct = new BubbleTextStruct();
+        bubbleTextStruct.text = getText();
+        int x = TransformUtils.getRangeRandomInt(0, getWidth());
+        int y = TransformUtils.getRangeRandomInt(0, getHeight());
+        bubbleTextStruct.point = new Point(x, y);
+        mBubbleMap.put(animatorSpring.hashCode(), bubbleTextStruct);
         postDelayed(new Runnable() {
             @Override
             public void run() {
-                BubbleTextStruct bubbleTextStruct = new BubbleTextStruct();
-                bubbleTextStruct.text = getText();
-                int x = TransformUtils.getRangeRandomInt(0, getWidth());
-                int y = TransformUtils.getRangeRandomInt(0, getHeight());
-                bubbleTextStruct.point = new Point(x, y);
-
-                mBubbleMap.put(animatorSpring.hashCode(), bubbleTextStruct);
                 animatorSpring.setSpringConfig(mSpringConfig);
                 animatorSpring.addListener(new SimpleSpringListener() {
                     @Override
@@ -180,7 +180,7 @@ public class HappyNewYear2019 extends View {
         Keyframe k1 = Keyframe.ofFloat(0.2f, 1.3f);
         Keyframe k2 = Keyframe.ofFloat(1.0f, 0);
         PropertyValuesHolder textSizeProperty = PropertyValuesHolder.ofKeyframe("text_size", k0,k1,k2);
-        ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(this, textSizeProperty);
+        final ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(this, textSizeProperty);
         animator.setDuration(500);
         animator.setStartDelay(startTime+500+1000);
 
@@ -188,9 +188,7 @@ public class HappyNewYear2019 extends View {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 BubbleTextStruct struct = mBubbleMap.get(spring.hashCode());
-                if(struct!=null){
-                    struct.textSize = (int) (DensityUtil.sp2px(BubbleTextStruct.SIZE_BUBBLE_TEXT_SP) * (float)animation.getAnimatedValue("text_size"));
-                }
+                struct.textSize = (int) (DensityUtil.sp2px(BubbleTextStruct.SIZE_BUBBLE_TEXT_SP) * (float)animation.getAnimatedValue("text_size"));
                 invalidate();
             }
         });
@@ -198,6 +196,7 @@ public class HappyNewYear2019 extends View {
         animator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
+                animator.cancel();
             }
         });
         return animator;
@@ -241,7 +240,7 @@ public class HappyNewYear2019 extends View {
     }
 
     public void playBubbleAnim() {
-        int totalTimes = 1000;
+        int totalTimes = 200;
         AnimatorSet animatorSet = new AnimatorSet();
         List<Animator> animatorSetList = new ArrayList<>();
         Animator animator = startBubbleEnterAnimSpring(0);
