@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <com.sky.hyh.customviewsamples.customview.HappyNewYear2009
+    <com.sky.hyh.customviewsamples.customview.HappyNewYear2019
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

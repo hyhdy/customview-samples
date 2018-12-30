@@ -2,11 +2,11 @@ package com.sky.hyh.customviewsamples.factory.impl;
 
 import com.sky.hyh.customviewsamples.factory.BaseFragmentFactory;
 import com.sky.hyh.customviewsamples.fragment.BaseFragment;
-import com.sky.hyh.customviewsamples.fragment.impl.HappyNewYear2009Fragment;
+import com.sky.hyh.customviewsamples.fragment.impl.HappyNewYear2019Fragment;
 
-public class HappyNewYear2009Factory extends BaseFragmentFactory {
+public class HappyNewYear2019Factory extends BaseFragmentFactory {
     @Override
     public BaseFragment createFragment() {
-        return new HappyNewYear2009Fragment();
+        return new HappyNewYear2019Fragment();
     }
 }

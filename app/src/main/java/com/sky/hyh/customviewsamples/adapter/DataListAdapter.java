@@ -17,7 +17,7 @@ import com.sky.hyh.customviewsamples.factory.impl.ClipChildrenFactory;
 import com.sky.hyh.customviewsamples.R;
 import com.sky.hyh.customviewsamples.adapter.viewholder.BaseViewHolder;
 import com.sky.hyh.customviewsamples.factory.impl.GraduleTitleViewPagerFactory;
-import com.sky.hyh.customviewsamples.factory.impl.HappyNewYear2009Factory;
+import com.sky.hyh.customviewsamples.factory.impl.HappyNewYear2019Factory;
 import com.sky.hyh.customviewsamples.factory.impl.HollowTextViewFactory;
 import com.sky.hyh.customviewsamples.factory.impl.DyLimitedEditTextFactory;
 import com.sky.hyh.customviewsamples.factory.impl.RoundMaskViewFactory;
@@ -31,7 +31,7 @@ public class DataListAdapter extends RecyclerView.Adapter {
     public static final int ITEM_RES_ID = R.layout.item_layout;
     private static List<Class> sDataList = new ArrayList<>();
     static {
-        sDataList.add(HappyNewYear2009Factory.class);
+        sDataList.add(HappyNewYear2019Factory.class);
         sDataList.add(CustomEmojiPanelFactory.class);
         sDataList.add(DynamicRoundTextViewFactory.class);
         sDataList.add(ClipChildrenFactory.class);
