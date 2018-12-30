@@ -41,9 +41,9 @@ public class HappyNewYear2019 extends View {
     public static final String COLOR_BUBBLE_TEXT = "#EDFFF2";
     public static final String COLOR_BG = "#66000000";
     public static final String NAME_FONT = "HYTangMeiRenJ-2.ttf";
-    
-    private String mContent = "新,年,快,乐,2,0,1,9";
-    private String[] mContentSegment;
+
+    public static String mContent = "新年快乐2019";
+    private static String[] mContentSegment;
     private int mCurIndex = -1;
     private int mCountDownNum = 10;
     private float mTextSizeRate;
@@ -82,16 +82,19 @@ public class HappyNewYear2019 extends View {
         startCountDownAnimation();
     }
 
-    public void setContent(String mContent) {
-        this.mContent = mContent;
+    public static void setContent(String content) {
+        mContent = content;
         spliteContent();
     }
 
-    private void spliteContent() {
+    private static void spliteContent() {
         if (TextUtils.isEmpty(mContent)) {
             return;
         }
-        mContentSegment = mContent.split(SYMBOL_SPLITE);
+        mContentSegment = new String[mContent.length()];
+        for(int i=0;i<mContent.length();i++){
+            mContentSegment[i] = String.valueOf(mContent.charAt(i));
+        }
     }
 
     private void startCountDownAnimation() {

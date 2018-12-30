@@ -10,9 +10,11 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 
+import com.sky.hyh.customviewsamples.annotation.FindViewByIdAno;
 import com.sky.hyh.customviewsamples.factory.BaseFragmentFactory;
 import com.sky.hyh.customviewsamples.adapter.DataListAdapter;
 import com.sky.hyh.customviewsamples.fragment.BaseFragment;
+import com.sky.hyh.customviewsamples.fragment.impl.InputFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        View view = findViewById(R.id.seize);
         final RecyclerView rvList = findViewById(R.id.rv_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         rvList.setLayoutManager(layoutManager);
@@ -46,5 +48,25 @@ public class MainActivity extends AppCompatActivity {
         });
         rvList.setAdapter(dataListAdapter);
 
+        view.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                BaseFragment fragment = new InputFragment();
+                fragment.setOnDestroyCallBack(new BaseFragment.OnDestroyCallBack() {
+                    @Override
+                    public void onDestroy() {
+                        rvList.setVisibility(View.VISIBLE);
+                    }
+                });
+                transaction.replace(R.id.fl_fragment_container, fragment);
+                //添加到返回栈中，使得点击返回键会回到当前activity
+                transaction.addToBackStack(null);
+                transaction.commit();
+                rvList.setVisibility(View.GONE);
+                return true;
+            }
+        });
     }
 }
