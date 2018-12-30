@@ -13,6 +13,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -35,6 +36,10 @@ public class HappyNewYear2019 extends View {
     public static final double ALPHA_UN_TRANSPARENT = 255;
     public static final int SIZE_COUNT_DOWN_SP = 200;
     public static final String SYMBOL_SPLITE = ",";
+
+    public static final String COLOR_BUBBLE_TEXT = "#FFFD06";
+    public static final String COLOR_BG = "#66000000";
+    public static final String NAME_FONT = "HYXinXiuTiW-2.ttf";
 
     private String mContent = "新,年,快,乐,2019";
     private String[] mContentSegment;
@@ -65,8 +70,9 @@ public class HappyNewYear2019 extends View {
         mCountDownPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mCountDownPaint.setColor(Color.WHITE);
         mBubbleTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mBubbleTextPaint.setColor(Color.RED);
-
+        mBubbleTextPaint.setColor(Color.parseColor(COLOR_BUBBLE_TEXT));
+        mBubbleTextPaint.setTypeface(Typeface.createFromAsset(getContext().getAssets(), NAME_FONT));
+        //mBubbleTextPaint.setShadowLayer(10,5,5,Color.parseColor("#FFFB5C"));
         spliteContent();
         startCountDownAnimation();
     }
@@ -213,7 +219,7 @@ public class HappyNewYear2019 extends View {
         Paint.FontMetrics fontMetrics = mCountDownPaint.getFontMetrics();
         float baseLineY = getHeight() / 2 - (fontMetrics.bottom - fontMetrics.top) / 2 - fontMetrics.top;
 
-        canvas.drawColor(0x80000000);
+        canvas.drawColor(Color.parseColor(COLOR_BG));
         if (mPlayCountDown) {
             canvas.drawText(String.valueOf(mCountDownNum), baseLineX, baseLineY, mCountDownPaint);
         } else {
