@@ -36,12 +36,13 @@ public class HappyNewYear2019 extends View {
     public static final double ALPHA_UN_TRANSPARENT = 255;
     public static final int SIZE_COUNT_DOWN_SP = 200;
     public static final String SYMBOL_SPLITE = ",";
+    public static final int  TIMES_CYCLE = 10+1;
 
-    public static final String COLOR_BUBBLE_TEXT = "#FFFD06";
+    public static final String COLOR_BUBBLE_TEXT = "#FFFDFA";
     public static final String COLOR_BG = "#66000000";
     public static final String NAME_FONT = "HYXinXiuTiW-2.ttf";
 
-    private String mContent = "新,年,快,乐,2019";
+    private String mContent = "新,年,快,乐,2,0,1,9";
     private String[] mContentSegment;
     private int mCurIndex = -1;
     private int mCountDownNum = 10;
@@ -49,12 +50,14 @@ public class HappyNewYear2019 extends View {
     private float mTextAlphaRate;
     private Paint mCountDownPaint;
     private Paint mBubbleTextPaint;
+    private float mSinWidth;
 
     private SpringSystem mSpringSystem;
     private SpringConfig mSpringConfig;
     private boolean mPlayCountDown = true;
 
     private Map<Integer, BubbleTextStruct> mBubbleMap;
+    private Point[] mPoints;
 
     public HappyNewYear2019(Context context) {
         this(context, null);
@@ -72,6 +75,8 @@ public class HappyNewYear2019 extends View {
         mBubbleTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mBubbleTextPaint.setColor(Color.parseColor(COLOR_BUBBLE_TEXT));
         mBubbleTextPaint.setTypeface(Typeface.createFromAsset(getContext().getAssets(), NAME_FONT));
+        mBubbleTextPaint.setTextSize(DensityUtil.sp2px(BubbleTextStruct.SIZE_BUBBLE_TEXT_SP));
+        mSinWidth = mBubbleTextPaint.measureText("单");
         //mBubbleTextPaint.setShadowLayer(10,5,5,Color.parseColor("#FFFB5C"));
         spliteContent();
         startCountDownAnimation();
@@ -139,7 +144,7 @@ public class HappyNewYear2019 extends View {
         animatorSet.start();
     }
 
-    private Animator startBubbleEnterAnimSpring(long startTime) {
+    private Animator startBubbleEnterAnimSpring(int index,long startTime) {
         //spring动画
         if (mSpringSystem == null) {
             mSpringSystem = SpringSystem.create();
@@ -152,33 +157,62 @@ public class HappyNewYear2019 extends View {
         final Spring animatorSpring = mSpringSystem.createSpring();
         BubbleTextStruct bubbleTextStruct = new BubbleTextStruct();
         bubbleTextStruct.text = getText();
-        int x = TransformUtils.getRangeRandomInt(0, getWidth());
-        int y = TransformUtils.getRangeRandomInt(0, getHeight());
-        bubbleTextStruct.point = new Point(x, y);
-        mBubbleMap.put(animatorSpring.hashCode(), bubbleTextStruct);
-        postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                animatorSpring.setSpringConfig(mSpringConfig);
-                animatorSpring.addListener(new SimpleSpringListener() {
-                    @Override
-                    public void onSpringUpdate(Spring spring) {
-                        float springValue = (float) spring.getCurrentValue();
-                        BubbleTextStruct struct = mBubbleMap.get(spring.hashCode());
-                        struct.textSize = (int) (DensityUtil.sp2px(BubbleTextStruct.SIZE_BUBBLE_TEXT_SP) * springValue);
-                        invalidate();
-                    }
+        int cycleTimes = index / mContentSegment.length + 1;
+        if(cycleTimes == TIMES_CYCLE){
+            bubbleTextStruct.point = mPoints[index%mContentSegment.length];
+            mBubbleMap.put(animatorSpring.hashCode(), bubbleTextStruct);
+            postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    animatorSpring.setSpringConfig(mSpringConfig);
+                    animatorSpring.addListener(new SimpleSpringListener() {
+                        @Override
+                        public void onSpringUpdate(Spring spring) {
+                            float springValue = (float) spring.getCurrentValue();
+                            BubbleTextStruct struct = mBubbleMap.get(spring.hashCode());
+                            struct.textSize = (int) (DensityUtil.sp2px(BubbleTextStruct.SIZE_BUBBLE_TEXT_SP) * springValue);
+                            invalidate();
+                        }
 
-                    @Override
-                    public void onSpringAtRest(Spring spring) {
-                        spring.destroy();
-                    }
-                });
-                animatorSpring.setEndValue(1);
-            }
-        }, startTime);
+                        @Override
+                        public void onSpringAtRest(Spring spring) {
+                            spring.destroy();
+                        }
+                    });
+                    animatorSpring.setEndValue(1);
+                }
+            }, startTime);
 
-        return buildBubbleLeaveAnim(startTime,animatorSpring);
+            return null;
+        }else{
+            int x = TransformUtils.getRangeRandomInt(0, getWidth());
+            int y = TransformUtils.getRangeRandomInt(0, getHeight());
+            bubbleTextStruct.point = new Point(x, y);
+            mBubbleMap.put(animatorSpring.hashCode(), bubbleTextStruct);
+            postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    animatorSpring.setSpringConfig(mSpringConfig);
+                    animatorSpring.addListener(new SimpleSpringListener() {
+                        @Override
+                        public void onSpringUpdate(Spring spring) {
+                            float springValue = (float) spring.getCurrentValue();
+                            BubbleTextStruct struct = mBubbleMap.get(spring.hashCode());
+                            struct.textSize = (int) (DensityUtil.sp2px(BubbleTextStruct.SIZE_BUBBLE_TEXT_SP) * springValue);
+                            invalidate();
+                        }
+
+                        @Override
+                        public void onSpringAtRest(Spring spring) {
+                            spring.destroy();
+                        }
+                    });
+                    animatorSpring.setEndValue(1);
+                }
+            }, startTime);
+
+            return buildBubbleLeaveAnim(startTime,animatorSpring);
+        }
     }
 
     private Animator buildBubbleLeaveAnim(long startTime, final Spring spring){
@@ -206,6 +240,31 @@ public class HappyNewYear2019 extends View {
             }
         });
         return animator;
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        if (w != oldw || h != oldh) {
+            int perWidth = w/4;
+            int lineCount = getLineCount();
+            int perHeight = h/(lineCount);
+            int sinHeight = mBubbleTextPaint.getFontMetricsInt(null);
+            mPoints = new Point[lineCount*4];
+            int index = 0;
+            for(int i=0;i<lineCount;i++){
+                for(int j=0;j<4;j++){
+                    int x = (int) (perWidth * j + (perWidth - mSinWidth)/2);
+                    int y =  sinHeight * i + perHeight/2;
+                    mPoints[index++] = new Point(x,y);
+                }
+            }
+        }
+    }
+
+    private int getBaseLine(){
+        Paint.FontMetrics fontMetrics = mBubbleTextPaint.getFontMetrics();
+        return (int) ((fontMetrics.descent - fontMetrics.ascent) - fontMetrics.descent);
     }
 
     @Override
@@ -246,19 +305,32 @@ public class HappyNewYear2019 extends View {
     }
 
     public void playBubbleAnim() {
-        int totalTimes = 200;
+        if(mContentSegment==null){
+            return;
+        }
+        int totalTimes = mContentSegment.length * TIMES_CYCLE;
         AnimatorSet animatorSet = new AnimatorSet();
         List<Animator> animatorSetList = new ArrayList<>();
-        Animator animator = startBubbleEnterAnimSpring(0);
+        Animator animator = startBubbleEnterAnimSpring(0,0);
         animatorSetList.add(animator);
         long sumTime = 0;
         double timeInternal = 100 ;
         for (int i = 1; i < totalTimes; i++) {
             sumTime += timeInternal;
-            animator = startBubbleEnterAnimSpring(sumTime);
-            animatorSetList.add(animator);
+            animator = startBubbleEnterAnimSpring(i,sumTime);
+            if(animator!=null) {
+                animatorSetList.add(animator);
+            }
         }
         animatorSet.playTogether(animatorSetList);
         animatorSet.start();
+    }
+
+    private int getLineCount(){
+        if(mContentSegment == null){
+            return 0;
+        }
+        double line = mContentSegment.length/(4*1d);
+        return (int) Math.ceil(line);
     }
 }
