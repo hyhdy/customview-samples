@@ -1,6 +1,7 @@
 package com.sky.hyh.customviewsamples.adapter.viewholder;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,19 +47,32 @@ public class ContactListAdapter extends RecyclerView.Adapter {
     public static final class NormalViewHolder extends RecyclerView.ViewHolder {
         private TextView mTvName;
         private TextView mTvPhone;
+        private TextView mTvId;
+        private TextView mTvVersion;
+        private View mView;
 
         public NormalViewHolder(View itemView) {
             super(itemView);
+            mView = itemView;
             mTvName = itemView.findViewById(R.id.tv_contact_name);
             mTvPhone = itemView.findViewById(R.id.tv_contact_phone);
+            mTvId = itemView.findViewById(R.id.tv_contact_id);
+            mTvVersion = itemView.findViewById(R.id.tv_contact_version);
         }
 
         protected void setViewData(PhoneInfo phoneInfo){
             if(phoneInfo == null){
                 return;
             }
+            if(phoneInfo.mChanged){
+                mView.setBackgroundColor(Color.YELLOW);
+            }else{
+                mView.setBackgroundColor(Color.WHITE);
+            }
             mTvName.setText(String.format("%s%s","名字：",phoneInfo.getName()));
             mTvPhone.setText(String.format("%s%s","号码：",phoneInfo.getPhoneNum()));
+            mTvId.setText(String.format("%s%s","contactId：",phoneInfo.getContactId()));
+            mTvVersion.setText(String.format("%s%s","version：",phoneInfo.getVersion()));
         }
     }
 }

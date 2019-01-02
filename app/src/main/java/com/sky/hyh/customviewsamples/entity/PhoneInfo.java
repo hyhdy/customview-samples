@@ -5,10 +5,23 @@ package com.sky.hyh.customviewsamples.entity;
  * E-Mail Address：fjnuhyh122@gmail.com
  */
 public class PhoneInfo {
+    private String mContactId;
+    /**
+     * 联系人版本，联系人信息更改版本也会改变，根据该字段来判断联系人信息是否更新
+     */
+    private String mVersion;
     private String mName;
     private String mPhoneNum;
+    public boolean mChanged;
 
-    public PhoneInfo(String name, String phoneNum) {
+    public PhoneInfo(String version, String phoneNum) {
+        mVersion = version;
+        mPhoneNum = phoneNum;
+    }
+
+    public PhoneInfo(String contactId, String version, String name, String phoneNum) {
+        mContactId = contactId;
+        mVersion = version;
         mName = name;
         mPhoneNum = phoneNum;
     }
@@ -27,5 +40,21 @@ public class PhoneInfo {
 
     public void setPhoneNum(String phoneNum) {
         mPhoneNum = phoneNum;
+    }
+
+    public String getContactId() {
+        return mContactId;
+    }
+
+    public void setContactId(String contactId) {
+        mContactId = contactId;
+    }
+
+    public String getVersion() {
+        return mVersion;
+    }
+
+    public void setVersion(String version) {
+        mVersion = version;
     }
 }

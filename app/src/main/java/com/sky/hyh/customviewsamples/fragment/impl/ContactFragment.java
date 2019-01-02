@@ -56,7 +56,7 @@ public class ContactFragment extends BaseFragment {
     }
 
     private void displayContactData(){
-        List<PhoneInfo> phoneInfoList = ContactUtil.getMobileContact(getContext());
+        List<PhoneInfo> phoneInfoList = ContactUtil.getMobileContact2(getContext());
         ContactListAdapter contactListAdapter = new ContactListAdapter(getContext(),phoneInfoList);
         mRvContactList.setLayoutManager(new LinearLayoutManager(getContext()));
         mRvContactList.setAdapter(contactListAdapter);
