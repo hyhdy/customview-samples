@@ -57,4 +57,15 @@ public class PhoneInfo {
     public void setVersion(String version) {
         mVersion = version;
     }
+
+    @Override
+    public String toString() {
+        return "PhoneInfo{" +
+            "mContactId='" + mContactId + '\'' +
+            ", mVersion='" + mVersion + '\'' +
+            ", mName='" + mName + '\'' +
+            ", mPhoneNum='" + mPhoneNum + '\'' +
+            ", mChanged=" + mChanged +
+            '}';
+    }
 }

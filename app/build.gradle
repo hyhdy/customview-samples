@@ -28,4 +28,5 @@ dependencies {
     implementation 'com.facebook.rebound:rebound:0.3.8'
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support:recyclerview-v7:26.1.0'
+    implementation "com.googlecode.libphonenumber:libphonenumber:8.2.0"
 }

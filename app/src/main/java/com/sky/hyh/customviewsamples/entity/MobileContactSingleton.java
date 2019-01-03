@@ -1,4 +1,4 @@
-package com.sky.hyh.customviewsamples.utils;
+package com.sky.hyh.customviewsamples.entity;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -8,22 +8,36 @@ import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
 import com.sky.hyh.customviewsamples.MyApplication;
-import com.sky.hyh.customviewsamples.entity.MobileContactObserver;
-import com.sky.hyh.customviewsamples.entity.PhoneInfo;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import android.provider.ContactsContract.CommonDataKinds.Phone;
 import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Created by hyh on 2019/1/2 16:29
+ * Created by hyh on 2019/1/3 17:54
  * E-Mail Address：fjnuhyh122@gmail.com
  */
-public class ContactUtil {
+public class MobileContactSingleton {
+    private MobileContactObserver mMobileContactObserver;
+
+    private MobileContactSingleton() {
+        Log.d("hyh", "MobileContactSingleton: MobileContactSingleton: 实例化");
+        mMobileContactObserver = new MobileContactObserver(null);
+        ContentResolver contentResolver = MyApplication.getApplication().getContentResolver();
+        contentResolver.registerContentObserver(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,false,mMobileContactObserver);
+    }
+
+    private static class InnerBuilder{
+        private static final MobileContactSingleton instance = new MobileContactSingleton();
+    }
+
+    public static MobileContactSingleton getInstance(){
+        return InnerBuilder.instance;
+    }
+
     public static final String KEY_CONTACT_VERSION = "contact_version";
     public static final String KEY_PHONE_NUM = "phone_num";
     private static MobileContactObserver sMobileContactObserver;
@@ -39,23 +53,23 @@ public class ContactUtil {
         if(sMobileContactObserver == null){
             Log.d("hyh", "ContactUtil: getMobileContactInner: 注册MobileContactObserver");
             sMobileContactObserver = new MobileContactObserver(null);
-            contentResolver.registerContentObserver(Phone.CONTENT_URI,false,sMobileContactObserver);
+            contentResolver.registerContentObserver(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,false,sMobileContactObserver);
         }
         try {
-            cursor = contentResolver.query(Phone.CONTENT_URI,
+            cursor = contentResolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
                 null, null, null, null);
             while (cursor.moveToNext()) {
                 //读取通讯录的姓名
                 String name = cursor.getString(cursor
-                    .getColumnIndex(Phone.DISPLAY_NAME));
+                    .getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
 
                 //读取通讯录的号码
                 String number = cursor.getString(cursor
-                    .getColumnIndex(Phone.NUMBER));
+                    .getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
 
                 //联系人id，不过同一个联系人有可能存多个号码，所以会存在不同号码对应相同id的情况
                 String contactId = cursor.getString(cursor
-                    .getColumnIndex(Phone.CONTACT_ID));
+                    .getColumnIndex(ContactsContract.CommonDataKinds.Phone.CONTACT_ID));
 
                 String version = cursor.getString(cursor.getColumnIndex(ContactsContract.RawContacts.VERSION));
 
@@ -124,7 +138,8 @@ public class ContactUtil {
     }
 
     private static String getOldMobileContact(){
-        SharedPreferences spf = MyApplication.getApplication().getSharedPreferences("contact_info", Context.MODE_PRIVATE);
+        SharedPreferences
+            spf = MyApplication.getApplication().getSharedPreferences("contact_info", Context.MODE_PRIVATE);
         return spf.getString("mobile_contact","");
     }
 

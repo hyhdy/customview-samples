@@ -2,13 +2,15 @@ package com.sky.hyh.customviewsamples.fragment.impl;
 
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+import com.google.i18n.phonenumbers.NumberParseException;
+import com.google.i18n.phonenumbers.PhoneNumberUtil;
+import com.google.i18n.phonenumbers.Phonenumber;
 import com.sky.hyh.customviewsamples.R;
 import com.sky.hyh.customviewsamples.adapter.viewholder.ContactListAdapter;
 import com.sky.hyh.customviewsamples.annotation.FindViewByIdAno;
@@ -56,7 +58,26 @@ public class ContactFragment extends BaseFragment {
     }
 
     private void displayContactData(){
-        List<PhoneInfo> phoneInfoList = ContactUtil.getMobileContact2(getContext());
+        List<PhoneInfo> phoneInfoList = ContactUtil.getMobileContact();
+
+        PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
+        for(PhoneInfo phoneInfo: phoneInfoList) {
+            try {
+                String phoneNum = phoneInfo.getPhoneNum();
+                Phonenumber.PhoneNumber phoneNumProto = phoneUtil.parse(phoneNum, "CN");
+                boolean isValid = phoneUtil.isValidNumber(phoneNumProto);
+                Log.d("hyh", "ContactFragment: displayContactData: isValid="+isValid+" ,phoneNum="+phoneNum);
+                if (isValid) {
+                    String formatPhoneNum = phoneUtil.format(phoneNumProto,
+                        PhoneNumberUtil.PhoneNumberFormat.E164);
+                    Log.d("hyh", "ContactMgr: run: formatPhoneNum=" + formatPhoneNum);
+                }
+            } catch (NumberParseException e) {
+                Log.d("hyh", "ContactFragment: displayContactData: phone="+phoneInfo.getPhoneNum());
+                e.printStackTrace();
+            }
+        }
+
         ContactListAdapter contactListAdapter = new ContactListAdapter(getContext(),phoneInfoList);
         mRvContactList.setLayoutManager(new LinearLayoutManager(getContext()));
         mRvContactList.setAdapter(contactListAdapter);
