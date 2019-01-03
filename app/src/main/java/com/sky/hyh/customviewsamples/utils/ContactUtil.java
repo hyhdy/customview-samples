@@ -29,13 +29,10 @@ public class ContactUtil {
     public static String TAG = "ContactUtil";
     public static final String KEY_CONTACT_VERSION = "version";
     public static final String KEY_PHONE_NUM = "phone";
-    public static final String KEY_CONTACT_VERSION = "contact_version";
-    public static final String KEY_PHONE_NUM = "phone_num";
     private static MobileContactObserver sMobileContactObserver;
 
     /**
      * 全量获取手机联系人信息
-     * @param context
      * @return
      */
     private static List<PhoneInfo> getMobileContactInner() {
@@ -134,10 +131,8 @@ public class ContactUtil {
         return spf.getString("mobile_contact","");
     }
 
-    private static boolean putMobileContact(String contactStr){
+    private static void putMobileContact(String contactStr){
         SharedPreferences spf = MyApplication.getApplication().getSharedPreferences("contact_info", Context.MODE_PRIVATE);
-    private static void putMobileContact(Context context,String contactStr){
-        SharedPreferences spf = context.getSharedPreferences("contact_info", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = spf.edit();
         editor.putString("mobile_contact",contactStr);
         //异步写入磁盘，如果是commit会同步写人磁盘，阻塞线程

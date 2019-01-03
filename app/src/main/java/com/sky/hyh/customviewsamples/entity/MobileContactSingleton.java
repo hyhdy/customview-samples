@@ -21,6 +21,10 @@ import org.json.JSONObject;
  * E-Mail Address：fjnuhyh122@gmail.com
  */
 public class MobileContactSingleton {
+    private static final String TAG = "MobileContactSingleton";
+    public static final String KEY_CONTACT_VERSION = "version";
+    public static final String KEY_PHONE_NUM = "phone";
+
     private MobileContactObserver mMobileContactObserver;
 
     private MobileContactSingleton() {
@@ -38,25 +42,15 @@ public class MobileContactSingleton {
         return InnerBuilder.instance;
     }
 
-    public static final String KEY_CONTACT_VERSION = "contact_version";
-    public static final String KEY_PHONE_NUM = "phone_num";
-    private static MobileContactObserver sMobileContactObserver;
-
     /**
      * 全量获取手机联系人信息
      * @return
      */
-    private static List<PhoneInfo> getMobileContactInner() {
+    private List<PhoneInfo> getMobileContactInner() {
         List list = new ArrayList<PhoneInfo>();
         Cursor cursor = null;
-        ContentResolver contentResolver = MyApplication.getApplication().getContentResolver();
-        if(sMobileContactObserver == null){
-            Log.d("hyh", "ContactUtil: getMobileContactInner: 注册MobileContactObserver");
-            sMobileContactObserver = new MobileContactObserver(null);
-            contentResolver.registerContentObserver(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,false,sMobileContactObserver);
-        }
         try {
-            cursor = contentResolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+            cursor = MyApplication.getApplication().getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
                 null, null, null, null);
             while (cursor.moveToNext()) {
                 //读取通讯录的姓名
@@ -90,7 +84,7 @@ public class MobileContactSingleton {
      * 增量获取手机联系人信息
      * @return
      */
-    public static List<PhoneInfo> getMobileContactIncremental(){
+    public List<PhoneInfo> getMobileContactIncremental(){
         String oldContactStr = getOldMobileContact();
         Map<String,String> oldContactMap = wrapContactStrToPhoneInfo(oldContactStr);
         //待上传的联系人列表
@@ -102,10 +96,12 @@ public class MobileContactSingleton {
             if(oldContactMap.containsKey(phoneInfo.getPhoneNum())){
                 String oldVersion = oldContactMap.get(phoneInfo.getPhoneNum());
                 if(!TextUtils.equals(oldVersion,phoneInfo.getVersion())){
+                    phoneInfo.mChanged = true;
                     //版本号更新，证明联系人信息有更新，需要重新上传
                     toUploadContactList.add(phoneInfo);
                 }
             }else{
+                phoneInfo.mChanged = true;
                 //新增的联系人需上传
                 toUploadContactList.add(phoneInfo);
             }
@@ -117,7 +113,7 @@ public class MobileContactSingleton {
      * 获取手机联系人信息
      * @return
      */
-    public static List<PhoneInfo> getMobileContact(){
+    public List<PhoneInfo> getMobileContact(){
         String oldContactStr = getOldMobileContact();
         Map<String,String> oldContactMap = wrapContactStrToPhoneInfo(oldContactStr);
 
@@ -137,17 +133,18 @@ public class MobileContactSingleton {
         return phoneInfoList;
     }
 
-    private static String getOldMobileContact(){
+    private String getOldMobileContact(){
         SharedPreferences
             spf = MyApplication.getApplication().getSharedPreferences("contact_info", Context.MODE_PRIVATE);
         return spf.getString("mobile_contact","");
     }
 
-    private static boolean putMobileContact(String contactStr){
+    private void putMobileContact(String contactStr){
         SharedPreferences spf = MyApplication.getApplication().getSharedPreferences("contact_info", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = spf.edit();
         editor.putString("mobile_contact",contactStr);
-        return editor.commit();
+        //异步写入磁盘，如果是commit会同步写人磁盘，阻塞线程
+        editor.apply();
     }
 
     /**
@@ -155,7 +152,7 @@ public class MobileContactSingleton {
      * @param contactStr
      * @return
      */
-    private static Map<String, String> wrapContactStrToPhoneInfo(String contactStr){
+    private Map<String, String> wrapContactStrToPhoneInfo(String contactStr){
         Map<String,String> phoneInfoMap = new HashMap<>();
         if(!TextUtils.isEmpty(contactStr)){
             try {
@@ -179,7 +176,7 @@ public class MobileContactSingleton {
      * @param phoneInfoList
      * @return
      */
-    private static String wrapPhoneInfoToContactStr(List<PhoneInfo> phoneInfoList){
+    private String wrapPhoneInfoToContactStr(List<PhoneInfo> phoneInfoList){
         if(phoneInfoList == null || phoneInfoList.size() == 0){
             return "";
         }
@@ -195,7 +192,9 @@ public class MobileContactSingleton {
                 e.printStackTrace();
             }
         }
-
+        String result = jsonArray.toString();
+        byte[] bytes = result.getBytes();
+        Log.d(TAG, "wrapPhoneInfoToContactStr: bytes.length ="+bytes.length);
         return jsonArray.toString();
     }
 }

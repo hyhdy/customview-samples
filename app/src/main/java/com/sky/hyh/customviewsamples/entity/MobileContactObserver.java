@@ -3,8 +3,6 @@ package com.sky.hyh.customviewsamples.entity;
 import android.database.ContentObserver;
 import android.os.Handler;
 import android.util.Log;
-import com.sky.hyh.customviewsamples.MyApplication;
-import com.sky.hyh.customviewsamples.utils.ContactUtil;
 import java.util.List;
 
 /**
@@ -23,8 +21,8 @@ public class MobileContactObserver extends ContentObserver {
 
     @Override
     public void onChange(boolean selfChange) {
-        Log.d("hyh", "MobileContactObserver: onChange: selfChange="+selfChange);
-        List<PhoneInfo> phoneInfoList = ContactUtil.getMobileContact();
+        //通讯录改变，获取改变的数据
+        List<PhoneInfo> phoneInfoList = MobileContactSingleton.getInstance().getMobileContactIncremental();
         for(PhoneInfo phoneInfo: phoneInfoList){
             Log.d("hyh", "MobileContactObserver: onChange: phoneInfo="+phoneInfo.toString());
         }

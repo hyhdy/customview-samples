@@ -14,9 +14,9 @@ import com.google.i18n.phonenumbers.Phonenumber;
 import com.sky.hyh.customviewsamples.R;
 import com.sky.hyh.customviewsamples.adapter.viewholder.ContactListAdapter;
 import com.sky.hyh.customviewsamples.annotation.FindViewByIdAno;
+import com.sky.hyh.customviewsamples.entity.MobileContactSingleton;
 import com.sky.hyh.customviewsamples.entity.PhoneInfo;
 import com.sky.hyh.customviewsamples.fragment.BaseFragment;
-import com.sky.hyh.customviewsamples.utils.ContactUtil;
 import java.util.List;
 
 /**
@@ -58,7 +58,7 @@ public class ContactFragment extends BaseFragment {
     }
 
     private void displayContactData(){
-        List<PhoneInfo> phoneInfoList = ContactUtil.getMobileContact();
+        List<PhoneInfo> phoneInfoList = MobileContactSingleton.getInstance().getMobileContact();
 
         PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
         for(PhoneInfo phoneInfo: phoneInfoList) {
