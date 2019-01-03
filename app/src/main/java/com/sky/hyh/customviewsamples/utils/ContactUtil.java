@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
+import android.util.Log;
+
 import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,8 +22,9 @@ import org.json.JSONObject;
  * E-Mail Address：fjnuhyh122@gmail.com
  */
 public class ContactUtil {
-    public static final String KEY_CONTACT_VERSION = "contact_version";
-    public static final String KEY_PHONE_NUM = "phone_num";
+    public static String TAG = "ContactUtil";
+    public static final String KEY_CONTACT_VERSION = "version";
+    public static final String KEY_PHONE_NUM = "phone";
 
     /**
      * 全量获取手机联系人信息
@@ -118,11 +121,12 @@ public class ContactUtil {
         return spf.getString("mobile_contact","");
     }
 
-    private static boolean putMobileContact(Context context,String contactStr){
+    private static void putMobileContact(Context context,String contactStr){
         SharedPreferences spf = context.getSharedPreferences("contact_info", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = spf.edit();
         editor.putString("mobile_contact",contactStr);
-        return editor.commit();
+        //异步写入磁盘，如果是commit会同步写人磁盘，阻塞线程
+        editor.apply();
     }
 
     /**
@@ -170,7 +174,9 @@ public class ContactUtil {
                 e.printStackTrace();
             }
         }
-
+        String result = jsonArray.toString();
+        byte[] bytes = result.getBytes();
+        Log.d(TAG, "wrapPhoneInfoToContactStr: bytes.length ="+bytes.length);
         return jsonArray.toString();
     }
 }
