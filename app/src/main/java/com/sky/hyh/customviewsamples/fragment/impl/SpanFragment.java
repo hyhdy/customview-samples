@@ -16,10 +16,18 @@ import com.sky.hyh.customviewsamples.utils.DensityUtil;
 import com.sky.hyh.customviewsamples.utils.InjectUtil;
 
 public class SpanFragment extends BaseFragment {
-    @FindViewByIdAno(R.id.tv_text)
-    private TextView mTvStr;
-    @FindViewByIdAno(R.id.tv_count)
-    private TextView mTvCount;
+    @FindViewByIdAno(R.id.tv_tip1)
+    private TextView mTvTip1;
+    @FindViewByIdAno(R.id.tv_show1)
+    private TextView mTvShow1;
+    @FindViewByIdAno(R.id.tv_tip2)
+    private TextView mTvTip2;
+    @FindViewByIdAno(R.id.tv_show2)
+    private TextView mTvShow2;
+    @FindViewByIdAno(R.id.tv_tip3)
+    private TextView mTvTip3;
+    @FindViewByIdAno(R.id.tv_show3)
+    private TextView mTvShow3;
 
     @Override
     protected int getResId() {
@@ -28,18 +36,68 @@ public class SpanFragment extends BaseFragment {
 
     @Override
     protected void initViews(View rootView) {
-        String original = "89人看过";
+        setShow1();
+        setShow2();
+        setShow3();
+    }
+
+    private void setShow1(){
+        String original = "第一段文字第二段文字第三段文字";
         char EXTRA_SPACE = ' ';
         original = String.format("%s%s",original,EXTRA_SPACE);
         SpannableString spannableString = new SpannableString(original);
-        CustomTextSpan customSpan1 = new CustomTextSpan(DensityUtil.sp2px(16), Typeface.create(Typeface.SANS_SERIF,Typeface.BOLD_ITALIC), Color.WHITE,0);
-        CustomTextSpan customSpan2 = new CustomTextSpan(DensityUtil.sp2px(14), Typeface.create(Typeface.SANS_SERIF,Typeface.BOLD), Color.WHITE,DensityUtil.dip2px(4));
-        spannableString.setSpan(customSpan1,0,2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannableString.setSpan(customSpan2,2,original.length()-1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        mTvStr.setText(spannableString);
+        CustomTextSpan customSpan1 = new CustomTextSpan(DensityUtil.sp2px(15),
+                Typeface.create(Typeface.SANS_SERIF,Typeface.NORMAL),
+                Color.WHITE,0,CustomTextSpan.ALIGN_CENTER);
+        CustomTextSpan customSpan2 = new CustomTextSpan(DensityUtil.sp2px(15),
+                Typeface.create(Typeface.SANS_SERIF,Typeface.BOLD),
+                Color.RED, 0,CustomTextSpan.ALIGN_CENTER);
+        CustomTextSpan customSpan3 = new CustomTextSpan(DensityUtil.sp2px(15),
+                Typeface.createFromAsset(getContext().getAssets(), "HYTangMeiRenJ-2.ttf"),
+                Color.YELLOW, 0,CustomTextSpan.ALIGN_CENTER);
 
-        setCount();
+        spannableString.setSpan(customSpan1,0,5, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(customSpan2,5,10, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(customSpan3,10,original.length()-1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        mTvShow1.setText(spannableString);
+    }
 
+    private void setShow2(){
+        String original = "第一段文字第二段文字第三段文字";
+        char EXTRA_SPACE = ' ';
+        original = String.format("%s%s",original,EXTRA_SPACE);
+        SpannableString spannableString = new SpannableString(original);
+        CustomTextSpan customSpan1 = new CustomTextSpan(DensityUtil.sp2px(10),
+                Typeface.create(Typeface.SANS_SERIF,Typeface.NORMAL),
+                Color.WHITE,DensityUtil.dip2px(4),CustomTextSpan.ALIGN_CENTER);
+        CustomTextSpan customSpan2 = new CustomTextSpan(DensityUtil.sp2px(20),
+                Typeface.create(Typeface.SANS_SERIF,Typeface.BOLD),
+                Color.RED, DensityUtil.dip2px(8),CustomTextSpan.ALIGN_CENTER);
+        CustomTextSpan customSpan3 = new CustomTextSpan(DensityUtil.sp2px(10),
+                Typeface.createFromAsset(getContext().getAssets(), "HYTangMeiRenJ-2.ttf"),
+                Color.YELLOW, 0,CustomTextSpan.ALIGN_CENTER);
+
+        spannableString.setSpan(customSpan1,0,5, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(customSpan2,5,10, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(customSpan3,10,original.length()-1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        mTvShow2.setText(spannableString);
+    }
+
+    private void setShow3(){
+        String original = "😃😎😂文字表情居中";
+        char EXTRA_SPACE = ' ';
+        original = String.format("%s%s",original,EXTRA_SPACE);
+        SpannableString spannableString = new SpannableString(original);
+        CustomTextSpan customSpan1 = new CustomTextSpan(DensityUtil.sp2px(15),
+                Typeface.create(Typeface.SANS_SERIF,Typeface.NORMAL),
+                Color.WHITE,0,CustomTextSpan.ALIGN_CENTER);
+        CustomTextSpan customSpan2 = new CustomTextSpan(DensityUtil.sp2px(15),
+                Typeface.create(Typeface.SANS_SERIF,Typeface.BOLD),
+                Color.RED, 0,CustomTextSpan.ALIGN_CENTER);
+
+        spannableString.setSpan(customSpan1,0,6, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(customSpan2,6,original.length()-1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        mTvShow3.setText(spannableString);
     }
 
     private void setCount(){
@@ -73,6 +131,5 @@ public class SpanFragment extends BaseFragment {
         spannableString.setSpan(customSpan3,4,6, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         spannableString.setSpan(customSpan4,6,7, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         spannableString.setSpan(customSpan5,7,original.length()-1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        mTvCount.setText(spannableString);
     }
 }
