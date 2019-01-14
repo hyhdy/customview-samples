@@ -77,7 +77,7 @@ public class CustomTextSpan extends ReplacementSpan {
      */
     @Override
     public int getSize(Paint paint, CharSequence text, int start, int end, Paint.FontMetricsInt fm) {
-        mWidth = (int) paint.measureText(text, start, end)+mLeftMargin;
+        mWidth = (int) mPaint.measureText(text, start, end)+mLeftMargin;
 
         if(fm!=null){
             if(start == 0){
