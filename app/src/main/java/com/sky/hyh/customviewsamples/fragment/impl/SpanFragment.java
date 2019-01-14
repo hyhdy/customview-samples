@@ -54,7 +54,7 @@ public class SpanFragment extends BaseFragment {
                 Color.RED, 0,CustomTextSpan.ALIGN_CENTER);
         CustomTextSpan customSpan3 = new CustomTextSpan(DensityUtil.sp2px(18),
                 Typeface.createFromAsset(getContext().getAssets(), "HYTangMeiRenJ-2.ttf"),
-                Color.YELLOW, 0,CustomTextSpan.ALIGN_CENTER);
+                Color.GREEN, 0,CustomTextSpan.ALIGN_CENTER);
 
         spannableString.setSpan(customSpan1,0,5, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         spannableString.setSpan(customSpan2,5,10, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -75,7 +75,7 @@ public class SpanFragment extends BaseFragment {
                 Color.RED, DensityUtil.dip2px(10),CustomTextSpan.ALIGN_CENTER);
         CustomTextSpan customSpan3 = new CustomTextSpan(DensityUtil.sp2px(18),
                 Typeface.createFromAsset(getContext().getAssets(), "HYTangMeiRenJ-2.ttf"),
-                Color.YELLOW, DensityUtil.dip2px(10),CustomTextSpan.ALIGN_CENTER);
+                Color.GREEN, DensityUtil.dip2px(10),CustomTextSpan.ALIGN_CENTER);
 
         spannableString.setSpan(customSpan1,0,5, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         spannableString.setSpan(customSpan2,5,10, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -91,12 +91,13 @@ public class SpanFragment extends BaseFragment {
         CustomTextSpan customSpan1 = new CustomTextSpan(DensityUtil.sp2px(20),
                 Typeface.create(Typeface.SANS_SERIF,Typeface.NORMAL),
                 Color.WHITE,0,CustomTextSpan.ALIGN_CENTER);
-        CustomTextSpan customSpan2 = new CustomTextSpan(DensityUtil.sp2px(20),
+        CustomTextSpan customSpan2 = new CustomTextSpan(DensityUtil.sp2px(15),
                 Typeface.create(Typeface.SANS_SERIF,Typeface.BOLD),
                 Color.RED, 0,CustomTextSpan.ALIGN_CENTER);
 
         spannableString.setSpan(customSpan1,0,6, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         spannableString.setSpan(customSpan2,6,original.length()-1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
         mTvShow3.setText(spannableString);
     }
 }
