@@ -25,6 +25,7 @@ import com.sky.hyh.customviewsamples.factory.impl.RoundMaskViewFactory;
 import com.sky.hyh.customviewsamples.factory.impl.SpanFactory;
 
 import com.sky.hyh.customviewsamples.factory.impl.StrokeTextViewFactory;
+import com.sky.hyh.customviewsamples.factory.impl.WrappedContainerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +46,7 @@ public class DataListAdapter extends RecyclerView.Adapter {
         sDataList.add(GraduleTitleViewPagerFactory.class);
         sDataList.add(StrokeTextViewFactory.class);
         sDataList.add(ContactFactory.class);
+        sDataList.add(WrappedContainerFactory.class);
     }
     private OnClickCallBack mOnClickCallBack;
     private Context mContext;
