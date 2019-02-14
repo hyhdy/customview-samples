@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.widget.FrameLayout;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,13 @@ import java.util.List;
  * E-Mail Address：fjnuhyh122@gmail.com
  */
 public class WrappedContainer extends FrameLayout {
+    private static final int INVALID_POINTER_ID = -1;
+    private int mActivePointerId = INVALID_POINTER_ID;
+    private int mActivePointerIndex = 0;
+    private float mLastTouchX;
+    private float mLastTouchY;
+    private final float mTouchSlop;
+    private boolean mIsDragging;
     private View mCurTouchView;
     private List<View> mChildList;
     private ScaleGestureDetector mScaleGestureDetector;
@@ -29,8 +37,11 @@ public class WrappedContainer extends FrameLayout {
     public WrappedContainer(@NonNull Context context,
         @Nullable AttributeSet attrs) {
         super(context, attrs);
-        mChildList = new ArrayList<>();
+        final ViewConfiguration configuration = ViewConfiguration
+            .get(context);
+        mTouchSlop = configuration.getScaledTouchSlop();
 
+        mChildList = new ArrayList<>();
         ScaleGestureDetector.OnScaleGestureListener onScaleGestureListener = new ScaleGestureDetector.OnScaleGestureListener() {
             @Override
             public boolean onScale(ScaleGestureDetector detector) {
@@ -67,6 +78,13 @@ public class WrappedContainer extends FrameLayout {
 
         switch (action){
                 case MotionEvent.ACTION_DOWN:
+                    mCurTouchView = null;
+                    //获取第1个手指的id
+                    mActivePointerId = event.getPointerId(0);
+                    mLastTouchX = getActiveX(event);
+                    mLastTouchY = getActiveY(event);
+                    mIsDragging = false;
+
                     //判断对哪个子view操作
                     for(View view: mChildList){
                         Rect rect = new Rect();
@@ -80,21 +98,54 @@ public class WrappedContainer extends FrameLayout {
                         }
                     }
                 break;
+                case MotionEvent.ACTION_POINTER_DOWN:
+                break;
 
                 case MotionEvent.ACTION_MOVE:
+                    if(mCurTouchView!=null) {
+                        final float x = getActiveX(event);
+                        final float y = getActiveY(event);
+                        final float dx = x - mLastTouchX, dy = y - mLastTouchY;
 
+                        if (!mIsDragging) {
+                            mIsDragging = Math.sqrt((dx * dx) + (dy * dy)) >= mTouchSlop;
+                        }
+
+                        if (mIsDragging) {
+                            mCurTouchView.setTranslationX(mCurTouchView.getTranslationX() + dx);
+                            mCurTouchView.setTranslationY(mCurTouchView.getTranslationY() + dy);
+                            mLastTouchX = x;
+                            mLastTouchY = y;
+                        }
+                    }
                 break;
 
                 case MotionEvent.ACTION_CANCEL:
+                    mActivePointerId = INVALID_POINTER_ID;
+                break;
+
+                case MotionEvent.ACTION_POINTER_UP:
+                    int index = event.getActionIndex();
+                    final int pointerId = event.getPointerId(index);
+                    if (pointerId == mActivePointerId) {
+                        //当控制move的主手指抬起时需要更换另一个手指为主手指
+                        final int newPointerIndex = index == 0 ? 1 : 0;
+                        mActivePointerId = event.getPointerId(newPointerIndex);
+                        mLastTouchX = event.getX(newPointerIndex);
+                        mLastTouchY = event.getY(newPointerIndex);
+                    }
 
                 break;
 
                 case MotionEvent.ACTION_UP:
-
+                    mActivePointerId = INVALID_POINTER_ID;
                 break;
 
 
         }
+
+        mActivePointerIndex = event.findPointerIndex(mActivePointerId != INVALID_POINTER_ID ? mActivePointerId : 0);
+
         if(mScaleGestureDetector!=null){
             mScaleGestureDetector.onTouchEvent(event);
         }
@@ -104,5 +155,21 @@ public class WrappedContainer extends FrameLayout {
     public void addChild(View view){
         addView(view);
         mChildList.add(view);
+    }
+
+    private float getActiveX(MotionEvent ev) {
+        try {
+            return ev.getX(mActivePointerIndex);
+        } catch (Exception e) {
+            return ev.getX();
+        }
+    }
+
+    private float getActiveY(MotionEvent ev) {
+        try {
+            return ev.getY(mActivePointerIndex);
+        } catch (Exception e) {
+            return ev.getY();
+        }
     }
 }
