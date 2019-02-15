@@ -11,7 +11,6 @@ import com.sky.hyh.customviewsamples.utils.DensityUtil;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-// TODO: 2019/1/12 0012 设置不同分段的字体大小与默认TextView字体大小（15sp）差别过大时会有问题，需找时间解决该问题
 public class CustomTextSpan extends ReplacementSpan {
     public static String TAG = "CustomTextSpan";
     public static final int ALIGN_BOTTOM = 0;
