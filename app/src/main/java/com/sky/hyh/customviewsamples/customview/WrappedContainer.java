@@ -86,12 +86,15 @@ public class WrappedContainer extends FrameLayout {
                     mIsDragging = false;
 
                     //判断对哪个子view操作
-                    for(View view: mChildList){
+                    for(int i = mChildList.size()-1;i>=0;i--){
+                        View view = mChildList.get(i);
                         Rect rect = new Rect();
                         view.getGlobalVisibleRect(rect);
                         Log.d("hyh", "WrappedContainer: onTouchEvent: rect="+rect.toString());
                         if(rect.contains(rawX, rawY)){
                             mCurTouchView = view;
+                            mChildList.remove(view);
+                            mChildList.add(view);
                             //将该view置于顶层
                             bringChildToFront(mCurTouchView);
                             break;
