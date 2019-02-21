@@ -1,20 +1,16 @@
 package com.sky.hyh.customviewsamples.customview;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.sky.hyh.customviewsamples.R;
 import com.sky.hyh.customviewsamples.utils.DensityUtil;
 
 /**
@@ -36,7 +32,7 @@ public class RoundMaskView extends View {
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPorterDuffXfermode = new PorterDuffXfermode(PorterDuff.Mode.CLEAR);
         mRectF = new RectF();
-        mRadius = DensityUtil.dip2px(30);
+        mRadius = DensityUtil.dp2px(30);
     }
 
     @Override

@@ -38,7 +38,7 @@ public class CustomTextSpan extends ReplacementSpan {
      */
     @AlignType
     private int mAlign;
-    public static final int SPACING = DensityUtil.dip2px(2);
+    public static final int SPACING = DensityUtil.dp2px(2);
 
     public CustomTextSpan(int textSize){
         this(textSize, Typeface.create(Typeface.SANS_SERIF, Typeface.NORMAL));

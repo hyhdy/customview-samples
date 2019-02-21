@@ -48,7 +48,7 @@ public class StrokeTextViewSimple extends AppCompatTextView {
                 //获得屏幕宽度
                 mMaxWidth = MeasureSpec.getSize(widthMeasureSpec);
             }
-            int width = mTextWidth + getPaddingLeft() + getPaddingRight() + DensityUtil.dip2px(EXTRA_SPACE);
+            int width = mTextWidth + getPaddingLeft() + getPaddingRight() + DensityUtil.dp2px(EXTRA_SPACE);
             if(width > mMaxWidth){
                 //控件宽度不能大于屏幕宽度
                 width = mMaxWidth;
@@ -61,7 +61,7 @@ public class StrokeTextViewSimple extends AppCompatTextView {
     @Override
     protected void onDraw(Canvas canvas) {
         getPaint().setStyle(Paint.Style.STROKE);
-        getPaint().setStrokeWidth(DensityUtil.dip2px(mStrokeWidth));
+        getPaint().setStrokeWidth(DensityUtil.dp2px(mStrokeWidth));
         setTextColor(mBorderColor);
         super.onDraw(canvas);
         getPaint().setStyle(Paint.Style.FILL);

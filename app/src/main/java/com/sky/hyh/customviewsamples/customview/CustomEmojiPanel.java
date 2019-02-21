@@ -10,19 +10,12 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.text.TextPaint;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.Toast;
 
 import com.sky.hyh.customviewsamples.R;
 import com.sky.hyh.customviewsamples.utils.DensityUtil;
-import com.sky.hyh.customviewsamples.utils.RectUtil;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -63,8 +56,8 @@ public class CustomEmojiPanel extends BaseSplitGridView {
 
         mFakeViewMap = new HashMap<>();
 
-        mRadius = DensityUtil.dip2px(DEFAULT_SIZE_ROUND_RADIUS_DP);
-        mButtonMoreSize = DensityUtil.dip2px(DEFAULLT_SIZE_BUTTON_MORE_DP);
+        mRadius = DensityUtil.dp2px(DEFAULT_SIZE_ROUND_RADIUS_DP);
+        mButtonMoreSize = DensityUtil.dp2px(DEFAULLT_SIZE_BUTTON_MORE_DP);
         mEmojiSize = DensityUtil.sp2px(DEFAULT_SIZE_EMOJI_TEXT_SP);
 
         mDrawable = getContext().getResources().getDrawable(R.drawable.btn_more);

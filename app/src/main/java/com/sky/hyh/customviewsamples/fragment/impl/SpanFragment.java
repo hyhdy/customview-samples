@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.SpannableString;
 import android.text.Spanned;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -13,7 +12,6 @@ import com.sky.hyh.customviewsamples.annotation.FindViewByIdAno;
 import com.sky.hyh.customviewsamples.fragment.BaseFragment;
 import com.sky.hyh.customviewsamples.span.CustomTextSpan;
 import com.sky.hyh.customviewsamples.utils.DensityUtil;
-import com.sky.hyh.customviewsamples.utils.InjectUtil;
 
 public class SpanFragment extends BaseFragment {
     @FindViewByIdAno(R.id.tv_tip1)
@@ -72,10 +70,10 @@ public class SpanFragment extends BaseFragment {
                 Color.BLUE,0,CustomTextSpan.ALIGN_CENTER);
         CustomTextSpan customSpan2 = new CustomTextSpan(DensityUtil.sp2px(25),
                 Typeface.create(Typeface.SANS_SERIF,Typeface.BOLD_ITALIC),
-                Color.RED, DensityUtil.dip2px(10),CustomTextSpan.ALIGN_CENTER);
+                Color.RED, DensityUtil.dp2px(10),CustomTextSpan.ALIGN_CENTER);
         CustomTextSpan customSpan3 = new CustomTextSpan(DensityUtil.sp2px(18),
                 Typeface.createFromAsset(getContext().getAssets(), "HYTangMeiRenJ-2.ttf"),
-                Color.GREEN, DensityUtil.dip2px(10),CustomTextSpan.ALIGN_CENTER);
+                Color.GREEN, DensityUtil.dp2px(10),CustomTextSpan.ALIGN_CENTER);
 
         spannableString.setSpan(customSpan1,0,5, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         spannableString.setSpan(customSpan2,5,10, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);

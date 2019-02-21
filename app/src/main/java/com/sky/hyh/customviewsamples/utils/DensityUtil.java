@@ -7,7 +7,7 @@ import com.sky.hyh.customviewsamples.MyApplication;
 
 public class DensityUtil {
 
-    public static int dip2px(float dpValue) {
+    public static int dp2px(float dpValue) {
         final float scale = MyApplication.getApplication().getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }

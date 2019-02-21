@@ -37,7 +37,7 @@ public class StrokeTextView extends AppCompatTextView{
         super(context, attrs);
         mBorderPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mBorderPaint.setStyle(Paint.Style.STROKE);
-        mBorderPaint.setStrokeWidth(DensityUtil.dip2px(mStrokeWidth));
+        mBorderPaint.setStrokeWidth(DensityUtil.dp2px(mStrokeWidth));
         //设置path的连接处为圆弧，实现光滑描边
         mBorderPaint.setStrokeJoin(Paint.Join.ROUND);
         mTextWidth = (int) getPaint().measureText(getText().toString());
@@ -52,7 +52,7 @@ public class StrokeTextView extends AppCompatTextView{
                 //获得屏幕宽度
                 mMaxWidth = MeasureSpec.getSize(widthMeasureSpec);
             }
-            int width = mTextWidth + getPaddingLeft() + getPaddingRight() + DensityUtil.dip2px(EXTRA_SPACE);
+            int width = mTextWidth + getPaddingLeft() + getPaddingRight() + DensityUtil.dp2px(EXTRA_SPACE);
             if(width > mMaxWidth){
                 //控件宽度不能大于屏幕宽度
                 width = mMaxWidth;

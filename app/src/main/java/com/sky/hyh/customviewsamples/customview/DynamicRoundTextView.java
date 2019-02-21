@@ -16,7 +16,6 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
-import com.facebook.rebound.SimpleSpringListener;
 import com.facebook.rebound.Spring;
 import com.facebook.rebound.SpringConfig;
 import com.facebook.rebound.SpringListener;
@@ -150,7 +149,7 @@ public class DynamicRoundTextView extends AppCompatTextView {
             mSpreadWidth = mWidthClose;
         }else{
             TextPaint textPaint = getPaint();
-            mSpreadWidth = textPaint.measureText(mTips)+DensityUtil.dip2px(30);
+            mSpreadWidth = textPaint.measureText(mTips)+DensityUtil.dp2px(30);
         }
         setText(mTips);
     }
