@@ -5,7 +5,7 @@ import android.content.Context;
 
 import com.sky.hyh.customviewsamples.MyApplication;
 
-public class DensityUtil {
+public class SizeUtils {
 
     public static int dp2px(float dpValue) {
         final float scale = MyApplication.getApplication().getResources().getDisplayMetrics().density;

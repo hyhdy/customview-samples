@@ -9,7 +9,7 @@ import android.support.v7.widget.AppCompatTextView;
 import android.text.Layout;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
-import com.sky.hyh.customviewsamples.utils.DensityUtil;
+import com.sky.hyh.customviewsamples.utils.SizeUtils;
 
 /**
  * Created by hyh on 2018/12/26 21:56
@@ -37,7 +37,7 @@ public class StrokeTextView extends AppCompatTextView{
         super(context, attrs);
         mBorderPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mBorderPaint.setStyle(Paint.Style.STROKE);
-        mBorderPaint.setStrokeWidth(DensityUtil.dp2px(mStrokeWidth));
+        mBorderPaint.setStrokeWidth(SizeUtils.dp2px(mStrokeWidth));
         //设置path的连接处为圆弧，实现光滑描边
         mBorderPaint.setStrokeJoin(Paint.Join.ROUND);
         mTextWidth = (int) getPaint().measureText(getText().toString());
@@ -52,7 +52,7 @@ public class StrokeTextView extends AppCompatTextView{
                 //获得屏幕宽度
                 mMaxWidth = MeasureSpec.getSize(widthMeasureSpec);
             }
-            int width = mTextWidth + getPaddingLeft() + getPaddingRight() + DensityUtil.dp2px(EXTRA_SPACE);
+            int width = mTextWidth + getPaddingLeft() + getPaddingRight() + SizeUtils.dp2px(EXTRA_SPACE);
             if(width > mMaxWidth){
                 //控件宽度不能大于屏幕宽度
                 width = mMaxWidth;

@@ -11,7 +11,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.sky.hyh.customviewsamples.utils.DensityUtil;
+import com.sky.hyh.customviewsamples.utils.SizeUtils;
 
 /**
  * Created by hyh on 2018/9/29 18:10
@@ -32,7 +32,7 @@ public class RoundMaskView extends View {
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPorterDuffXfermode = new PorterDuffXfermode(PorterDuff.Mode.CLEAR);
         mRectF = new RectF();
-        mRadius = DensityUtil.dp2px(30);
+        mRadius = SizeUtils.dp2px(30);
     }
 
     @Override

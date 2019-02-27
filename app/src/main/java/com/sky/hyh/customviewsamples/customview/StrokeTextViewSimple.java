@@ -7,7 +7,7 @@ import android.graphics.Paint;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
-import com.sky.hyh.customviewsamples.utils.DensityUtil;
+import com.sky.hyh.customviewsamples.utils.SizeUtils;
 
 /**
  * Created by hyh on 2018/12/24 15:27
@@ -48,7 +48,7 @@ public class StrokeTextViewSimple extends AppCompatTextView {
                 //获得屏幕宽度
                 mMaxWidth = MeasureSpec.getSize(widthMeasureSpec);
             }
-            int width = mTextWidth + getPaddingLeft() + getPaddingRight() + DensityUtil.dp2px(EXTRA_SPACE);
+            int width = mTextWidth + getPaddingLeft() + getPaddingRight() + SizeUtils.dp2px(EXTRA_SPACE);
             if(width > mMaxWidth){
                 //控件宽度不能大于屏幕宽度
                 width = mMaxWidth;
@@ -61,7 +61,7 @@ public class StrokeTextViewSimple extends AppCompatTextView {
     @Override
     protected void onDraw(Canvas canvas) {
         getPaint().setStyle(Paint.Style.STROKE);
-        getPaint().setStrokeWidth(DensityUtil.dp2px(mStrokeWidth));
+        getPaint().setStrokeWidth(SizeUtils.dp2px(mStrokeWidth));
         setTextColor(mBorderColor);
         super.onDraw(canvas);
         getPaint().setStyle(Paint.Style.FILL);

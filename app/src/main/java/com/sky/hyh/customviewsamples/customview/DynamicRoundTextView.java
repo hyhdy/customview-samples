@@ -20,7 +20,7 @@ import com.facebook.rebound.Spring;
 import com.facebook.rebound.SpringConfig;
 import com.facebook.rebound.SpringListener;
 import com.facebook.rebound.SpringSystem;
-import com.sky.hyh.customviewsamples.utils.DensityUtil;
+import com.sky.hyh.customviewsamples.utils.SizeUtils;
 
 /**
  * Created by hyh on 2018/9/11 17:48
@@ -149,7 +149,7 @@ public class DynamicRoundTextView extends AppCompatTextView {
             mSpreadWidth = mWidthClose;
         }else{
             TextPaint textPaint = getPaint();
-            mSpreadWidth = textPaint.measureText(mTips)+DensityUtil.dp2px(30);
+            mSpreadWidth = textPaint.measureText(mTips)+ SizeUtils.dp2px(30);
         }
         setText(mTips);
     }

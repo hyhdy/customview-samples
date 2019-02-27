@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.sky.hyh.customviewsamples.customview.automaitcEditText.AutomaticEditText
+        android:id="@+id/aet_input"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
+        android:background="#44000000"
+        android:gravity="center"
+        />
+
+</RelativeLayout>

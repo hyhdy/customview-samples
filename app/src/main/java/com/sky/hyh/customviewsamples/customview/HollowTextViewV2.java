@@ -8,12 +8,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
-import android.graphics.RectF;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
-
-import com.sky.hyh.customviewsamples.utils.DensityUtil;
 
 /**
  * Created by hyh on 2018/11/12 16:13

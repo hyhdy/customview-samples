@@ -11,7 +11,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
-import com.sky.hyh.customviewsamples.utils.DensityUtil;
+import com.sky.hyh.customviewsamples.utils.SizeUtils;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,14 +21,14 @@ import java.util.List;
 public class ArcGraphicView extends View {
     private static final String DEFAULT_COLOR_LINE = "#24979797";
     private static final String DEFAULT_COLOR_POINT = "#4affffff";
-    private static final int LINE_WIDTH = DensityUtil.dp2px(1);
-    private static final int POINT_RADIUS = DensityUtil.dp2px(2);
-    private static final int DEFAULT_VALID_HEIGHT = DensityUtil.dp2px(40);
-    private static final int DEFAULT_VALID_WIDTH = DensityUtil.dp2px(180);
-    private static final int DEFAULT_LEFT_OFFSET = DensityUtil.dp2px(2);
-    private static final int DEFAULT_RIGHT_OFFSET = DensityUtil.dp2px(2);
-    private static final int DEFAULT_TOP_OFFSET = DensityUtil.dp2px(2);
-    private static final int DEFAULT_BOTTOM_OFFSET = DensityUtil.dp2px(2);
+    private static final int LINE_WIDTH = SizeUtils.dp2px(1);
+    private static final int POINT_RADIUS = SizeUtils.dp2px(2);
+    private static final int DEFAULT_VALID_HEIGHT = SizeUtils.dp2px(40);
+    private static final int DEFAULT_VALID_WIDTH = SizeUtils.dp2px(180);
+    private static final int DEFAULT_LEFT_OFFSET = SizeUtils.dp2px(2);
+    private static final int DEFAULT_RIGHT_OFFSET = SizeUtils.dp2px(2);
+    private static final int DEFAULT_TOP_OFFSET = SizeUtils.dp2px(2);
+    private static final int DEFAULT_BOTTOM_OFFSET = SizeUtils.dp2px(2);
     /**
      * 控制曲线平滑度的参数，0-0.5，数值越大，数值点之间的曲线弧度越大
      */
@@ -123,7 +123,7 @@ public class ArcGraphicView extends View {
         mDashPaint.setStrokeWidth(LINE_WIDTH);
         mDashPaint.setAntiAlias(true);
         mDashPaint.setPathEffect(
-            new DashPathEffect(new float[] { DensityUtil.dp2px(4), DensityUtil.dp2px(3) }, 0));
+            new DashPathEffect(new float[] { SizeUtils.dp2px(4), SizeUtils.dp2px(3) }, 0));
 
         mAllPoints = new ArrayList();
         mPointsList = new ArrayList<>();
@@ -319,27 +319,27 @@ public class ArcGraphicView extends View {
     }
 
     public void setValidWidth(int validWidth) {
-        mValidWidth = DensityUtil.dp2px(validWidth);
+        mValidWidth = SizeUtils.dp2px(validWidth);
     }
 
     public void setValidHeight(int validHeight) {
-        mValidHeight = DensityUtil.dp2px(validHeight);
+        mValidHeight = SizeUtils.dp2px(validHeight);
     }
 
     public void setLeftOffset(int leftOffset) {
-        mLeftOffset = DensityUtil.dp2px(leftOffset);
+        mLeftOffset = SizeUtils.dp2px(leftOffset);
     }
 
     public void setRightOffset(int rightOffset) {
-        mRightOffset = DensityUtil.dp2px(rightOffset);
+        mRightOffset = SizeUtils.dp2px(rightOffset);
     }
 
     public void setBottomOffset(int bottomOffset) {
-        mBottomOffset = DensityUtil.dp2px(bottomOffset);
+        mBottomOffset = SizeUtils.dp2px(bottomOffset);
     }
 
     public void setTopOffset(int topOffset) {
-        mTopOffset = DensityUtil.dp2px(topOffset);
+        mTopOffset = SizeUtils.dp2px(topOffset);
     }
 
     public void setLineColor(String lineColor) {

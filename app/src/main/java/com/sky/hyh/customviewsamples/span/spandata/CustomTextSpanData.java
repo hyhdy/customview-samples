@@ -12,10 +12,10 @@ public class CustomTextSpanData extends BaseSpanData {
     private String mOriStr;
     private int mStartIndex;
     private int mEndIndex;
-    private int mTextSize;
+    private float mTextSizeSp;
     private Typeface mTypeface;
     private int mColor;
-    private int mLeftMargin;
+    private int mLeftMarginDp;
     @CustomTextSpan.AlignType
     private int mAlign;
 
@@ -23,10 +23,10 @@ public class CustomTextSpanData extends BaseSpanData {
         mOriStr = builder.mOriStr;
         mStartIndex = builder.mStartIndex;
         mEndIndex = builder.mEndIndex;
-        mTextSize = builder.mTextSize;
+        mTextSizeSp = builder.mTextSizeSp;
         mTypeface = builder.mTypeface;
         mColor = builder.mColor;
-        mLeftMargin = builder.mLeftMargin;
+        mLeftMarginDp = builder.mLeftMarginDp;
         mAlign = builder.mAlign;
     }
 
@@ -44,10 +44,10 @@ public class CustomTextSpanData extends BaseSpanData {
 
     @Override
     public CustomTextSpan onCreateSpan() {
-        return new CustomTextSpan(mTextSize,
+        return new CustomTextSpan(mTextSizeSp,
             mTypeface,
             mColor,
-            mLeftMargin,
+            mLeftMarginDp,
             mAlign);
     }
 
@@ -55,10 +55,10 @@ public class CustomTextSpanData extends BaseSpanData {
         private String mOriStr;
         private int mStartIndex;
         private int mEndIndex;
-        private int mTextSize;
-        private Typeface mTypeface = Typeface.create(Typeface.SANS_SERIF, Typeface.NORMAL);;
+        private float mTextSizeSp;
+        private Typeface mTypeface = Typeface.SANS_SERIF;
         private int mColor = Color.WHITE;
-        private int mLeftMargin;
+        private int mLeftMarginDp;
         @CustomTextSpan.AlignType
         private int mAlign = CustomTextSpan.ALIGN_BOTTOM;
 
@@ -68,8 +68,18 @@ public class CustomTextSpanData extends BaseSpanData {
             mEndIndex = endIndex;
         }
 
-        public Builder setTextSize(int textSize) {
-            mTextSize = textSize;
+        public Builder setTextSize(float textSizeSp) {
+            mTextSizeSp = textSizeSp;
+            return this;
+        }
+
+        /**
+         * 设置字体风格，粗体，斜体，下划线等
+         * @param style
+         * @return
+         */
+        public Builder setTypefaceStyle(int style) {
+            mTypeface = Typeface.create(mTypeface, style);
             return this;
         }
 
@@ -78,13 +88,18 @@ public class CustomTextSpanData extends BaseSpanData {
             return this;
         }
 
+        public Builder setColor(String color) {
+            mColor = Color.parseColor(color);
+            return this;
+        }
+
         public Builder setColor(int color) {
             mColor = color;
             return this;
         }
 
-        public Builder setLeftMargin(int leftMargin) {
-            mLeftMargin = leftMargin;
+        public Builder setLeftMargin(int leftMarginDp) {
+            mLeftMarginDp = leftMarginDp;
             return this;
         }
 

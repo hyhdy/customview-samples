@@ -1,13 +1,12 @@
 package com.sky.hyh.customviewsamples.span;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.support.annotation.IntDef;
 import android.text.style.ReplacementSpan;
 import android.util.Log;
-import com.sky.hyh.customviewsamples.utils.DensityUtil;
+import com.sky.hyh.customviewsamples.utils.SizeUtils;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
@@ -38,30 +37,14 @@ public class CustomTextSpan extends ReplacementSpan {
      */
     @AlignType
     private int mAlign;
-    public static final int SPACING = DensityUtil.dp2px(2);
+    public static final int SPACING = SizeUtils.dp2px(2);
 
-    public CustomTextSpan(int textSize){
-        this(textSize, Typeface.create(Typeface.SANS_SERIF, Typeface.NORMAL));
-    }
-
-    public CustomTextSpan(int textSize, Typeface typeFace) {
-        this(textSize,typeFace, Color.WHITE);
-    }
-
-    public CustomTextSpan(int textSize, Typeface typeFace, int color) {
-        this(textSize,typeFace,color,0);
-    }
-
-    public CustomTextSpan(int textSize, Typeface typeFace, int color,int leftMargin) {
-        this(textSize,typeFace,color,leftMargin,ALIGN_BOTTOM);
-    }
-
-    public CustomTextSpan(int textSize, Typeface typeFace, int color,int leftMargin,int align) {
-        mPaint = new Paint();
-        mPaint.setTextSize(textSize);
+    public CustomTextSpan(float textSizeSp, Typeface typeFace, int color,int leftMarginDp,int align) {
+        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mPaint.setTextSize(SizeUtils.sp2px(textSizeSp));
         mPaint.setTypeface(typeFace);
         mPaint.setColor(color);
-        mLeftMargin = leftMargin;
+        mLeftMargin = SizeUtils.dp2px(leftMarginDp);
         mAlign = align;
     }
 
@@ -108,34 +91,34 @@ public class CustomTextSpan extends ReplacementSpan {
     public void draw(Canvas canvas, CharSequence text, int start, int end, float x, int top, int y, int bottom, Paint paint) {
         Log.d(TAG, "draw: text="+text+" ,start="+start+" ,end="+end+" ,x="+x+" ,y="+y+" ,top="+top+" ,bottom="+bottom);
         switch (mAlign){
-                case ALIGN_BOTTOM: {
-                    canvas.drawText(text, start, end, x + mLeftMargin, y, mPaint);
-                }
-                    break;
-                case ALIGN_CENTER: {
-                    Paint.FontMetricsInt customTextPaintFm = mPaint.getFontMetricsInt();
-                    Log.d(TAG, "draw: customTextPaintFm=" + customTextPaintFm.toString());
-                    //调整分段文本居中显示
-                    int textHeight = bottom - top;
-                    int segmentTextHeight = customTextPaintFm.bottom - customTextPaintFm.top;
-                    y = (textHeight - segmentTextHeight) / 2 - customTextPaintFm.top;
-                    canvas.drawText(text, start, end, x + mLeftMargin, y, mPaint);
-                }
-                    break;
-                case ALIGN_TOP:{
-                    Paint.FontMetricsInt customTextPaintFm = mPaint.getFontMetricsInt();
-                    Log.d(TAG, "draw: customTextPaintFm=" + customTextPaintFm.toString());
-                    //调整分段文本居中显示
-                    int textHeight = bottom - top;
-                    int segmentTextHeight = customTextPaintFm.bottom - customTextPaintFm.top;
-                    y -= (textHeight - segmentTextHeight) / 2;
-                    canvas.drawText(text, start, end, x + mLeftMargin, y, mPaint);
-                }
-                    break;
-                default: {
-                    canvas.drawText(text, start, end, x + mLeftMargin, y, mPaint);
-                }
-                    break;
+            case ALIGN_BOTTOM: {
+                canvas.drawText(text, start, end, x + mLeftMargin, y, mPaint);
+            }
+            break;
+            case ALIGN_CENTER: {
+                Paint.FontMetricsInt customTextPaintFm = mPaint.getFontMetricsInt();
+                Log.d(TAG, "draw: customTextPaintFm=" + customTextPaintFm.toString());
+                //调整分段文本居中显示
+                int textHeight = bottom - top;
+                int segmentTextHeight = customTextPaintFm.bottom - customTextPaintFm.top;
+                y = (textHeight - segmentTextHeight) / 2 - customTextPaintFm.top;
+                canvas.drawText(text, start, end, x + mLeftMargin, y, mPaint);
+            }
+            break;
+            case ALIGN_TOP:{
+                Paint.FontMetricsInt customTextPaintFm = mPaint.getFontMetricsInt();
+                Log.d(TAG, "draw: customTextPaintFm=" + customTextPaintFm.toString());
+                //调整分段文本居中显示
+                int textHeight = bottom - top;
+                int segmentTextHeight = customTextPaintFm.bottom - customTextPaintFm.top;
+                y -= (textHeight - segmentTextHeight) / 2;
+                canvas.drawText(text, start, end, x + mLeftMargin, y, mPaint);
+            }
+            break;
+            default: {
+                canvas.drawText(text, start, end, x + mLeftMargin, y, mPaint);
+            }
+            break;
         }
     }
 

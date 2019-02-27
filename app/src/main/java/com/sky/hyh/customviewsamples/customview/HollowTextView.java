@@ -2,23 +2,14 @@ package com.sky.hyh.customviewsamples.customview;
 
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
-import android.graphics.RectF;
-import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatTextView;
-import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.view.View;
-import android.widget.TextView;
-
-import com.sky.hyh.customviewsamples.utils.DensityUtil;
 
 /**
  * Created by hyh on 2018/11/12 16:13

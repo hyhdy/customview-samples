@@ -23,7 +23,7 @@ import com.facebook.rebound.SimpleSpringListener;
 import com.facebook.rebound.Spring;
 import com.facebook.rebound.SpringConfig;
 import com.facebook.rebound.SpringSystem;
-import com.sky.hyh.customviewsamples.utils.DensityUtil;
+import com.sky.hyh.customviewsamples.utils.SizeUtils;
 import com.sky.hyh.customviewsamples.utils.TransformUtils;
 
 import java.util.ArrayList;
@@ -75,7 +75,7 @@ public class HappyNewYear2019 extends View {
         mBubbleTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mBubbleTextPaint.setColor(Color.parseColor(COLOR_BUBBLE_TEXT));
         mBubbleTextPaint.setTypeface(Typeface.createFromAsset(getContext().getAssets(), NAME_FONT));
-        mBubbleTextPaint.setTextSize(DensityUtil.sp2px(BubbleTextStruct.SIZE_BUBBLE_TEXT_SP));
+        mBubbleTextPaint.setTextSize(SizeUtils.sp2px(BubbleTextStruct.SIZE_BUBBLE_TEXT_SP));
         mSinWidth = mBubbleTextPaint.measureText("单");
         //mBubbleTextPaint.setShadowLayer(10,5,5,Color.parseColor("#FFFB5C"));
         spliteContent();
@@ -170,7 +170,7 @@ public class HappyNewYear2019 extends View {
                         public void onSpringUpdate(Spring spring) {
                             float springValue = (float) spring.getCurrentValue();
                             BubbleTextStruct struct = mBubbleMap.get(spring.hashCode());
-                            struct.textSize = (int) (DensityUtil.sp2px(BubbleTextStruct.SIZE_BUBBLE_TEXT_SP) * springValue);
+                            struct.textSize = (int) (SizeUtils.sp2px(BubbleTextStruct.SIZE_BUBBLE_TEXT_SP) * springValue);
                             invalidate();
                         }
 
@@ -198,7 +198,7 @@ public class HappyNewYear2019 extends View {
                         public void onSpringUpdate(Spring spring) {
                             float springValue = (float) spring.getCurrentValue();
                             BubbleTextStruct struct = mBubbleMap.get(spring.hashCode());
-                            struct.textSize = (int) (DensityUtil.sp2px(BubbleTextStruct.SIZE_BUBBLE_TEXT_SP) * springValue);
+                            struct.textSize = (int) (SizeUtils.sp2px(BubbleTextStruct.SIZE_BUBBLE_TEXT_SP) * springValue);
                             invalidate();
                         }
 
@@ -228,7 +228,7 @@ public class HappyNewYear2019 extends View {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 BubbleTextStruct struct = mBubbleMap.get(spring.hashCode());
-                struct.textSize = (int) (DensityUtil.sp2px(BubbleTextStruct.SIZE_BUBBLE_TEXT_SP) * (float)animation.getAnimatedValue("text_size"));
+                struct.textSize = (int) (SizeUtils.sp2px(BubbleTextStruct.SIZE_BUBBLE_TEXT_SP) * (float)animation.getAnimatedValue("text_size"));
                 invalidate();
             }
         });
@@ -270,7 +270,7 @@ public class HappyNewYear2019 extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         mCountDownPaint.setAlpha((int) (mTextAlphaRate * ALPHA_UN_TRANSPARENT));
-        mCountDownPaint.setTextSize(mTextSizeRate * DensityUtil.sp2px(SIZE_COUNT_DOWN_SP));
+        mCountDownPaint.setTextSize(mTextSizeRate * SizeUtils.sp2px(SIZE_COUNT_DOWN_SP));
         String countDownStr = String.valueOf(mCountDownNum);
         float emojiWidth = mCountDownPaint.measureText(countDownStr);
         //计算绘制文本的基线

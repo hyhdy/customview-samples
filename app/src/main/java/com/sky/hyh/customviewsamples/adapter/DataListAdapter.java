@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.sky.hyh.customviewsamples.factory.BaseFragmentFactory;
+import com.sky.hyh.customviewsamples.factory.impl.AutomaticEditTextFactory;
 import com.sky.hyh.customviewsamples.factory.impl.ColorMatrixFactory;
 import com.sky.hyh.customviewsamples.factory.impl.ConLimitedEditTextFactory;
 import com.sky.hyh.customviewsamples.factory.impl.ContactFactory;
@@ -47,6 +48,7 @@ public class DataListAdapter extends RecyclerView.Adapter {
         sDataList.add(StrokeTextViewFactory.class);
         sDataList.add(ContactFactory.class);
         sDataList.add(WrappedContainerFactory.class);
+        sDataList.add(AutomaticEditTextFactory.class);
     }
     private OnClickCallBack mOnClickCallBack;
     private Context mContext;

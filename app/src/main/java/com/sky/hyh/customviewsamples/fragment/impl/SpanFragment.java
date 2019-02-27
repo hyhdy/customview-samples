@@ -11,7 +11,7 @@ import com.sky.hyh.customviewsamples.R;
 import com.sky.hyh.customviewsamples.annotation.FindViewByIdAno;
 import com.sky.hyh.customviewsamples.fragment.BaseFragment;
 import com.sky.hyh.customviewsamples.span.CustomTextSpan;
-import com.sky.hyh.customviewsamples.utils.DensityUtil;
+import com.sky.hyh.customviewsamples.utils.SizeUtils;
 
 public class SpanFragment extends BaseFragment {
     @FindViewByIdAno(R.id.tv_tip1)
@@ -44,13 +44,13 @@ public class SpanFragment extends BaseFragment {
         char EXTRA_SPACE = ' ';
         original = String.format("%s%s",original,EXTRA_SPACE);
         SpannableString spannableString = new SpannableString(original);
-        CustomTextSpan customSpan1 = new CustomTextSpan(DensityUtil.sp2px(15),
+        CustomTextSpan customSpan1 = new CustomTextSpan(15,
                 Typeface.create(Typeface.SANS_SERIF,Typeface.NORMAL),
                 Color.BLUE,0,CustomTextSpan.ALIGN_CENTER);
-        CustomTextSpan customSpan2 = new CustomTextSpan(DensityUtil.sp2px(25),
+        CustomTextSpan customSpan2 = new CustomTextSpan(25,
                 Typeface.create(Typeface.SANS_SERIF,Typeface.BOLD),
                 Color.RED, 0,CustomTextSpan.ALIGN_CENTER);
-        CustomTextSpan customSpan3 = new CustomTextSpan(DensityUtil.sp2px(18),
+        CustomTextSpan customSpan3 = new CustomTextSpan(18,
                 Typeface.createFromAsset(getContext().getAssets(), "HYTangMeiRenJ-2.ttf"),
                 Color.GREEN, 0,CustomTextSpan.ALIGN_CENTER);
 
@@ -65,15 +65,15 @@ public class SpanFragment extends BaseFragment {
         char EXTRA_SPACE = ' ';
         original = String.format("%s%s",original,EXTRA_SPACE);
         SpannableString spannableString = new SpannableString(original);
-        CustomTextSpan customSpan1 = new CustomTextSpan(DensityUtil.sp2px(15),
+        CustomTextSpan customSpan1 = new CustomTextSpan(15,
                 Typeface.create(Typeface.SANS_SERIF,Typeface.NORMAL),
                 Color.BLUE,0,CustomTextSpan.ALIGN_CENTER);
-        CustomTextSpan customSpan2 = new CustomTextSpan(DensityUtil.sp2px(25),
+        CustomTextSpan customSpan2 = new CustomTextSpan(25,
                 Typeface.create(Typeface.SANS_SERIF,Typeface.BOLD_ITALIC),
-                Color.RED, DensityUtil.dp2px(10),CustomTextSpan.ALIGN_CENTER);
-        CustomTextSpan customSpan3 = new CustomTextSpan(DensityUtil.sp2px(18),
+                Color.RED, 10,CustomTextSpan.ALIGN_CENTER);
+        CustomTextSpan customSpan3 = new CustomTextSpan(18,
                 Typeface.createFromAsset(getContext().getAssets(), "HYTangMeiRenJ-2.ttf"),
-                Color.GREEN, DensityUtil.dp2px(10),CustomTextSpan.ALIGN_CENTER);
+                Color.GREEN, 10,CustomTextSpan.ALIGN_CENTER);
 
         spannableString.setSpan(customSpan1,0,5, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         spannableString.setSpan(customSpan2,5,10, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -86,10 +86,10 @@ public class SpanFragment extends BaseFragment {
         char EXTRA_SPACE = ' ';
         original = String.format("%s%s",original,EXTRA_SPACE);
         SpannableString spannableString = new SpannableString(original);
-        CustomTextSpan customSpan1 = new CustomTextSpan(DensityUtil.sp2px(20),
+        CustomTextSpan customSpan1 = new CustomTextSpan(20,
                 Typeface.create(Typeface.SANS_SERIF,Typeface.NORMAL),
                 Color.WHITE,0,CustomTextSpan.ALIGN_CENTER);
-        CustomTextSpan customSpan2 = new CustomTextSpan(DensityUtil.sp2px(15),
+        CustomTextSpan customSpan2 = new CustomTextSpan(15,
                 Typeface.create(Typeface.SANS_SERIF,Typeface.BOLD),
                 Color.RED, 0,CustomTextSpan.ALIGN_CENTER);
 
