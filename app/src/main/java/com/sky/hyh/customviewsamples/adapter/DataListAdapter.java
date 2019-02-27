@@ -25,6 +25,7 @@ import com.sky.hyh.customviewsamples.factory.impl.DyLimitedEditTextFactory;
 import com.sky.hyh.customviewsamples.factory.impl.RoundMaskViewFactory;
 import com.sky.hyh.customviewsamples.factory.impl.SpanFactory;
 
+import com.sky.hyh.customviewsamples.factory.impl.SpanLineEditTextFactory;
 import com.sky.hyh.customviewsamples.factory.impl.StrokeTextViewFactory;
 import com.sky.hyh.customviewsamples.factory.impl.WrappedContainerFactory;
 import java.util.ArrayList;
@@ -49,6 +50,7 @@ public class DataListAdapter extends RecyclerView.Adapter {
         sDataList.add(ContactFactory.class);
         sDataList.add(WrappedContainerFactory.class);
         sDataList.add(AutomaticEditTextFactory.class);
+        sDataList.add(SpanLineEditTextFactory.class);
     }
     private OnClickCallBack mOnClickCallBack;
     private Context mContext;

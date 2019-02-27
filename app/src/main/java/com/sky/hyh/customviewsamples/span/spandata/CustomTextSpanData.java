@@ -9,7 +9,8 @@ import com.sky.hyh.customviewsamples.span.CustomTextSpan;
  * E-Mail Address：fjnuhyh122@gmail.com
  */
 public class CustomTextSpanData extends BaseSpanData {
-    private String mOriStr;
+    private String mOriStr;//完整文本
+    private String mSegmentStr;//分段文本
     private int mStartIndex;
     private int mEndIndex;
     private float mTextSizeSp;
@@ -21,6 +22,7 @@ public class CustomTextSpanData extends BaseSpanData {
 
     public CustomTextSpanData(Builder builder) {
         mOriStr = builder.mOriStr;
+        mSegmentStr = builder.mSegmentStr;
         mStartIndex = builder.mStartIndex;
         mEndIndex = builder.mEndIndex;
         mTextSizeSp = builder.mTextSizeSp;
@@ -42,6 +44,10 @@ public class CustomTextSpanData extends BaseSpanData {
         return mEndIndex;
     }
 
+    public String getSegmentStr() {
+        return mSegmentStr;
+    }
+
     @Override
     public CustomTextSpan onCreateSpan() {
         return new CustomTextSpan(mTextSizeSp,
@@ -53,6 +59,7 @@ public class CustomTextSpanData extends BaseSpanData {
 
     public static class Builder{
         private String mOriStr;
+        private String mSegmentStr;
         private int mStartIndex;
         private int mEndIndex;
         private float mTextSizeSp;
@@ -105,6 +112,11 @@ public class CustomTextSpanData extends BaseSpanData {
 
         public Builder setAlign(@CustomTextSpan.AlignType int align) {
             mAlign = align;
+            return this;
+        }
+
+        public Builder setSegmentStr(String segmentStr){
+            mSegmentStr = segmentStr;
             return this;
         }
 
