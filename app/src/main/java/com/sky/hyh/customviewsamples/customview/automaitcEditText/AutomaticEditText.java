@@ -26,8 +26,7 @@ import java.util.List;
 public class AutomaticEditText extends AppCompatEditText {
     public static final int WIDTH_OFFSET = 10;
     public static final int HEIGHT_OFFSET = 0;
-    //换行符
-    public static final String SYM_BREAK_LINE = "\n";
+
     //默认字体大小
     public static final float DEF_FONT_SIZE = 16;
     /**
@@ -42,7 +41,6 @@ public class AutomaticEditText extends AppCompatEditText {
      * 默认字体大小，单位：px
      */
     private float mDefFontSizePx;
-    //private List<Pair<String, Pair<Integer,Integer>>> mSpliteLineDataPool;
 
     private List<LineData> mLineDataList;
     private String mLastText = "";
@@ -62,8 +60,7 @@ public class AutomaticEditText extends AppCompatEditText {
         mDefFontSizePx = SizeUtils.sp2px(DEF_FONT_SIZE);
         Log.d("hyh", "AutomaticEditText: init: mDefFontSizePx="+mDefFontSizePx);
         mLineDataList = new ArrayList<>();
-        //mSpliteLineDataPool = new ArrayList<>();
-        //IncludeFontPadding设为false，且不设置行间距，这样每行高度的累加值才等于文本总高度，即Layout.getHeight == Layout.getLineCount * TextPaint.getFontMetricsInt
+        //设为false，且不设置行间距，这样每行高度的累加值才等于文本总高度，即Layout.getHeight == Layout.getLineCount * TextPaint.getFontMetricsInt
         setIncludeFontPadding(false);
         //不设置行间距
         setLineSpacing(0,1);
@@ -110,7 +107,6 @@ public class AutomaticEditText extends AppCompatEditText {
         boolean update = false;
         String text = layout.getText().toString();
         if(!mLastText.equals(text)) {
-            //updateSpliteLineDataPool();
             update = true;
         }else{
             int lineCount = layout.getLineCount();
@@ -197,49 +193,6 @@ public class AutomaticEditText extends AppCompatEditText {
         setText(spannableString);
         setSelection(text.length());
     }
-
-    //private int getCustomLineCount(){
-    //    return mSpliteLineDataPool.size();
-    //}
-
-    //private void updateSpliteLineDataPool(){
-    //    mSpliteLineDataPool.clear();
-    //    String text = getText().toString();
-    //    //先按照换行符来分行
-    //    String[] lineTextList = text.split(SYM_BREAK_LINE);
-    //    Log.d("hyh", "AutomaticEditText: updateSpliteLineDataPool: size="+lineTextList.length);
-    //    Paint paint = getPaint();
-    //    int start;
-    //    int end = 0;
-    //    for(String str: lineTextList){
-    //        float textWidth = (int) paint.measureText(str);
-    //        float rate = textWidth / mMaxTextWidth;
-    //        Log.d("hyh", "AutomaticEditText: updateSpliteLineDataPool: textWidth="+textWidth+" ,mMaxTextWidth="+mMaxTextWidth);
-    //        Log.d("hyh", "AutomaticEditText: updateSpliteLineDataPool: rate="+rate+" ,str="+str);
-    //        float tmpRate;
-    //        for(int i=0;i<rate;i++){
-    //            tmpRate = 1;
-    //            if(i * 1 + 1 > rate){
-    //                tmpRate = rate - i * 1;
-    //            }
-    //            start = end;
-    //            end += (int) (tmpRate / rate * str.length());
-    //            String lineText = text.substring(start,end);
-    //            Log.d("hyh", "AutomaticEditText: updateSpliteLineDataPool: lineText="+lineText+" ,start="+start+" ,end="+end);
-    //            mSpliteLineDataPool.add(Pair.create(lineText,Pair.create(start,end)));
-    //        }
-    //    }
-    //}
-    //
-    //private int getCustomLineStart(int i){
-    //    Pair<String,Pair<Integer,Integer>> pair = mSpliteLineDataPool.get(i);
-    //    return pair.second.first;
-    //}
-    //
-    //private int getCustomLineEnd(int i){
-    //    Pair<String,Pair<Integer,Integer>> pair = mSpliteLineDataPool.get(i);
-    //    return pair.second.second;
-    //}
 
     private Layout getDefLayout(){
         TextPaint textPaint = new TextPaint(getPaint());
