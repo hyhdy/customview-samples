@@ -89,7 +89,7 @@ public class CustomTextSpan extends ReplacementSpan {
 
     @Override
     public void draw(Canvas canvas, CharSequence text, int start, int end, float x, int top, int y, int bottom, Paint paint) {
-        Log.d(TAG, "draw: text="+text+" ,start="+start+" ,end="+end+" ,x="+x+" ,y="+y+" ,top="+top+" ,bottom="+bottom);
+        //Log.d(TAG, "draw: text="+text+" ,start="+start+" ,end="+end+" ,x="+x+" ,y="+y+" ,top="+top+" ,bottom="+bottom);
         switch (mAlign){
             case ALIGN_BOTTOM: {
                 canvas.drawText(text, start, end, x + mLeftMargin, y, mPaint);

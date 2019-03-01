@@ -21,4 +21,9 @@ public class SizeUtils {
         final float fontScale =MyApplication.getApplication().getResources().getDisplayMetrics().scaledDensity;
         return (int) (spValue * fontScale + 0.5f);
     }
+
+    public static int px2sp(final float pxValue) {
+        final float fontScale = MyApplication.getApplication().getResources().getDisplayMetrics().scaledDensity;
+        return (int) (pxValue / fontScale + 0.5f);
+    }
 }

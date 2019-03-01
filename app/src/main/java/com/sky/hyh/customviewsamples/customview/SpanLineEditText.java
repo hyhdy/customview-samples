@@ -52,31 +52,21 @@ public class SpanLineEditText extends AppCompatEditText {
             mCustomTextSpanDataList.clear();
 
             int lineCount = layout.getLineCount();
-            Log.d("hyh", "SpanLineEditText: refresh: lineCount="+lineCount);
             String text = layout.getText().toString();
-            int size = copySpanData.size();
-            boolean update = false;
+            int index = text.indexOf("\n");
+            Log.d("hyh", "SpanLineEditText: refresh: index="+index);
+            Log.d("hyh", "SpanLineEditText: refresh: text="+text+" ,lineCount="+lineCount);
             for (int i = 0; i < lineCount; i++) {
                 int start = layout.getLineStart(i);
                 int end = layout.getLineEnd(i);
                 String rowStr = text.substring(start,end);
-                Log.d("hyh", "SpanLineEditText: refresh: rowStr="+rowStr);
-                if(!update && i < size){
-                    CustomTextSpanData customTextSpanData = copySpanData.get(i);
-                    String segmentStr = customTextSpanData.getSegmentStr();
-                    Log.d("hyh", "SpanLineEditText: refresh: segmentStr="+segmentStr);
-                    if(segmentStr==null || !segmentStr.equals(rowStr)){
-                        //原本的每行文字跟现在的每行文字不相同，说明排版变了，需要重新更新文本
-                        update = true;
-                    }
-                }
+                Log.d("hyh", "SpanLineEditText: refresh: rowStr="+rowStr+" ,start="+start+" ,end="+end);
                 CustomTextSpanData customTextSpanData = new CustomTextSpanData.Builder(text,start,end)
                     .setTextSize(getRangeRandomInt())
-                    .setSegmentStr(rowStr)
                     .build();
                 mCustomTextSpanDataList.add(customTextSpanData);
             }
-            if(!mLastText.equals(text)||update) {
+            if(!mLastText.equals(text)) {
                 updateText(text);
             }
             mLastText = text;

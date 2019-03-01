@@ -3,38 +3,49 @@ package com.sky.hyh.customviewsamples.customview.automaitcEditText;
 import android.content.Context;
 import android.graphics.Paint;
 import android.support.v7.widget.AppCompatEditText;
+import android.text.DynamicLayout;
 import android.text.Layout;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextPaint;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
+import com.sky.hyh.customviewsamples.span.spandata.CustomTextSpanData;
 import com.sky.hyh.customviewsamples.utils.SizeUtils;
-import com.sky.hyh.customviewsamples.utils.TextSizeAdjustHelper;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by hyh on 2019/2/26 15:47
  * E-Mail Address：fjnuhyh122@gmail.com
- * 自动排版输入框
+ * 自动排版输入框,文本每行的字体大小可能不一样
  */
 public class AutomaticEditText extends AppCompatEditText {
+    public static final int WIDTH_OFFSET = 10;
+    public static final int HEIGHT_OFFSET = 0;
+    //换行符
+    public static final String SYM_BREAK_LINE = "\n";
+    //默认字体大小
     public static final float DEF_FONT_SIZE = 16;
-    private int mLineCount;
     /**
      * 最大文本高度
      */
     private int mMaxTextHeight;
     /**
-     * 最大文本宽度，该值不是恒定不变的，会随着输入的文本动态改变
+     * 最大文本宽度
      */
     private int mMaxTextWidth;
-    private float mMinFontSize;
-    private float mMaxFontSize;
     /**
-     * 单行最多显示多少个中文
+     * 默认字体大小，单位：px
      */
-    private int mMaxChineseNumOneLine;
+    private float mDefFontSizePx;
+    //private List<Pair<String, Pair<Integer,Integer>>> mSpliteLineDataPool;
+
+    private List<LineData> mLineDataList;
+    private String mLastText = "";
 
     public AutomaticEditText(Context context) {
         this(context,null);
@@ -46,76 +57,242 @@ public class AutomaticEditText extends AppCompatEditText {
     }
 
     private void init() {
-        setTextSize(DEF_FONT_SIZE);
-        mMinFontSize = SizeUtils.sp2px(DEF_FONT_SIZE);
         setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        setTextSize(DEF_FONT_SIZE);
+        mDefFontSizePx = SizeUtils.sp2px(DEF_FONT_SIZE);
+        Log.d("hyh", "AutomaticEditText: init: mDefFontSizePx="+mDefFontSizePx);
+        mLineDataList = new ArrayList<>();
+        //mSpliteLineDataPool = new ArrayList<>();
+        //IncludeFontPadding设为false，且不设置行间距，这样每行高度的累加值才等于文本总高度，即Layout.getHeight == Layout.getLineCount * TextPaint.getFontMetricsInt
+        setIncludeFontPadding(false);
+        //不设置行间距
+        setLineSpacing(0,1);
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         if(w != oldw || h != oldh){
-            mMaxTextHeight = h - getPaddingTop() - getPaddingBottom();
-            mMaxTextWidth = w - getPaddingLeft() - getPaddingRight();
+            mMaxTextHeight = h - getPaddingTop() - getPaddingBottom() - SizeUtils.dp2px(HEIGHT_OFFSET);
+            mMaxTextWidth = w - getPaddingLeft() - getPaddingRight() - SizeUtils.dp2px(WIDTH_OFFSET);
             Log.d("hyh", "AutomaticEditText: onSizeChanged: mMaxTextHeight="+ mMaxTextHeight+ " ,mMaxTextWidth="+mMaxTextWidth);
-            calculateOneLineMaxChineseNum(mMaxTextWidth);
         }
-    }
-
-    private void calculateOneLineMaxChineseNum(int lineWidth){
-        Log.d("hyh", "AutomaticEditText: calculateOneLineMaxChineseNum: lineWidth ="+lineWidth);
-        int num = 0;
-        Paint paint = getPaint();
-        StringBuilder testChinese = new StringBuilder("中");
-        float width = paint.measureText(testChinese.toString());
-        Log.d("hyh", "AutomaticEditText: calculateOneLineMaxChineseNum: width="+width);
-        while (width < lineWidth){
-             num++;
-             testChinese.append("中");
-             width = paint.measureText(testChinese.toString());
-             Log.d("hyh", "AutomaticEditText: calculateOneLineMaxChineseNum: width="+width);
-        }
-        mMaxChineseNumOneLine = num;
     }
 
     @Override
     public boolean onPreDraw() {
         boolean result = super.onPreDraw();
-        detectFontSize();
+        refresh();
         return result;
     }
 
-    /**
-     * 动态调整字体大小
-     */
-    private void detectFontSize() {
-        Layout layout = getLayout();
-        if(layout != null){
-            int lineCount = layout.getLineCount();
-            Log.d("hyh", "AutomaticEditText: detectFontSize: lineCount="+lineCount);
-            if (lineCount != mLineCount) {
-                //发生换行操作
-
-            }else{
-
+    private void refresh(){
+        if(getLayout() != null){
+            Layout defLayout = getDefLayout();
+            String text = defLayout.getText().toString();
+            Log.d("hyh", "AutomaticEditText: refresh: text="+text);
+            boolean update = isUpdateText(defLayout);
+            Log.d("hyh", "AutomaticEditText: refresh: update="+update);
+            if(update) {
+                spliteLineData(defLayout);
+                matchMaxWidthFontSize();
+                matchMaxHeightFontSize();
+                updateText(text);
             }
-            mLineCount = lineCount;
-        }else{
-           Log.d("hyh", "AutomaticEditText: detectFontSize: layout is null");
+            mLastText = text;
         }
     }
 
-    private float calculateMaxFontSize(int lineCount,float defFontSize,int maxHeight){
-        List<Paint> paintList = new ArrayList();
-        if(lineCount > 1){
-            //获取其他行的paint
-
+    /**
+     * 判断是否需要更新文本
+     * @return
+     */
+    private boolean isUpdateText(Layout layout){
+        boolean update = false;
+        String text = layout.getText().toString();
+        if(!mLastText.equals(text)) {
+            //updateSpliteLineDataPool();
+            update = true;
+        }else{
+            int lineCount = layout.getLineCount();
+            int size = mLineDataList.size();
+            if(lineCount != size){
+                update = true;
+            }else{
+                for (int i = 0; i < lineCount; i++) {
+                    int start = layout.getLineStart(i);
+                    int end =layout.getLineEnd(i);
+                    String rowStr = text.substring(start, end);
+                    LineData lineData = mLineDataList.get(i);
+                    String lineText = lineData.getLineText();
+                    if (!rowStr.equals(lineText)) {
+                        //原本的每行文字跟现在的每行文字不相同，说明排版变了，需要重新更新文本
+                        update = true;
+                        break;
+                    }
+                }
+            }
         }
-        TextPaint textPaint = new TextPaint(getPaint());
-        textPaint.setTextSize(defFontSize);
-        paintList.add(textPaint);
+        return  update;
+    }
 
-        TextSizeAdjustHelper.getFitTextSize(getLayout(),maxHeight,1,new Paint[]{textPaint});
-        mMaxFontSize = paintList.get(paintList.size()-1).getTextSize();
-        return mMaxFontSize;
+    /**
+     * 按行分割文本
+     */
+    private void spliteLineData(Layout layout){
+        mLineDataList.clear();
+        String text = layout.getText().toString();
+        int lineCount = layout.getLineCount();
+        Log.d("hyh", "AutomaticEditText: spliteLineData: text="+text+" ,lineCount="+lineCount);
+        for (int i = 0; i < lineCount; i++) {
+            int start = layout.getLineStart(i);
+            int end = layout.getLineEnd(i);
+            String rowStr = text.substring(start,end);
+            LineData lineData = new LineData(getPaint(),rowStr,start,end);
+            Log.d("hyh", "AutomaticEditText: spliteLineData: lineData="+lineData.toString());
+            mLineDataList.add(lineData);
+        }
+    }
+
+    /**
+     * 计算匹配最大文本宽度的字体大小
+     */
+    private void matchMaxWidthFontSize(){
+        for(LineData lineData: mLineDataList){
+            Paint paint = lineData.getPaint();
+            String lineText = lineData.getLineText();
+            float fontSize = paint.getTextSize();
+            if(!TextUtils.isEmpty(lineText)){
+                float textWidth = paint.measureText(lineText);
+                Log.d("hyh", "AutomaticEditText: matchMaxWidthFontSize: lineText="+lineText+" ,textWidth="+textWidth);
+                fontSize = mMaxTextWidth / textWidth * fontSize;
+                Log.d("hyh", "AutomaticEditText: matchMaxWidthFontSize: fontSize="+fontSize);
+            }
+            paint.setTextSize(fontSize);
+            TextSizeAdjustHelper.calculateMatchWidthSize(paint,lineText,mMaxTextWidth);
+        }
+    }
+
+    /**
+     * 计算匹配最大文本高度的字体大小
+     */
+    private void matchMaxHeightFontSize(){
+        List<Paint> paintList = new ArrayList<>();
+        for(LineData lineData: mLineDataList){
+            paintList.add(lineData.getPaint());
+        }
+        TextSizeAdjustHelper.calculateMatchHeightSize(paintList,mMaxTextHeight);
+    }
+
+    private void updateText(String text){
+        Log.d("hyh", "AutomaticEditText: updateText: text="+text);
+        SpannableString spannableString = new SpannableString(text);
+        for(LineData lineData: mLineDataList){
+            Log.d("hyh", "AutomaticEditText: updateText: lineText="+lineData.getLineText()+" ,lineFontSize="+lineData.getFontSizePx());
+            CustomTextSpanData customTextSpanData = new CustomTextSpanData.Builder(lineData.getStartIndex(),lineData.getEndIndex())
+                .setTextSize(lineData.getFontSizeSp())
+                .build();
+            spannableString.setSpan(customTextSpanData.onCreateSpan(),customTextSpanData.getStartIndex(),customTextSpanData.getEndIndex(),
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+        setText(spannableString);
+        setSelection(text.length());
+    }
+
+    //private int getCustomLineCount(){
+    //    return mSpliteLineDataPool.size();
+    //}
+
+    //private void updateSpliteLineDataPool(){
+    //    mSpliteLineDataPool.clear();
+    //    String text = getText().toString();
+    //    //先按照换行符来分行
+    //    String[] lineTextList = text.split(SYM_BREAK_LINE);
+    //    Log.d("hyh", "AutomaticEditText: updateSpliteLineDataPool: size="+lineTextList.length);
+    //    Paint paint = getPaint();
+    //    int start;
+    //    int end = 0;
+    //    for(String str: lineTextList){
+    //        float textWidth = (int) paint.measureText(str);
+    //        float rate = textWidth / mMaxTextWidth;
+    //        Log.d("hyh", "AutomaticEditText: updateSpliteLineDataPool: textWidth="+textWidth+" ,mMaxTextWidth="+mMaxTextWidth);
+    //        Log.d("hyh", "AutomaticEditText: updateSpliteLineDataPool: rate="+rate+" ,str="+str);
+    //        float tmpRate;
+    //        for(int i=0;i<rate;i++){
+    //            tmpRate = 1;
+    //            if(i * 1 + 1 > rate){
+    //                tmpRate = rate - i * 1;
+    //            }
+    //            start = end;
+    //            end += (int) (tmpRate / rate * str.length());
+    //            String lineText = text.substring(start,end);
+    //            Log.d("hyh", "AutomaticEditText: updateSpliteLineDataPool: lineText="+lineText+" ,start="+start+" ,end="+end);
+    //            mSpliteLineDataPool.add(Pair.create(lineText,Pair.create(start,end)));
+    //        }
+    //    }
+    //}
+    //
+    //private int getCustomLineStart(int i){
+    //    Pair<String,Pair<Integer,Integer>> pair = mSpliteLineDataPool.get(i);
+    //    return pair.second.first;
+    //}
+    //
+    //private int getCustomLineEnd(int i){
+    //    Pair<String,Pair<Integer,Integer>> pair = mSpliteLineDataPool.get(i);
+    //    return pair.second.second;
+    //}
+
+    private Layout getDefLayout(){
+        TextPaint textPaint = new TextPaint(getPaint());
+        float fontSize = textPaint.getTextSize();
+        Log.d("hyh", "AutomaticEditText: getDefLayout: fontSize="+fontSize);
+        return new DynamicLayout(getLayout().getText().toString(),textPaint,mMaxTextWidth+WIDTH_OFFSET,getLayout().getAlignment(),getLayout().getSpacingMultiplier(),getLayout().getSpacingAdd(),getIncludeFontPadding());
+    }
+
+    public static class LineData{
+        private Paint mPaint;
+        //行文本
+        private String mLineText;
+        private int mStartIndex;
+        private int mEndIndex;
+
+        public LineData(Paint paint, String lineStr, int startIndex, int endIndex) {
+            mPaint = new Paint(paint);
+            mLineText = lineStr;
+            mStartIndex = startIndex;
+            mEndIndex = endIndex;
+        }
+
+        public Paint getPaint() {
+            return mPaint;
+        }
+
+        public String getLineText() {
+            return mLineText;
+        }
+
+        public int getStartIndex() {
+            return mStartIndex;
+        }
+
+        public int getEndIndex() {
+            return mEndIndex;
+        }
+
+        public float getFontSizeSp(){
+            return SizeUtils.px2sp(mPaint.getTextSize());
+        }
+
+        public float getFontSizePx(){
+            return mPaint.getTextSize();
+        }
+
+        @Override
+        public String toString() {
+            return "LineData{" +
+                "mLineText='" + mLineText + '\'' +
+                ", mStartIndex=" + mStartIndex +
+                ", mEndIndex=" + mEndIndex +
+                '}';
+        }
     }
 }
