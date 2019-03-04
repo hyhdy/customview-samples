@@ -43,6 +43,7 @@ public class AutomaticEditText extends AppCompatEditText {
 
     private List<LineData> mLineDataList;
     private String mLastText = "";
+    private TextSizeAdjustHelper mTextSizeAdjustHelper;
 
     public AutomaticEditText(Context context) {
         this(context,null);
@@ -63,6 +64,7 @@ public class AutomaticEditText extends AppCompatEditText {
         setIncludeFontPadding(false);
         //不设置行间距
         setLineSpacing(0,1);
+        mTextSizeAdjustHelper = new TextSizeAdjustHelper(this);
     }
 
     @Override
@@ -143,7 +145,10 @@ public class AutomaticEditText extends AppCompatEditText {
             int start = layout.getLineStart(i);
             int end = layout.getLineEnd(i);
             String rowStr = text.substring(start,end);
-            LineData lineData = new LineData(getPaint(),rowStr,start,end);
+            CustomTextSpanData customTextSpanData = new CustomTextSpanData.Builder(start,end)
+                .setTextSizePx(getPaint().getTextSize())
+                .build();
+            LineData lineData = new LineData(rowStr,customTextSpanData);
             Log.d("hyh", "AutomaticEditText: spliteLineData: lineData="+lineData.toString());
             mLineDataList.add(lineData);
         }
@@ -153,18 +158,19 @@ public class AutomaticEditText extends AppCompatEditText {
      * 计算匹配最大文本宽度的字体大小
      */
     private void matchMaxWidthFontSize(){
+        Paint paint = new Paint(getPaint());
         for(LineData lineData: mLineDataList){
-            Paint paint = lineData.getPaint();
             String lineText = lineData.getLineText();
-            float fontSize = paint.getTextSize();
+            float textSize = paint.getTextSize();
             if(!TextUtils.isEmpty(lineText)){
                 float textWidth = paint.measureText(lineText);
                 Log.d("hyh", "AutomaticEditText: matchMaxWidthFontSize: lineText="+lineText+" ,textWidth="+textWidth);
-                fontSize = mMaxTextWidth / textWidth * fontSize;
-                Log.d("hyh", "AutomaticEditText: matchMaxWidthFontSize: fontSize="+fontSize);
+                textSize = mMaxTextWidth / textWidth * textSize;
+                Log.d("hyh", "AutomaticEditText: matchMaxWidthFontSize: textSize="+textSize);
             }
-            paint.setTextSize(fontSize);
-            TextSizeAdjustHelper.calculateMatchWidthSize(paint,lineText,mMaxTextWidth);
+            paint.setTextSize(textSize);
+            textSize = TextSizeAdjustHelper.calculateMatchWidthSize(paint,lineText,mMaxTextWidth);
+            lineData.setFontSizePx(textSize);
         }
     }
 
@@ -172,11 +178,12 @@ public class AutomaticEditText extends AppCompatEditText {
      * 计算匹配最大文本高度的字体大小
      */
     private void matchMaxHeightFontSize(){
-        List<Paint> paintList = new ArrayList<>();
+        List<CustomTextSpanData> customTextSpanDataList = new ArrayList<>();
         for(LineData lineData: mLineDataList){
-            paintList.add(lineData.getPaint());
+            CustomTextSpanData customTextSpanData = lineData.getCustomTextSpanData();
+            customTextSpanDataList.add(customTextSpanData);
         }
-        TextSizeAdjustHelper.calculateMatchHeightSize(paintList,mMaxTextHeight);
+        mTextSizeAdjustHelper.calculateMatchHeightSize(customTextSpanDataList,mMaxTextHeight);
     }
 
     private void updateText(String text){
@@ -184,9 +191,7 @@ public class AutomaticEditText extends AppCompatEditText {
         SpannableString spannableString = new SpannableString(text);
         for(LineData lineData: mLineDataList){
             Log.d("hyh", "AutomaticEditText: updateText: lineText="+lineData.getLineText()+" ,lineFontSize="+lineData.getFontSizePx());
-            CustomTextSpanData customTextSpanData = new CustomTextSpanData.Builder(lineData.getStartIndex(),lineData.getEndIndex())
-                .setTextSize(lineData.getFontSizeSp())
-                .build();
+            CustomTextSpanData customTextSpanData = lineData.getCustomTextSpanData();
             spannableString.setSpan(customTextSpanData.onCreateSpan(),customTextSpanData.getStartIndex(),customTextSpanData.getEndIndex(),
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
@@ -202,21 +207,13 @@ public class AutomaticEditText extends AppCompatEditText {
     }
 
     public static class LineData{
-        private Paint mPaint;
         //行文本
         private String mLineText;
-        private int mStartIndex;
-        private int mEndIndex;
+        private CustomTextSpanData mCustomTextSpanData;
 
-        public LineData(Paint paint, String lineStr, int startIndex, int endIndex) {
-            mPaint = new Paint(paint);
+        public LineData(String lineStr, CustomTextSpanData customTextSpanData) {
             mLineText = lineStr;
-            mStartIndex = startIndex;
-            mEndIndex = endIndex;
-        }
-
-        public Paint getPaint() {
-            return mPaint;
+            mCustomTextSpanData = customTextSpanData;
         }
 
         public String getLineText() {
@@ -224,27 +221,31 @@ public class AutomaticEditText extends AppCompatEditText {
         }
 
         public int getStartIndex() {
-            return mStartIndex;
+            return mCustomTextSpanData.getStartIndex();
         }
 
         public int getEndIndex() {
-            return mEndIndex;
-        }
-
-        public float getFontSizeSp(){
-            return SizeUtils.px2sp(mPaint.getTextSize());
+            return mCustomTextSpanData.getEndIndex();
         }
 
         public float getFontSizePx(){
-            return mPaint.getTextSize();
+            return mCustomTextSpanData.getTextSizePx();
+        }
+
+        public void setFontSizePx(float textSizePx){
+            mCustomTextSpanData.setTextSizePx(textSizePx);
+        }
+
+        public CustomTextSpanData getCustomTextSpanData() {
+            return mCustomTextSpanData;
         }
 
         @Override
         public String toString() {
             return "LineData{" +
                 "mLineText='" + mLineText + '\'' +
-                ", mStartIndex=" + mStartIndex +
-                ", mEndIndex=" + mEndIndex +
+                ", mStartIndex=" + mCustomTextSpanData.getStartIndex() +
+                ", mEndIndex=" + mCustomTextSpanData.getEndIndex() +
                 '}';
         }
     }

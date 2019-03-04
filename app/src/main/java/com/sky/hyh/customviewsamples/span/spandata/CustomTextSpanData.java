@@ -2,7 +2,9 @@ package com.sky.hyh.customviewsamples.span.spandata;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.util.Size;
 import com.sky.hyh.customviewsamples.span.CustomTextSpan;
+import com.sky.hyh.customviewsamples.utils.SizeUtils;
 
 /**
  * Created by hyh on 2018/12/18 16:18
@@ -42,6 +44,14 @@ public class CustomTextSpanData extends BaseSpanData {
         return mEndIndex;
     }
 
+    public float getTextSizePx() {
+        return SizeUtils.sp2px(mTextSizeSp);
+    }
+
+    public void setTextSizePx(float textSizePx){
+        mTextSizeSp = SizeUtils.px2sp(textSizePx);
+    }
+
     @Override
     public CustomTextSpan onCreateSpan() {
         return new CustomTextSpan(mTextSizeSp,
@@ -73,8 +83,13 @@ public class CustomTextSpanData extends BaseSpanData {
             mEndIndex = endIndex;
         }
 
-        public Builder setTextSize(float textSizeSp) {
+        public Builder setTextSizeSp(float textSizeSp) {
             mTextSizeSp = textSizeSp;
+            return this;
+        }
+
+        public Builder setTextSizePx(float textSizePx) {
+            mTextSizeSp = SizeUtils.px2sp(textSizePx);
             return this;
         }
 

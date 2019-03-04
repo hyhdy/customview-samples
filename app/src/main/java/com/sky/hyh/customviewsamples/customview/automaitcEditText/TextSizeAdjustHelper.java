@@ -1,12 +1,15 @@
 package com.sky.hyh.customviewsamples.customview.automaitcEditText;
 
 import android.graphics.Paint;
-import android.support.annotation.NonNull;
 import android.text.DynamicLayout;
 import android.text.Layout;
 import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextPaint;
 import android.util.Log;
+import android.widget.TextView;
+import com.sky.hyh.customviewsamples.span.spandata.CustomTextSpanData;
+import com.sky.hyh.customviewsamples.utils.SizeUtils;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,28 +23,41 @@ public class TextSizeAdjustHelper {
      */
     private static final float MIN_WIDTH_GAP = 1f;
     /**
-     * 高度允许的误差值
+     * 高度允许的误差值，px
      */
-    private static final int HEIGHT_ERROR_VALUE = 10;
+    private static final int HEIGHT_ERROR_VALUE_DP = 5;
+    private static final float RATE_SCALE_ERROR_VALUE = 0.001f;
     public static final float CONVER_RATE = 0.1f;
-    private static List<Paint> sOriPaintList;
-    private static List<Paint> sCopyPaintList = new ArrayList<>();
 
-    public static void calculateMatchHeightSize(List<Paint> paintList, int maxHeight){
-        if(paintList == null){
-            Log.d("hyh", "TextSizeAdjustHelper: calculateMatchHeightSize: error: paintList is null");
+    private int mHeightErrorValue;
+    private TextView mHost;
+    private List<CustomTextSpanData> mCustomTextSpanDataList;
+    private List<Float> mOriFontSizePxList;
+
+    public TextSizeAdjustHelper(TextView host) {
+        mHost = host;
+        mHeightErrorValue = SizeUtils.dp2px(HEIGHT_ERROR_VALUE_DP);
+    }
+
+    public void calculateMatchHeightSize(List<CustomTextSpanData> customTextSpanDataList, int maxHeight){
+        if(customTextSpanDataList == null){
+            Log.d("hyh", "TextSizeAdjustHelper: calculateMatchHeightSize: error: customTextSpanDataList is null");
             return;
         }
-        Log.d("hyh", "TextSizeAdjustHelper: calculateMatchHeightSize: paintList.size="+paintList.size());
-        sOriPaintList = paintList;
-        copyPaintList(paintList);
-        int totalLineHeight = getTotalLineHeight();
+        mCustomTextSpanDataList = customTextSpanDataList;
+        if(mOriFontSizePxList == null){
+            mOriFontSizePxList = new ArrayList<>();
+        }
+        for(CustomTextSpanData customTextSpanData: customTextSpanDataList){
+            mOriFontSizePxList.add(customTextSpanData.getTextSizePx());
+        }
+
+        int totalLineHeight = getTextHeight();
         Log.d("hyh", "TextSizeAdjustHelper: calculateMatchHeightSize: totalLineHeight="+totalLineHeight);
         if(totalLineHeight > maxHeight){
             //文本高度大于最大高度则需要等比例缩小各行字体大小，直到文本总高度小于最大高度
-            int minHeight =maxHeight - HEIGHT_ERROR_VALUE;
+            int minHeight =maxHeight - mHeightErrorValue;
             calculateMatchHeightSizeByRate(0,1,minHeight,maxHeight);
-            copyValue();
         }
         reset();
     }
@@ -50,11 +66,15 @@ public class TextSizeAdjustHelper {
      * 二分法查找合适的字体大小，字体大小按比例调整
      * @return
      */
-    private static void calculateMatchHeightSizeByRate(float lowRate,float highRate,int minHeight,int maxHeight){
+    private void calculateMatchHeightSizeByRate(float lowRate,float highRate,int minHeight,int maxHeight){
         Log.d("hyh", "TextSizeAdjustHelper: calculateMatchHeightSizeByRate: lowRate="+lowRate+" ,highRate="+highRate+" ,minHeight="+minHeight+" ,maxHeight="+maxHeight);
+        if(highRate - lowRate <= RATE_SCALE_ERROR_VALUE){
+            Log.d("hyh", "TextSizeAdjustHelper: calculateMatchHeightSizeByRate: rate return");
+            return;
+        }
         float middleRate= (lowRate+highRate)/2;
         scaleFontSizeByRate(middleRate);
-        int height = getTotalLineHeight();
+        int height = getTextHeight();
         Log.d("hyh", "TextSizeAdjustHelper: calculateMatchHeightSizeByRate: height="+height);
         if(height > maxHeight){
             //缩小字体后文字高度大于最大值，需要继续缩小字体
@@ -69,67 +89,55 @@ public class TextSizeAdjustHelper {
         }
     }
 
-    private static void copyPaintList(@NonNull List<Paint> paintList){
-        for(Paint paint: paintList){
-            Paint copyPaint = new Paint(paint);
-            sCopyPaintList.add(copyPaint);
-        }
-        Log.d("hyh", "TextSizeAdjustHelper: copyPaintList: sCopyPaintList.size="+sCopyPaintList.size());
+    private int getTextHeight(){
+        Layout layout = buildLayout(mHost.getLayout());
+        return layout.getHeight();
     }
 
-    /**
-     * 获取单行文本高度
-     * @return
-     */
-    private static int getSingleLineHeight(Paint paint){
-        int height = paint.getFontMetricsInt(null);
-        //Log.d("hyh", "TextSizeAdjustHelper: getSingleLineHeight: fontSize="+paint.getTextSize()+" ,height="+height);
-        return height;
-    }
-
-    private static int getTotalLineHeight(){
-        int totalLineHeight = 0;
-        for(Paint paint: sCopyPaintList){
-            int lineHeight = getSingleLineHeight(paint);
-            totalLineHeight += lineHeight;
-        }
-        return totalLineHeight;
-    }
-
-    private static void scaleFontSizeByRate(float rate){
-        for(int i=0;i<sOriPaintList.size();i++){
-            float fontSize = sOriPaintList.get(i).getTextSize() * rate;
-            sCopyPaintList.get(i).setTextSize(fontSize);
+    private void scaleFontSizeByRate(float rate){
+        for(int i=0;i<mOriFontSizePxList.size();i++){
+            float fontSize = mOriFontSizePxList.get(i) * rate;
+            mCustomTextSpanDataList.get(i).setTextSizePx(fontSize);
         }
     }
 
-    private static void copyValue(){
-        Log.d("hyh", "TextSizeAdjustHelper: copyValue: sCopyPaintList.size="+sCopyPaintList.size());
-        for(int i=0;i<sCopyPaintList.size();i++){
-            float fontSize = sCopyPaintList.get(i).getTextSize();
-            Log.d("hyh", "TextSizeAdjustHelper: copyValue: fontSize="+fontSize);
-            sOriPaintList.get(i).setTextSize(fontSize);
+    private void reset(){
+        mOriFontSizePxList.clear();
+        mCustomTextSpanDataList.clear();
+        mCustomTextSpanDataList = null;
+    }
+
+    private Layout buildLayout(Layout layout){
+        SpannableString spannableString = buildSpannableString(mCustomTextSpanDataList,layout.getText());
+        DynamicLayout dynamicLayout = new DynamicLayout(spannableString,new TextPaint(layout.getPaint()),layout.getWidth(),layout.getAlignment(),layout.getSpacingMultiplier(),layout.getSpacingAdd(),mHost.getIncludeFontPadding());
+        return dynamicLayout;
+    }
+
+    private SpannableString buildSpannableString(List<CustomTextSpanData> customTextSpanDataList,CharSequence text){
+        SpannableString spannableString = new SpannableString(text);
+        for(CustomTextSpanData customTextSpanData: customTextSpanDataList) {
+            spannableString.setSpan(customTextSpanData.onCreateSpan(),
+                customTextSpanData.getStartIndex(), customTextSpanData.getEndIndex(),
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
+        return spannableString;
     }
 
-    private static void reset(){
-        sOriPaintList.clear();
-        sOriPaintList = null;
-        sCopyPaintList.clear();
-    }
-
-    public static void calculateMatchWidthSize(Paint paint,String text,int maxWidth){
+    public static float calculateMatchWidthSize(Paint paint,String text,int maxWidth){
+        float textSize = paint.getTextSize();
         float width = paint.measureText(text);
         Log.d("hyh", "TextSizeAdjustHelper: calculateMatchWidthSize: width="+width);
         if(width > maxWidth){
-            getNarrowFitTextSize(paint,text,maxWidth,1);
+            textSize = getNarrowFitTextSize(paint,text,maxWidth,1);
         }else if(maxWidth - width > MIN_WIDTH_GAP){
-            getZoomFitTextSize(paint,text,maxWidth,1);
+            textSize = getZoomFitTextSize(paint,text,maxWidth,1);
         }
         Log.d("hyh", "TextSizeAdjustHelper: calculateMatchWidthSize: fontSize="+paint.getTextSize());
+        return textSize;
+
     }
 
-    private static void getNarrowFitTextSize(Paint paint,String text,int maxWidth,float rate){
+    private static float getNarrowFitTextSize(Paint paint,String text,int maxWidth,float rate){
         Log.d("hyh", "TextSizeAdjustHelper: getNarrowFitTextSize: text="+text+" ,maxWidth="+maxWidth+" ,rate="+rate);
         float textSize = paint.getTextSize();
         textSize -= 1 * rate;
@@ -138,17 +146,19 @@ public class TextSizeAdjustHelper {
         Log.d("hyh", "TextSizeAdjustHelper: getNarrowFitTextSize: width="+width);
         //结束条件
         if(width < maxWidth || (maxWidth - width) < MIN_WIDTH_GAP){
-            return;
+            return textSize;
         }
 
         if(width > maxWidth){
-            getNarrowFitTextSize(paint,text,maxWidth,rate);
+            return getNarrowFitTextSize(paint,text,maxWidth,rate);
         }else if(width < maxWidth){
-            getZoomFitTextSize(paint, text,maxWidth, CONVER_RATE * rate);
+            return getZoomFitTextSize(paint, text,maxWidth, CONVER_RATE * rate);
+        }else{
+            return textSize;
         }
     }
 
-    private static void getZoomFitTextSize(Paint paint,String text,int maxWidth,float rate){
+    private static float getZoomFitTextSize(Paint paint,String text,int maxWidth,float rate){
         Log.d("hyh", "TextSizeAdjustHelper: getZoomFitTextSize: text="+text+" ,maxWidth="+maxWidth+" ,rate="+rate);
         float textSize = paint.getTextSize();
         textSize += 1 * rate;
@@ -157,23 +167,15 @@ public class TextSizeAdjustHelper {
         Log.d("hyh", "TextSizeAdjustHelper: getZoomFitTextSize: width="+width);
         //结束条件
         if(width < maxWidth || (maxWidth - width) < MIN_WIDTH_GAP){
-            return;
+            return textSize;
         }
 
         if(width > maxWidth){
-            getNarrowFitTextSize(paint,text,maxWidth,CONVER_RATE * rate);
+            return getNarrowFitTextSize(paint,text,maxWidth,CONVER_RATE * rate);
         }else if(width < maxWidth){
-            getZoomFitTextSize(paint, text,maxWidth, rate);
+            return getZoomFitTextSize(paint, text,maxWidth, rate);
+        }else{
+            return textSize;
         }
     }
-
-    //private Layout getDefLayout(){
-    //    int oriHeight = getLayout().getHeight();
-    //    SpannableString spannableString = new SpannableString(getText());
-    //    DynamicLayout
-    //        dynamicLayout = new DynamicLayout(spannableString,new TextPaint(getPaint()),getLayout().getWidth(),getLayout().getAlignment(),getLayout().getSpacingMultiplier(),getLayout().getSpacingAdd(),getIncludeFontPadding());
-    //    Log.d("hyh", "AutomaticEditText: getDefLayout: oriHeigh="+oriHeight+" ,height="+dynamicLayout.getHeight());
-    //    return dynamicLayout;
-    //}
-
 }

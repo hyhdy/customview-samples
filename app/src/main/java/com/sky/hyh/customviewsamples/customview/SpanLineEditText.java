@@ -1,12 +1,10 @@
 package com.sky.hyh.customviewsamples.customview;
 
 import android.content.Context;
-import android.graphics.RectF;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.Layout;
 import android.text.SpannableString;
 import android.text.Spanned;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import com.sky.hyh.customviewsamples.span.spandata.CustomTextSpanData;
@@ -62,7 +60,7 @@ public class SpanLineEditText extends AppCompatEditText {
                 String rowStr = text.substring(start,end);
                 Log.d("hyh", "SpanLineEditText: refresh: rowStr="+rowStr+" ,start="+start+" ,end="+end);
                 CustomTextSpanData customTextSpanData = new CustomTextSpanData.Builder(text,start,end)
-                    .setTextSize(getRangeRandomInt())
+                    .setTextSizeSp(getRangeRandomInt())
                     .build();
                 mCustomTextSpanDataList.add(customTextSpanData);
             }
