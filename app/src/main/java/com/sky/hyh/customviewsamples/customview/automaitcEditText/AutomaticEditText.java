@@ -83,6 +83,7 @@ public class AutomaticEditText extends AppCompatEditText {
 
     private void refresh(){
         if(getLayout() != null){
+            //注意这里需要构建一个text不是Spannable，字体大小是默认字体大小的Layout，这样才能准确得出每行应该显示的文本
             Layout defLayout = getDefLayout();
             String text = defLayout.getText().toString();
             Log.d("hyh", "AutomaticEditText: refresh: text="+text);
@@ -194,7 +195,10 @@ public class AutomaticEditText extends AppCompatEditText {
     }
 
     private Layout getDefLayout(){
-        return new DynamicLayout(getLayout().getText().toString(),new TextPaint(getPaint()),getLayout().getWidth(),getLayout().getAlignment(),getLayout().getSpacingMultiplier(),getLayout().getSpacingAdd(),getIncludeFontPadding());
+        //注意这里的text是String不是Spannable
+        String textString = getText().toString();
+        DynamicLayout dynamicLayout = new DynamicLayout(textString,new TextPaint(getPaint()),getLayout().getWidth(),getLayout().getAlignment(),getLayout().getSpacingMultiplier(),getLayout().getSpacingAdd(),getIncludeFontPadding());
+        return dynamicLayout;
     }
 
     public static class LineData{

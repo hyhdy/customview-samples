@@ -2,6 +2,10 @@ package com.sky.hyh.customviewsamples.customview.automaitcEditText;
 
 import android.graphics.Paint;
 import android.support.annotation.NonNull;
+import android.text.DynamicLayout;
+import android.text.Layout;
+import android.text.SpannableString;
+import android.text.TextPaint;
 import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +20,9 @@ public class TextSizeAdjustHelper {
      */
     private static final float MIN_WIDTH_GAP = 1f;
     /**
-     * 误差比例
+     * 高度允许的误差值
      */
-    private static final float ERROR_RATE = 0.05f;
+    private static final int HEIGHT_ERROR_VALUE = 10;
     public static final float CONVER_RATE = 0.1f;
     private static List<Paint> sOriPaintList;
     private static List<Paint> sCopyPaintList = new ArrayList<>();
@@ -28,12 +32,14 @@ public class TextSizeAdjustHelper {
             Log.d("hyh", "TextSizeAdjustHelper: calculateMatchHeightSize: error: paintList is null");
             return;
         }
+        Log.d("hyh", "TextSizeAdjustHelper: calculateMatchHeightSize: paintList.size="+paintList.size());
         sOriPaintList = paintList;
         copyPaintList(paintList);
         int totalLineHeight = getTotalLineHeight();
+        Log.d("hyh", "TextSizeAdjustHelper: calculateMatchHeightSize: totalLineHeight="+totalLineHeight);
         if(totalLineHeight > maxHeight){
             //文本高度大于最大高度则需要等比例缩小各行字体大小，直到文本总高度小于最大高度
-            int minHeight = (int) (maxHeight * (1 - ERROR_RATE));
+            int minHeight =maxHeight - HEIGHT_ERROR_VALUE;
             calculateMatchHeightSizeByRate(0,1,minHeight,maxHeight);
             copyValue();
         }
@@ -46,11 +52,6 @@ public class TextSizeAdjustHelper {
      */
     private static void calculateMatchHeightSizeByRate(float lowRate,float highRate,int minHeight,int maxHeight){
         Log.d("hyh", "TextSizeAdjustHelper: calculateMatchHeightSizeByRate: lowRate="+lowRate+" ,highRate="+highRate+" ,minHeight="+minHeight+" ,maxHeight="+maxHeight);
-        if((lowRate+ERROR_RATE)>=highRate){
-            //low和high之间差距在0.01以内就停止，防止递归出现死循环
-            Log.d("hyh", "TextSizeAdjustHelper: calculateMatchHeightSizeByRate: font return");
-            return;
-        }
         float middleRate= (lowRate+highRate)/2;
         scaleFontSizeByRate(middleRate);
         int height = getTotalLineHeight();
@@ -73,6 +74,7 @@ public class TextSizeAdjustHelper {
             Paint copyPaint = new Paint(paint);
             sCopyPaintList.add(copyPaint);
         }
+        Log.d("hyh", "TextSizeAdjustHelper: copyPaintList: sCopyPaintList.size="+sCopyPaintList.size());
     }
 
     /**
@@ -81,7 +83,7 @@ public class TextSizeAdjustHelper {
      */
     private static int getSingleLineHeight(Paint paint){
         int height = paint.getFontMetricsInt(null);
-        Log.d("hyh", "TextSizeAdjustHelper: getSingleLineHeight: fontSize="+paint.getTextSize()+" ,height="+height);
+        //Log.d("hyh", "TextSizeAdjustHelper: getSingleLineHeight: fontSize="+paint.getTextSize()+" ,height="+height);
         return height;
     }
 
@@ -102,6 +104,7 @@ public class TextSizeAdjustHelper {
     }
 
     private static void copyValue(){
+        Log.d("hyh", "TextSizeAdjustHelper: copyValue: sCopyPaintList.size="+sCopyPaintList.size());
         for(int i=0;i<sCopyPaintList.size();i++){
             float fontSize = sCopyPaintList.get(i).getTextSize();
             Log.d("hyh", "TextSizeAdjustHelper: copyValue: fontSize="+fontSize);
@@ -163,5 +166,14 @@ public class TextSizeAdjustHelper {
             getZoomFitTextSize(paint, text,maxWidth, rate);
         }
     }
+
+    //private Layout getDefLayout(){
+    //    int oriHeight = getLayout().getHeight();
+    //    SpannableString spannableString = new SpannableString(getText());
+    //    DynamicLayout
+    //        dynamicLayout = new DynamicLayout(spannableString,new TextPaint(getPaint()),getLayout().getWidth(),getLayout().getAlignment(),getLayout().getSpacingMultiplier(),getLayout().getSpacingAdd(),getIncludeFontPadding());
+    //    Log.d("hyh", "AutomaticEditText: getDefLayout: oriHeigh="+oriHeight+" ,height="+dynamicLayout.getHeight());
+    //    return dynamicLayout;
+    //}
 
 }
