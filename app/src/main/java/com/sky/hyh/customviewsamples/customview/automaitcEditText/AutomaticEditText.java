@@ -145,6 +145,7 @@ public class AutomaticEditText extends AppCompatEditText {
             int start = layout.getLineStart(i);
             int end = layout.getLineEnd(i);
             String rowStr = text.substring(start,end);
+            Log.d("hyh", "AutomaticEditText: spliteLineData: defTextSize="+getPaint().getTextSize());
             CustomTextSpanData customTextSpanData = new CustomTextSpanData.Builder(start,end)
                 .setTextSizePx(getPaint().getTextSize())
                 .build();
@@ -158,18 +159,18 @@ public class AutomaticEditText extends AppCompatEditText {
      * 计算匹配最大文本宽度的字体大小
      */
     private void matchMaxWidthFontSize(){
-        Paint paint = new Paint(getPaint());
         for(LineData lineData: mLineDataList){
+            Paint paint = new Paint(getPaint());
             String lineText = lineData.getLineText();
             float textSize = paint.getTextSize();
             if(!TextUtils.isEmpty(lineText)){
                 float textWidth = paint.measureText(lineText);
-                Log.d("hyh", "AutomaticEditText: matchMaxWidthFontSize: lineText="+lineText+" ,textWidth="+textWidth);
+                //按照宽高比缩放字体
                 textSize = mMaxTextWidth / textWidth * textSize;
-                Log.d("hyh", "AutomaticEditText: matchMaxWidthFontSize: textSize="+textSize);
+                paint.setTextSize(textSize);
+                //缩放字体后还得检查行宽度是否大于最大文本宽度，如果大于则还需要调小字体
+                textSize = mTextSizeAdjustHelper.calculateMatchWidthSize(paint,lineText,mMaxTextWidth);
             }
-            paint.setTextSize(textSize);
-            textSize = TextSizeAdjustHelper.calculateMatchWidthSize(paint,lineText,mMaxTextWidth);
             lineData.setFontSizePx(textSize);
         }
     }

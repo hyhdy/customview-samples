@@ -66,9 +66,9 @@ public class CustomTextSpan extends ReplacementSpan {
                 resetFm(fm);
             }
             Paint.FontMetricsInt customTextPaintFm = mPaint.getFontMetricsInt();
-            Log.d(TAG, "getSize: text="+text+" ,start="+start+" ,end="+end);
-            Log.d(TAG, "getSize: fm="+fm.toString());
-            Log.d(TAG, "getSize: customTextPaintFm="+customTextPaintFm.toString());
+            //Log.d(TAG, "getSize: text="+text+" ,start="+start+" ,end="+end);
+            //Log.d(TAG, "getSize: fm="+fm.toString());
+            //Log.d(TAG, "getSize: customTextPaintFm="+customTextPaintFm.toString());
 
             int top = customTextPaintFm.top-SPACING;
             int ascent = customTextPaintFm.ascent-SPACING;
