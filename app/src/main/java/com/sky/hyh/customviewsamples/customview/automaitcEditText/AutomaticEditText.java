@@ -11,7 +11,6 @@ import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.util.Pair;
 import android.view.View;
 import com.sky.hyh.customviewsamples.span.spandata.CustomTextSpanData;
 import com.sky.hyh.customviewsamples.utils.SizeUtils;
@@ -195,10 +194,7 @@ public class AutomaticEditText extends AppCompatEditText {
     }
 
     private Layout getDefLayout(){
-        TextPaint textPaint = new TextPaint(getPaint());
-        float fontSize = textPaint.getTextSize();
-        Log.d("hyh", "AutomaticEditText: getDefLayout: fontSize="+fontSize);
-        return new DynamicLayout(getLayout().getText().toString(),textPaint,mMaxTextWidth+WIDTH_OFFSET,getLayout().getAlignment(),getLayout().getSpacingMultiplier(),getLayout().getSpacingAdd(),getIncludeFontPadding());
+        return new DynamicLayout(getLayout().getText().toString(),new TextPaint(getPaint()),getLayout().getWidth(),getLayout().getAlignment(),getLayout().getSpacingMultiplier(),getLayout().getSpacingAdd(),getIncludeFontPadding());
     }
 
     public static class LineData{
