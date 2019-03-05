@@ -72,8 +72,6 @@ public class AutomaticEditText extends AppCompatEditText {
         //不设置行间距
         setLineSpacing(0,1);
         mTextSizeAdjustHelper = new TextSizeAdjustHelper(this);
-
-        mMaxTextWidth = SizeUtils.dp2px(200) - getPaddingLeft() - getPaddingRight() - SizeUtils.dp2px(WIDTH_OFFSET);
     }
 
     @Override
@@ -212,6 +210,8 @@ public class AutomaticEditText extends AppCompatEditText {
     private float calculateMaxWidth(){
         String maxLengthText = "";
         LineData maxLengthLineData = null;
+        Paint copyPaint = new Paint(getPaint());
+        float maxLineWidth = 0;
         for(LineData lineData: mLineDataList){
             String lineText = lineData.getLineText();
             Log.d("hyh", "AutomaticEditText: calculateMaxWidth: lineText="+lineText+" ,length="+lineText.length());
@@ -219,26 +219,40 @@ public class AutomaticEditText extends AppCompatEditText {
                 maxLengthText = lineText;
                 maxLengthLineData = lineData;
             }
+
+            copyPaint.setTextSize(lineData.getFontSizePx());
+            float width = copyPaint.measureText(lineData.getLineText());
+            if(width > maxLineWidth){
+                maxLineWidth = width;
+            }
         }
+
         if(maxLengthLineData == null){
-            return 0;
+            return maxLineWidth;
         }
 
-        Paint paint = new Paint(getPaint());
-        float width = paint.measureText(maxLengthText);
-        float rate = (mInitWidgetWidth - getPaddingLeft() - getPaddingRight()) / width;
-        Log.d("hyh", "AutomaticEditText: calculateMaxWidth: width="+width+" ,rate="+rate+" ,lineText="+maxLengthText);
-        float fontSize = maxLengthLineData.getFontSizePx();
-        Log.d("hyh", "AutomaticEditText: calculateMaxWidth: oriFontSize="+paint.getTextSize()+" ,nowFontSize="+fontSize);
-        paint.setTextSize(fontSize);
-        float textWidth = paint.measureText(maxLengthText);
-        float maxWidth = textWidth * rate;
-        Log.d("hyh", "AutomaticEditText: calculateMaxWidth: textWidth="+textWidth+" ,maxWidth="+maxWidth+" ,mMaxTextWidth="+mMaxTextWidth);
-
+        float maxLengthLineWidth = calculateMaxLengthLineWidth(maxLengthLineData);
+        Log.d("hyh", "AutomaticEditText: calculateMaxWidth: maxLineWidth="+maxLineWidth+" ,maxLengthLineWidth="+maxLengthLineWidth);
+        float maxWidth = maxLineWidth > maxLengthLineWidth? maxLineWidth:maxLengthLineWidth;
+        Log.d("hyh", "AutomaticEditText: calculateMaxWidth: maxWidth="+maxWidth+" ,mMaxTextWidth="+mMaxTextWidth);
         if(maxWidth > mMaxTextWidth){
             maxWidth = mMaxTextWidth;
         }
 
+        return maxWidth;
+    }
+
+    private float calculateMaxLengthLineWidth(LineData lineData){
+        Paint paint = new Paint(getPaint());
+        float width = paint.measureText(lineData.getLineText());
+        float rate = (mInitWidgetWidth - getPaddingLeft() - getPaddingRight()) / width;
+        Log.d("hyh", "AutomaticEditText: calculateMaxWidth: width="+width+" ,rate="+rate);
+        float fontSize = lineData.getFontSizePx();
+        Log.d("hyh", "AutomaticEditText: calculateMaxWidth: oriFontSize="+paint.getTextSize()+" ,nowFontSize="+fontSize);
+        paint.setTextSize(fontSize);
+        float textWidth = paint.measureText(lineData.getLineText());
+        float maxWidth = textWidth * rate;
+        Log.d("hyh", "AutomaticEditText: calculateMaxWidth: textWidth="+textWidth+" ,maxWidth="+maxWidth);
         return maxWidth;
     }
 
@@ -256,7 +270,7 @@ public class AutomaticEditText extends AppCompatEditText {
     }
 
     private Layout getDefLayout(){
-        int width = mMaxTextWidth + getPaddingLeft() + getPaddingRight() + SizeUtils.dp2px(WIDTH_OFFSET);
+        int width = mInitWidgetWidth - getPaddingLeft() - getPaddingRight();
         //注意这里的text是String不是Spannable
         String textString = getText().toString();
         DynamicLayout dynamicLayout = new DynamicLayout(textString,new TextPaint(getPaint()),width,getLayout().getAlignment(),getLayout().getSpacingMultiplier(),getLayout().getSpacingAdd(),getIncludeFontPadding());
