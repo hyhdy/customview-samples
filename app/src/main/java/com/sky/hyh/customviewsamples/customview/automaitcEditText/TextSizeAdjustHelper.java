@@ -132,9 +132,8 @@ public class TextSizeAdjustHelper {
     }
 
     private float getNarrowFitTextSize(Paint paint,String text,int maxWidth,float rate){
-        Log.d("hyh", "TextSizeAdjustHelper: getNarrowFitTextSize: text="+text+" ,maxWidth="+maxWidth+" ,rate="+rate);
+        Log.d("hyh", "TextSizeAdjustHelper: getNarrowFitTextSize: text="+text+" ,maxWidth="+maxWidth);
         float textSize = paint.getTextSize();
-        Log.d("hyh", "TextSizeAdjustHelper: getNarrowFitTextSize: before textSize="+textSize);
         textSize -= 1 * rate;
         Log.d("hyh", "TextSizeAdjustHelper: getNarrowFitTextSize: textSize="+textSize);
         paint.setTextSize(textSize);
