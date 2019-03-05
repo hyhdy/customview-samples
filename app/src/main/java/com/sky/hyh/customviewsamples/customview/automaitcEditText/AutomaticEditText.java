@@ -1,17 +1,14 @@
 package com.sky.hyh.customviewsamples.customview.automaitcEditText;
 
 import android.content.Context;
-import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.DynamicLayout;
-import android.text.Editable;
 import android.text.Layout;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
@@ -29,7 +26,6 @@ import java.util.List;
  */
 public class AutomaticEditText extends AppCompatEditText {
     public static final int WIDTH_OFFSET = 10;
-    public static final int HEIGHT_OFFSET = 0;
 
     //默认字体大小
     public static final float DEF_FONT_SIZE_SP = 16;
@@ -39,9 +35,9 @@ public class AutomaticEditText extends AppCompatEditText {
     private int mInitWidgetWidth;
     private boolean mResetWidgetSize;
     /**
-     * 最大文本高度
+     * 文本有效的显示高度
      */
-    private int mMaxTextHeight;
+    private int mValidShowHeight;
     /**
      * 每行可输入文本的最大宽度
      */
@@ -76,10 +72,11 @@ public class AutomaticEditText extends AppCompatEditText {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         if((w != oldw || h != oldh) && !mResetWidgetSize){
             mResetWidgetSize = false;
-            mMaxTextHeight = h - getPaddingTop() - getPaddingBottom() - SizeUtils.dp2px(HEIGHT_OFFSET);
+            mValidShowHeight = h - getPaddingTop() - getPaddingBottom();
             mInitWidgetWidth = w;
             mMaxTextWidth = w - getPaddingLeft() - getPaddingRight() - SizeUtils.dp2px(WIDTH_OFFSET);
-            Log.d("hyh", "AutomaticEditText: onSizeChanged: mMaxTextHeight="+ mMaxTextHeight+ " ,mMaxTextWidth="+mMaxTextWidth);
+            Log.d("hyh", "AutomaticEditText: onSizeChanged: mValidShowHeight="+ mValidShowHeight
+                + " ,mMaxTextWidth="+mMaxTextWidth);
         }
     }
 
@@ -208,7 +205,9 @@ public class AutomaticEditText extends AppCompatEditText {
             CustomTextSpanData customTextSpanData = lineData.getCustomTextSpanData();
             customTextSpanDataList.add(customTextSpanData);
         }
-        mTextSizeAdjustHelper.calculateMatchHeightSize(customTextSpanDataList,mMaxTextHeight);
+        //maxTextHeight不能直接等于mValidShowHeight，需要预留一行的高度，这样在手动换行时就不会出现抖动的问题
+        int maxTextHeight = mValidShowHeight - getPaint().getFontMetricsInt(null);
+        mTextSizeAdjustHelper.calculateMatchHeightSize(customTextSpanDataList,maxTextHeight);
     }
 
     private void updateText(String text){
