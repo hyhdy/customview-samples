@@ -48,11 +48,12 @@ public class TextSizeAdjustHelper {
             mOriFontSizePxList.add(customTextSpanData.getTextSizePx());
         }
 
-        int totalLineHeight = getTextHeight();
-        Log.d("hyh", "TextSizeAdjustHelper: calculateMatchHeightSize: totalLineHeight="+totalLineHeight);
-        if(totalLineHeight > maxHeight){
+        int textHeight = getTextHeight();
+        Log.d("hyh", "TextSizeAdjustHelper: calculateMatchHeightSize: textHeight="+textHeight+" ,maxHeight="+maxHeight);
+        if(textHeight > maxHeight){
             //文本高度大于最大高度则需要等比例缩小各行字体大小，直到文本总高度小于最大高度
             int minHeight =maxHeight - mHeightGap;
+            Log.d("hyh", "TextSizeAdjustHelper: calculateMatchHeightSize: minHeight="+minHeight+" ,maxHeight="+maxHeight);
             calculateMatchHeightSizeByRate(0,1,minHeight,maxHeight);
         }
         reset();
@@ -63,7 +64,7 @@ public class TextSizeAdjustHelper {
      * @return
      */
     private void calculateMatchHeightSizeByRate(float lowRate,float highRate,int minHeight,int maxHeight){
-        Log.d("hyh", "TextSizeAdjustHelper: calculateMatchHeightSizeByRate: lowRate="+lowRate+" ,highRate="+highRate+" ,minHeight="+minHeight+" ,maxHeight="+maxHeight);
+        Log.d("hyh", "TextSizeAdjustHelper: calculateMatchHeightSizeByRate: lowRate="+lowRate+" ,highRate="+highRate);
         if(highRate - lowRate <= RATE_SCALE_ERROR_VALUE){
             Log.d("hyh", "TextSizeAdjustHelper: calculateMatchHeightSizeByRate: rate return");
             return;
@@ -132,10 +133,8 @@ public class TextSizeAdjustHelper {
     }
 
     private float getNarrowFitTextSize(Paint paint,String text,int maxWidth,float rate){
-        Log.d("hyh", "TextSizeAdjustHelper: getNarrowFitTextSize: text="+text+" ,maxWidth="+maxWidth);
         float textSize = paint.getTextSize();
         textSize -= 1 * rate;
-        Log.d("hyh", "TextSizeAdjustHelper: getNarrowFitTextSize: textSize="+textSize);
         paint.setTextSize(textSize);
         float width = paint.measureText(text);
         Log.d("hyh", "TextSizeAdjustHelper: getNarrowFitTextSize: width="+width);
