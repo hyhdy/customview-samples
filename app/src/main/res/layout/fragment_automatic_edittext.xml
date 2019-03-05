@@ -5,8 +5,8 @@
 
     <com.sky.hyh.customviewsamples.customview.automaitcEditText.AutomaticEditText
         android:id="@+id/aet_input"
-        android:layout_width="250dp"
-        android:layout_height="300dp"
+        android:layout_width="200dp"
+        android:layout_height="250dp"
         android:layout_marginTop="50dp"
         android:layout_centerHorizontal="true"
         android:background="#44000000"
