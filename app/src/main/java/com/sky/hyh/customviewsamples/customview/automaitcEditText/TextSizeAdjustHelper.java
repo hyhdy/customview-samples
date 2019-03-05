@@ -19,19 +19,13 @@ import java.util.List;
  */
 public class TextSizeAdjustHelper {
     /**
-     * 目标宽度和理想宽度之间的允许高度误差
-     */
-    private static final float MIN_WIDTH_GAP_DP = 5;
-    /**
      * 高度允许的误差值
      */
     private static final int MIN_HEIGHT_GAP_DP = 5;
 
     private static final float RATE_SCALE_ERROR_VALUE = 0.001f;
-    public static final float CONVER_RATE = 0.1f;
 
     private int mHeightGap;
-    private int mWidthGap;
     private TextView mHost;
     private List<CustomTextSpanData> mCustomTextSpanDataList;
     private List<Float> mOriFontSizePxList;
@@ -39,7 +33,6 @@ public class TextSizeAdjustHelper {
     public TextSizeAdjustHelper(TextView host) {
         mHost = host;
         mHeightGap = SizeUtils.dp2px(MIN_HEIGHT_GAP_DP);
-        mWidthGap = SizeUtils.dp2px(MIN_WIDTH_GAP_DP);
     }
 
     public void calculateMatchHeightSize(List<CustomTextSpanData> customTextSpanDataList, int maxHeight){
@@ -130,7 +123,7 @@ public class TextSizeAdjustHelper {
     public float calculateMatchWidthSize(Paint paint,String text,int maxWidth){
         float textSize = paint.getTextSize();
         float width = paint.measureText(text);
-        Log.d("hyh", "TextSizeAdjustHelper: calculateMatchWidthSize: width="+width+" ,maxWidth="+maxWidth+" ,mWidthGap="+mWidthGap);
+        Log.d("hyh", "TextSizeAdjustHelper: calculateMatchWidthSize: width="+width+" ,maxWidth="+maxWidth);
         if(width > maxWidth){
             textSize = getNarrowFitTextSize(paint,text,maxWidth,1);
         }
@@ -141,42 +134,17 @@ public class TextSizeAdjustHelper {
     private float getNarrowFitTextSize(Paint paint,String text,int maxWidth,float rate){
         Log.d("hyh", "TextSizeAdjustHelper: getNarrowFitTextSize: text="+text+" ,maxWidth="+maxWidth+" ,rate="+rate);
         float textSize = paint.getTextSize();
+        Log.d("hyh", "TextSizeAdjustHelper: getNarrowFitTextSize: before textSize="+textSize);
         textSize -= 1 * rate;
+        Log.d("hyh", "TextSizeAdjustHelper: getNarrowFitTextSize: textSize="+textSize);
         paint.setTextSize(textSize);
         float width = paint.measureText(text);
         Log.d("hyh", "TextSizeAdjustHelper: getNarrowFitTextSize: width="+width);
         //结束条件
-        if(width < maxWidth && (maxWidth - width) < mWidthGap){
+        if(width <= maxWidth){
             return textSize;
-        }
-
-        if(width > maxWidth){
+        }else{
             return getNarrowFitTextSize(paint,text,maxWidth,rate);
-        }else if(width < maxWidth){
-            return getZoomFitTextSize(paint, text,maxWidth, CONVER_RATE * rate);
-        }else{
-            return textSize;
-        }
-    }
-
-    private float getZoomFitTextSize(Paint paint,String text,int maxWidth,float rate){
-        Log.d("hyh", "TextSizeAdjustHelper: getZoomFitTextSize: text="+text+" ,maxWidth="+maxWidth+" ,rate="+rate);
-        float textSize = paint.getTextSize();
-        textSize += 1 * rate;
-        paint.setTextSize(textSize);
-        float width = paint.measureText(text);
-        Log.d("hyh", "TextSizeAdjustHelper: getZoomFitTextSize: width="+width);
-        //结束条件
-        if(width < maxWidth && (maxWidth - width) < mWidthGap){
-            return textSize;
-        }
-
-        if(width > maxWidth){
-            return getNarrowFitTextSize(paint,text,maxWidth,CONVER_RATE * rate);
-        }else if(width < maxWidth){
-            return getZoomFitTextSize(paint, text,maxWidth, rate);
-        }else{
-            return textSize;
         }
     }
 }

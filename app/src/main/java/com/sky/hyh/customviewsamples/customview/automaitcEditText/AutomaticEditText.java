@@ -28,9 +28,9 @@ public class AutomaticEditText extends AppCompatEditText {
     public static final int HEIGHT_OFFSET = 0;
 
     //默认字体大小
-    public static final float DEF_FONT_SIZE = 16;
+    public static final float DEF_FONT_SIZE_SP = 16;
     /**
-     * 控件的初始宽度，随着输入文本的变化，控件的宽度会改变
+     * 控件的初始宽度，随着输入文本的变化，控件的宽度可能会改变
      */
     private int mInitWidgetWidth;
     private boolean mResetWidgetSize;
@@ -40,13 +40,9 @@ public class AutomaticEditText extends AppCompatEditText {
      */
     private int mMaxTextHeight;
     /**
-     * 最大文本宽度
+     * 每行可输入文本的最大宽度
      */
     private int mMaxTextWidth;
-    /**
-     * 默认字体大小，单位：px
-     */
-    private float mDefFontSizePx;
 
     private List<LineData> mLineDataList;
     private String mLastText = "";
@@ -63,15 +59,13 @@ public class AutomaticEditText extends AppCompatEditText {
 
     private void init() {
         setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-        setTextSize(DEF_FONT_SIZE);
-        mDefFontSizePx = SizeUtils.sp2px(DEF_FONT_SIZE);
-        Log.d("hyh", "AutomaticEditText: init: mDefFontSizePx="+mDefFontSizePx);
+        setTextSize(DEF_FONT_SIZE_SP);
         mLineDataList = new ArrayList<>();
+        mTextSizeAdjustHelper = new TextSizeAdjustHelper(this);
         //设为false，且不设置行间距，这样每行高度的累加值才等于文本总高度，即Layout.getHeight == Layout.getLineCount * TextPaint.getFontMetricsInt
         setIncludeFontPadding(false);
         //不设置行间距
         setLineSpacing(0,1);
-        mTextSizeAdjustHelper = new TextSizeAdjustHelper(this);
     }
 
     @Override
@@ -94,14 +88,14 @@ public class AutomaticEditText extends AppCompatEditText {
 
     private void refresh(){
         if(getLayout() != null){
-            //注意这里需要构建一个text不是Spannable，字体大小是默认字体大小的Layout，这样才能准确得出每行应该显示的文本
-            Layout defLayout = getDefLayout();
-            String text = defLayout.getText().toString();
+            //这里的Layout不能用EditText的Layout，不然无法正确拿到每行文本，需要构建一个默认Layout，文本的换行都依据该Layout算出
+            Layout correctLayout = getCorrectLayout();
+            String text = correctLayout.getText().toString();
             Log.d("hyh", "AutomaticEditText: refresh: text="+text);
-            boolean update = isUpdateText(defLayout);
+            boolean update = isUpdateText(correctLayout);
             Log.d("hyh", "AutomaticEditText: refresh: update="+update);
             if(update) {
-                spliteLineData(defLayout);
+                spliteLineData(correctLayout);
                 matchMaxWidthFontSize();
                 matchMaxHeightFontSize();
                 updateText(text);
@@ -184,9 +178,11 @@ public class AutomaticEditText extends AppCompatEditText {
             float textSize = paint.getTextSize();
             if(!TextUtils.isEmpty(lineText)){
                 float textWidth = paint.measureText(lineText);
-                Log.d("hyh", "AutomaticEditText: matchMaxWidthFontSize: textWidth="+textWidth+" ,mMaxTextWidth="+mMaxTextWidth);
-                //按照宽高比缩放字体
-                textSize = mMaxTextWidth / textWidth * textSize;
+                float maxWidth = mInitWidgetWidth - getPaddingLeft() - getPaddingRight();
+                Log.d("hyh", "AutomaticEditText: matchMaxWidthFontSize: textWidth="+textWidth+" ,maxWidth="+maxWidth);
+                //按照宽比缩放字体
+                textSize = maxWidth / textWidth * textSize;
+                Log.d("hyh", "AutomaticEditText: matchMaxWidthFontSize: textSize="+textSize);
                 paint.setTextSize(textSize);
                 //缩放字体后还得检查行宽度是否大于最大文本宽度，如果大于则还需要调小字体
                 textSize = mTextSizeAdjustHelper.calculateMatchWidthSize(paint,lineText,mMaxTextWidth);
@@ -269,7 +265,7 @@ public class AutomaticEditText extends AppCompatEditText {
         setSelection(text.length());
     }
 
-    private Layout getDefLayout(){
+    private Layout getCorrectLayout(){
         int width = mInitWidgetWidth - getPaddingLeft() - getPaddingRight();
         //注意这里的text是String不是Spannable
         String textString = getText().toString();
