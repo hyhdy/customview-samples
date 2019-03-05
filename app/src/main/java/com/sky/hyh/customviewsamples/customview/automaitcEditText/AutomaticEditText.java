@@ -14,6 +14,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import com.sky.hyh.customviewsamples.span.spandata.CustomTextSpanData;
@@ -103,6 +104,8 @@ public class AutomaticEditText extends AppCompatEditText {
                 matchMaxWidthFontSize();
                 matchMaxHeightFontSize();
                 updateText(text);
+                //需要将EditText的字体大小设置为所有行中最小的字体大小，不然会出现字体小于EditText字体的行不能紧凑显示，行高是EditText字体的行高而不是span指定字体的行高
+                setTextSize(TypedValue.COMPLEX_UNIT_PX,getMinFontSize());
                 int maxLineWidth = (int) calculateMaxLineWidth();
                 if(maxLineWidth > 0){
                     mResetWidgetSize = true;
@@ -253,6 +256,18 @@ public class AutomaticEditText extends AppCompatEditText {
         }
 
         return maxWidth;
+    }
+
+    private float getMinFontSize(){
+        float minFontSize = mDefFontSizePx;
+        for(LineData lineData: mLineDataList){
+            float fontSize = lineData.getFontSizePx();
+            Log.d("hyh", "AutomaticEditText: getMinFontSize: fontSize="+fontSize+" minFontSize="+minFontSize);
+            if(fontSize < minFontSize){
+                minFontSize = fontSize;
+            }
+        }
+        return minFontSize;
     }
 
     private float calculateMaxLengthLineWidth(LineData lineData){
