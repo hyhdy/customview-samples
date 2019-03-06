@@ -25,17 +25,17 @@ public class TextSizeAdjustHelper {
 
     private static final float RATE_SCALE_ERROR_VALUE = 0.001f;
 
+    private LayoutHelper mLayoutHelper;
     private int mHeightGap;
-    private TextView mHost;
     private List<CustomTextSpanData> mCustomTextSpanDataList;
     private List<Float> mOriFontSizePxList;
 
-    public TextSizeAdjustHelper(TextView host) {
-        mHost = host;
+    public TextSizeAdjustHelper(LayoutHelper layoutHelper) {
+        mLayoutHelper = layoutHelper;
         mHeightGap = SizeUtils.dp2px(MIN_HEIGHT_GAP_DP);
     }
 
-    public void calculateMatchHeightSize(List<CustomTextSpanData> customTextSpanDataList, int maxHeight){
+    public void calculateMatchHeightSize(String text,List<CustomTextSpanData> customTextSpanDataList, int maxHeight){
         if(customTextSpanDataList == null){
             Log.d("hyh", "TextSizeAdjustHelper: calculateMatchHeightSize: error: customTextSpanDataList is null");
             return;
@@ -48,13 +48,13 @@ public class TextSizeAdjustHelper {
             mOriFontSizePxList.add(customTextSpanData.getTextSizePx());
         }
 
-        int textHeight = getTextHeight();
+        int textHeight = getTextHeight(text);
         Log.d("hyh", "TextSizeAdjustHelper: calculateMatchHeightSize: textHeight="+textHeight+" ,maxHeight="+maxHeight);
         if(textHeight > maxHeight){
             //文本高度大于最大高度则需要等比例缩小各行字体大小，直到文本总高度小于最大高度
             int minHeight =maxHeight - mHeightGap;
             Log.d("hyh", "TextSizeAdjustHelper: calculateMatchHeightSize: minHeight="+minHeight+" ,maxHeight="+maxHeight);
-            calculateMatchHeightSizeByRate(0,1,minHeight,maxHeight);
+            calculateMatchHeightSizeByRate(0,1,minHeight,maxHeight,text);
         }
         reset();
     }
@@ -63,7 +63,7 @@ public class TextSizeAdjustHelper {
      * 二分法查找合适的字体大小，字体大小按比例调整
      * @return
      */
-    private void calculateMatchHeightSizeByRate(float lowRate,float highRate,int minHeight,int maxHeight){
+    private void calculateMatchHeightSizeByRate(float lowRate,float highRate,int minHeight,int maxHeight,String text){
         Log.d("hyh", "TextSizeAdjustHelper: calculateMatchHeightSizeByRate: lowRate="+lowRate+" ,highRate="+highRate);
         if(highRate - lowRate <= RATE_SCALE_ERROR_VALUE){
             Log.d("hyh", "TextSizeAdjustHelper: calculateMatchHeightSizeByRate: rate return");
@@ -71,24 +71,24 @@ public class TextSizeAdjustHelper {
         }
         float middleRate= (lowRate+highRate)/2;
         scaleFontSizeByRate(middleRate);
-        int height = getTextHeight();
+        int height = getTextHeight(text);
         Log.d("hyh", "TextSizeAdjustHelper: calculateMatchHeightSizeByRate: height="+height);
         if(height > maxHeight){
             //缩小字体后文字高度大于最大值，需要继续缩小字体
             highRate = middleRate;
-            calculateMatchHeightSizeByRate(lowRate,highRate,minHeight,maxHeight);
+            calculateMatchHeightSizeByRate(lowRate,highRate,minHeight,maxHeight,text);
         } else if(height < minHeight){
             //缩小字体后文字高度小于最小值，需要放大字体
             lowRate = middleRate;
-            calculateMatchHeightSizeByRate(lowRate,highRate,minHeight,maxHeight);
+            calculateMatchHeightSizeByRate(lowRate,highRate,minHeight,maxHeight,text);
         }else{
             Log.d("hyh", "TextSizeAdjustHelper: calculateMatchHeightSizeByRate: height return");
         }
     }
 
-    private int getTextHeight(){
-        Layout layout = buildLayout(mHost.getLayout());
-        return layout.getHeight();
+    private int getTextHeight(String text){
+        SpannableString spannableString = buildSpannableString(mCustomTextSpanDataList,text);
+        return mLayoutHelper.buildFakeLayout(spannableString).getHeight();
     }
 
     private void scaleFontSizeByRate(float rate){
@@ -103,12 +103,6 @@ public class TextSizeAdjustHelper {
         mOriFontSizePxList.clear();
         mCustomTextSpanDataList.clear();
         mCustomTextSpanDataList = null;
-    }
-
-    private Layout buildLayout(Layout layout){
-        SpannableString spannableString = buildSpannableString(mCustomTextSpanDataList,layout.getText());
-        DynamicLayout dynamicLayout = new DynamicLayout(spannableString,new TextPaint(layout.getPaint()),layout.getWidth(),layout.getAlignment(),layout.getSpacingMultiplier(),layout.getSpacingAdd(),mHost.getIncludeFontPadding());
-        return dynamicLayout;
     }
 
     private SpannableString buildSpannableString(List<CustomTextSpanData> customTextSpanDataList,CharSequence text){
