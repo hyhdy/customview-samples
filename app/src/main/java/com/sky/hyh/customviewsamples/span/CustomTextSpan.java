@@ -62,13 +62,7 @@ public class CustomTextSpan extends ReplacementSpan {
         mWidth = (int) mPaint.measureText(text, start, end)+mLeftMargin;
 
         if(fm!=null){
-            if(start == 0){
-                resetFm(fm);
-            }
             Paint.FontMetricsInt customTextPaintFm = mPaint.getFontMetricsInt();
-            //Log.d(TAG, "getSize: text="+text+" ,start="+start+" ,end="+end);
-            //Log.d(TAG, "getSize: fm="+fm.toString());
-            //Log.d(TAG, "getSize: customTextPaintFm="+customTextPaintFm.toString());
 
             int top = customTextPaintFm.top-SPACING;
             int ascent = customTextPaintFm.ascent-SPACING;
@@ -76,20 +70,29 @@ public class CustomTextSpan extends ReplacementSpan {
             int descent = customTextPaintFm.descent+SPACING;
 
             //每一分段文本的画笔不一样，字体大小，样式等不同导致不同分段文本高度不一致，
-            //所以这里需要调整文本高度为高度最高的分段的文本高度，不然会导致高的文本分段被截断的问题
-            if((fm.bottom - fm.top) < (bottom - top)){
-                fm.top = top;
-                fm.ascent = ascent;
-                fm.bottom = bottom;
-                fm.descent = descent;
-            }
+            //这里把每一分段的fm值赋为自定义画笔的fm值，这样分段所在行行文本的高度就等于该行所有分段高度最高的字体高度
+            fm.top = top;
+            fm.ascent = ascent;
+            fm.bottom = bottom;
+            fm.descent = descent;
         }
         return mWidth;
     }
 
+    /**
+     *
+     * @param canvas
+     * @param text
+     * @param start
+     * @param end
+     * @param x
+     * @param top：所在行的top
+     * @param y
+     * @param bottom：所在行的bottom
+     * @param paint
+     */
     @Override
     public void draw(Canvas canvas, CharSequence text, int start, int end, float x, int top, int y, int bottom, Paint paint) {
-        //Log.d(TAG, "draw: text="+text+" ,start="+start+" ,end="+end+" ,x="+x+" ,y="+y+" ,top="+top+" ,bottom="+bottom);
         switch (mAlign){
             case ALIGN_BOTTOM: {
                 canvas.drawText(text, start, end, x + mLeftMargin, y, mPaint);
@@ -98,7 +101,7 @@ public class CustomTextSpan extends ReplacementSpan {
             case ALIGN_CENTER: {
                 Paint.FontMetricsInt customTextPaintFm = mPaint.getFontMetricsInt();
                 Log.d(TAG, "draw: customTextPaintFm=" + customTextPaintFm.toString());
-                //调整分段文本居中显示
+                //调整分段文本居中显示，这里的textHeight等于fm.descent-fm.ascent
                 int textHeight = bottom - top;
                 int segmentTextHeight = customTextPaintFm.bottom - customTextPaintFm.top;
                 y = (textHeight - segmentTextHeight) / 2 - customTextPaintFm.top;
@@ -120,13 +123,5 @@ public class CustomTextSpan extends ReplacementSpan {
             }
             break;
         }
-    }
-
-    private void resetFm(Paint.FontMetricsInt fontMetricsInt){
-        fontMetricsInt.top = 0;
-        fontMetricsInt.bottom = 0;
-        fontMetricsInt.ascent = 0;
-        fontMetricsInt.descent = 0;
-        fontMetricsInt.leading = 0;
     }
 }
