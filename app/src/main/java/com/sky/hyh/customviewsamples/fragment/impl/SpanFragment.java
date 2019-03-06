@@ -13,6 +13,9 @@ import com.sky.hyh.customviewsamples.fragment.BaseFragment;
 import com.sky.hyh.customviewsamples.span.CustomTextSpan;
 import com.sky.hyh.customviewsamples.utils.SizeUtils;
 
+import static com.sky.hyh.customviewsamples.span.TypeConfig.ALIGN_CENTER;
+import static com.sky.hyh.customviewsamples.span.TypeConfig.UNIT_SP;
+
 public class SpanFragment extends BaseFragment {
     @FindViewByIdAno(R.id.tv_tip1)
     private TextView mTvTip1;
@@ -44,15 +47,15 @@ public class SpanFragment extends BaseFragment {
         char EXTRA_SPACE = ' ';
         original = String.format("%s%s",original,EXTRA_SPACE);
         SpannableString spannableString = new SpannableString(original);
-        CustomTextSpan customSpan1 = new CustomTextSpan(15,
+        CustomTextSpan customSpan1 = new CustomTextSpan(UNIT_SP,15,
                 Typeface.create(Typeface.SANS_SERIF,Typeface.NORMAL),
-                Color.BLUE,0,CustomTextSpan.ALIGN_CENTER);
-        CustomTextSpan customSpan2 = new CustomTextSpan(25,
+                Color.BLUE,0,ALIGN_CENTER);
+        CustomTextSpan customSpan2 = new CustomTextSpan(UNIT_SP,25,
                 Typeface.create(Typeface.SANS_SERIF,Typeface.BOLD),
-                Color.RED, 0,CustomTextSpan.ALIGN_CENTER);
-        CustomTextSpan customSpan3 = new CustomTextSpan(18,
+                Color.RED, 0,ALIGN_CENTER);
+        CustomTextSpan customSpan3 = new CustomTextSpan(UNIT_SP,18,
                 Typeface.createFromAsset(getContext().getAssets(), "HYTangMeiRenJ-2.ttf"),
-                Color.GREEN, 0,CustomTextSpan.ALIGN_CENTER);
+                Color.GREEN, 0,ALIGN_CENTER);
 
         spannableString.setSpan(customSpan1,0,5, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         spannableString.setSpan(customSpan2,5,10, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -65,15 +68,15 @@ public class SpanFragment extends BaseFragment {
         char EXTRA_SPACE = ' ';
         original = String.format("%s%s",original,EXTRA_SPACE);
         SpannableString spannableString = new SpannableString(original);
-        CustomTextSpan customSpan1 = new CustomTextSpan(15,
+        CustomTextSpan customSpan1 = new CustomTextSpan(UNIT_SP,15,
                 Typeface.create(Typeface.SANS_SERIF,Typeface.NORMAL),
-                Color.BLUE,0,CustomTextSpan.ALIGN_CENTER);
-        CustomTextSpan customSpan2 = new CustomTextSpan(25,
+                Color.BLUE,0,ALIGN_CENTER);
+        CustomTextSpan customSpan2 = new CustomTextSpan(UNIT_SP,25,
                 Typeface.create(Typeface.SANS_SERIF,Typeface.BOLD_ITALIC),
-                Color.RED, 10,CustomTextSpan.ALIGN_CENTER);
-        CustomTextSpan customSpan3 = new CustomTextSpan(18,
+                Color.RED, 10,ALIGN_CENTER);
+        CustomTextSpan customSpan3 = new CustomTextSpan(UNIT_SP,18,
                 Typeface.createFromAsset(getContext().getAssets(), "HYTangMeiRenJ-2.ttf"),
-                Color.GREEN, 10,CustomTextSpan.ALIGN_CENTER);
+                Color.GREEN, 10,ALIGN_CENTER);
 
         spannableString.setSpan(customSpan1,0,5, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         spannableString.setSpan(customSpan2,5,10, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -86,12 +89,12 @@ public class SpanFragment extends BaseFragment {
         char EXTRA_SPACE = ' ';
         original = String.format("%s%s",original,EXTRA_SPACE);
         SpannableString spannableString = new SpannableString(original);
-        CustomTextSpan customSpan1 = new CustomTextSpan(20,
+        CustomTextSpan customSpan1 = new CustomTextSpan(UNIT_SP,20,
                 Typeface.create(Typeface.SANS_SERIF,Typeface.NORMAL),
-                Color.WHITE,0,CustomTextSpan.ALIGN_CENTER);
-        CustomTextSpan customSpan2 = new CustomTextSpan(15,
+                Color.WHITE,0,ALIGN_CENTER);
+        CustomTextSpan customSpan2 = new CustomTextSpan(UNIT_SP,15,
                 Typeface.create(Typeface.SANS_SERIF,Typeface.BOLD),
-                Color.RED, 0,CustomTextSpan.ALIGN_CENTER);
+                Color.RED, 0,ALIGN_CENTER);
 
         spannableString.setSpan(customSpan1,0,6, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         spannableString.setSpan(customSpan2,6,original.length()-1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);

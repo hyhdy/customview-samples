@@ -1,17 +1,16 @@
 package com.sky.hyh.customviewsamples.customview.automaitcEditText;
 
 import android.graphics.Paint;
-import android.text.DynamicLayout;
-import android.text.Layout;
 import android.text.SpannableString;
 import android.text.Spanned;
-import android.text.TextPaint;
 import android.util.Log;
-import android.widget.TextView;
-import com.sky.hyh.customviewsamples.span.spandata.CustomTextSpanData;
+import com.sky.hyh.customviewsamples.span.CustomTextSpan;
+import com.sky.hyh.customviewsamples.span.spandata.CustomSpanData;
 import com.sky.hyh.customviewsamples.utils.SizeUtils;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.sky.hyh.customviewsamples.span.TypeConfig.UNIT_PX;
 
 /**
  * Created by hyh on 2019/2/26 16:44
@@ -27,7 +26,7 @@ public class TextSizeAdjustHelper {
 
     private LayoutHelper mLayoutHelper;
     private int mHeightGap;
-    private List<CustomTextSpanData> mCustomTextSpanDataList;
+    private List<CustomSpanData> mCustomTextSpanDataList;
     private List<Float> mOriFontSizePxList;
 
     public TextSizeAdjustHelper(LayoutHelper layoutHelper) {
@@ -35,7 +34,7 @@ public class TextSizeAdjustHelper {
         mHeightGap = SizeUtils.dp2px(MIN_HEIGHT_GAP_DP);
     }
 
-    public void calculateMatchHeightSize(String text,List<CustomTextSpanData> customTextSpanDataList, int maxHeight){
+    public void calculateMatchHeightSize(String text,List<CustomSpanData> customTextSpanDataList, int maxHeight){
         if(customTextSpanDataList == null){
             Log.d("hyh", "TextSizeAdjustHelper: calculateMatchHeightSize: error: customTextSpanDataList is null");
             return;
@@ -44,7 +43,7 @@ public class TextSizeAdjustHelper {
         if(mOriFontSizePxList == null){
             mOriFontSizePxList = new ArrayList<>();
         }
-        for(CustomTextSpanData customTextSpanData: customTextSpanDataList){
+        for(CustomSpanData customTextSpanData: customTextSpanDataList){
             mOriFontSizePxList.add(customTextSpanData.getTextSizePx());
         }
 
@@ -95,7 +94,7 @@ public class TextSizeAdjustHelper {
         Log.d("hyh", "TextSizeAdjustHelper: scaleFontSizeByRate: rate="+rate);
         for(int i=0;i<mOriFontSizePxList.size();i++){
             float fontSize = mOriFontSizePxList.get(i) * rate;
-            mCustomTextSpanDataList.get(i).setTextSizePx(fontSize);
+            mCustomTextSpanDataList.get(i).setTextSize(UNIT_PX,fontSize);
         }
     }
 
@@ -105,9 +104,9 @@ public class TextSizeAdjustHelper {
         mCustomTextSpanDataList = null;
     }
 
-    private SpannableString buildSpannableString(List<CustomTextSpanData> customTextSpanDataList,CharSequence text){
+    private SpannableString buildSpannableString(List<CustomSpanData> customTextSpanDataList,CharSequence text){
         SpannableString spannableString = new SpannableString(text);
-        for(CustomTextSpanData customTextSpanData: customTextSpanDataList) {
+        for(CustomSpanData customTextSpanData: customTextSpanDataList) {
             spannableString.setSpan(customTextSpanData.onCreateSpan(),
                 customTextSpanData.getStartIndex(), customTextSpanData.getEndIndex(),
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);

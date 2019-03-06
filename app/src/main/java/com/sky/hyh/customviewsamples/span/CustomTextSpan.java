@@ -3,23 +3,20 @@ package com.sky.hyh.customviewsamples.span;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Typeface;
-import android.support.annotation.IntDef;
 import android.text.style.ReplacementSpan;
 import android.util.Log;
 import com.sky.hyh.customviewsamples.utils.SizeUtils;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+import static com.sky.hyh.customviewsamples.span.TypeConfig.ALIGN_BOTTOM;
+import static com.sky.hyh.customviewsamples.span.TypeConfig.ALIGN_CENTER;
+import static com.sky.hyh.customviewsamples.span.TypeConfig.ALIGN_TOP;
+import static com.sky.hyh.customviewsamples.span.TypeConfig.UNIT_PX;
+import static com.sky.hyh.customviewsamples.span.TypeConfig.UNIT_SP;
 
+/**
+ * 注意：继承ReplacementSpan的文本EditText会把它当做一个整体，也就是一个ReplacementSpan就表示一个字符，删除时会直接全部删除
+ */
 public class CustomTextSpan extends ReplacementSpan {
     public static String TAG = "CustomTextSpan";
-    public static final int ALIGN_BOTTOM = 0;
-    public static final int ALIGN_CENTER = 1;
-    public static final int ALIGN_TOP = 2;
-
-    @IntDef({ALIGN_BOTTOM,ALIGN_CENTER,ALIGN_TOP})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface AlignType{};
-
     /**
      * 绘制每一分段文本的画笔
      */
@@ -35,13 +32,20 @@ public class CustomTextSpan extends ReplacementSpan {
     /**
      * 分段文本对齐方式，默认底部对齐
      */
-    @AlignType
+    @TypeConfig.AlignType
     private int mAlign;
     public static final int SPACING = SizeUtils.dp2px(2);
 
-    public CustomTextSpan(float textSizeSp, Typeface typeFace, int color,int leftMarginDp,int align) {
+    public CustomTextSpan(@TypeConfig.Unit int unit, float textSize, Typeface typeFace, int color,int leftMarginDp,@TypeConfig.AlignType int align) {
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mPaint.setTextSize(SizeUtils.sp2px(textSizeSp));
+        switch (unit){
+                case UNIT_PX:
+                    mPaint.setTextSize(textSize);
+                break;
+                case UNIT_SP:
+                    mPaint.setTextSize(SizeUtils.sp2px(textSize));
+                break;
+        }
         mPaint.setTypeface(typeFace);
         mPaint.setColor(color);
         mLeftMargin = SizeUtils.dp2px(leftMarginDp);

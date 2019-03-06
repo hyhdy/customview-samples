@@ -1,5 +1,6 @@
 package com.sky.hyh.customviewsamples.span.spandata;
 
+import android.text.style.CharacterStyle;
 import com.sky.hyh.customviewsamples.span.CustomTextSpan;
 
 /**
@@ -7,5 +8,5 @@ import com.sky.hyh.customviewsamples.span.CustomTextSpan;
  * E-Mail Address：fjnuhyh122@gmail.com
  */
 public abstract class BaseSpanData {
-    public abstract CustomTextSpan onCreateSpan();
+    public abstract CharacterStyle onCreateSpan();
 }

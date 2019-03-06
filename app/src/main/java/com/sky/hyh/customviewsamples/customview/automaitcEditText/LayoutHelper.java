@@ -4,9 +4,8 @@ import android.graphics.Paint;
 import android.text.DynamicLayout;
 import android.text.Layout;
 import android.text.TextPaint;
-import android.util.Log;
 import android.widget.TextView;
-import com.sky.hyh.customviewsamples.span.spandata.CustomTextSpanData;
+import com.sky.hyh.customviewsamples.span.spandata.CustomSpanData;
 import java.util.List;
 
 /**
@@ -62,7 +61,7 @@ public class LayoutHelper {
     }
 
     protected void claculateMatchHeightFontSize(String text,
-        List<CustomTextSpanData> customTextSpanDataList, int height){
+        List<CustomSpanData> customTextSpanDataList, int height){
         mTextSizeAdjustHelper.calculateMatchHeightSize(text,customTextSpanDataList,height);
     }
 

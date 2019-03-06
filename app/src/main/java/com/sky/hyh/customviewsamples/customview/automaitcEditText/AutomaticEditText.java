@@ -11,10 +11,13 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import com.sky.hyh.customviewsamples.span.spandata.CustomTextSpanData;
+import com.sky.hyh.customviewsamples.span.spandata.CustomSpanData;
 import com.sky.hyh.customviewsamples.utils.SizeUtils;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.sky.hyh.customviewsamples.span.TypeConfig.TYPE_ABS_SIZE_SPAN;
+import static com.sky.hyh.customviewsamples.span.TypeConfig.UNIT_PX;
 
 /**
  * Created by hyh on 2019/2/26 15:47
@@ -152,8 +155,9 @@ public class AutomaticEditText extends AppCompatEditText {
             int start = layout.getLineStart(i);
             int end = layout.getLineEnd(i);
             String rowStr = text.substring(start,end);
-            CustomTextSpanData customTextSpanData = new CustomTextSpanData.Builder(start,end)
-                .setTextSizePx(mLayoutHelper.getFontSize())
+            CustomSpanData customTextSpanData = new CustomSpanData.Builder(start,end)
+                .setSpanType(TYPE_ABS_SIZE_SPAN)
+                .setTextSize(UNIT_PX,mLayoutHelper.getFontSize())
                 .build();
             LineData lineData = new LineData(rowStr,customTextSpanData);
             Log.d("hyh", "AutomaticEditText: spliteLineData: lineData="+lineData.toString());
@@ -179,9 +183,9 @@ public class AutomaticEditText extends AppCompatEditText {
      * 计算匹配最大文本高度的字体大小
      */
     private void matchMaxHeightFontSize(String text){
-        List<CustomTextSpanData> customTextSpanDataList = new ArrayList<>();
+        List<CustomSpanData> customTextSpanDataList = new ArrayList<>();
         for(LineData lineData: mLineDataList){
-            CustomTextSpanData customTextSpanData = lineData.getCustomTextSpanData();
+            CustomSpanData customTextSpanData = lineData.getCustomTextSpanData();
             customTextSpanDataList.add(customTextSpanData);
         }
         //maxTextHeight不能直接等于mValidShowHeight，需要预留一行的高度，这样在手动换行时就不会出现抖动的问题
@@ -193,12 +197,13 @@ public class AutomaticEditText extends AppCompatEditText {
         SpannableString spannableString = new SpannableString(text);
         for(LineData lineData: mLineDataList){
             Log.d("hyh", "AutomaticEditText: updateText: lineText="+lineData.getLineText()+" ,lineFontSize="+lineData.getFontSizePx());
-            CustomTextSpanData customTextSpanData = lineData.getCustomTextSpanData();
+            CustomSpanData customTextSpanData = lineData.getCustomTextSpanData();
             spannableString.setSpan(customTextSpanData.onCreateSpan(),customTextSpanData.getStartIndex(),customTextSpanData.getEndIndex(),
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
+        int start = getSelectionStart();
         setText(spannableString);
-        setSelection(text.length());
+        setSelection(start);
     }
 
     private float calculateMaxLineWidth(){
@@ -245,9 +250,9 @@ public class AutomaticEditText extends AppCompatEditText {
     public static class LineData{
         //行文本
         private String mLineText;
-        private CustomTextSpanData mCustomTextSpanData;
+        private CustomSpanData mCustomTextSpanData;
 
-        public LineData(String lineStr, CustomTextSpanData customTextSpanData) {
+        public LineData(String lineStr, CustomSpanData customTextSpanData) {
             mLineText = lineStr;
             mCustomTextSpanData = customTextSpanData;
         }
@@ -269,10 +274,10 @@ public class AutomaticEditText extends AppCompatEditText {
         }
 
         public void setFontSizePx(float textSizePx){
-            mCustomTextSpanData.setTextSizePx(textSizePx);
+            mCustomTextSpanData.setTextSize(UNIT_PX,textSizePx);
         }
 
-        public CustomTextSpanData getCustomTextSpanData() {
+        public CustomSpanData getCustomTextSpanData() {
             return mCustomTextSpanData;
         }
 
