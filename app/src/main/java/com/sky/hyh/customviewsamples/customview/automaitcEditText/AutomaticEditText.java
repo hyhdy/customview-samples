@@ -11,7 +11,6 @@ import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import com.sky.hyh.customviewsamples.span.spandata.CustomTextSpanData;
@@ -29,11 +28,11 @@ public class AutomaticEditText extends AppCompatEditText {
 
     //默认字体大小
     public static final float DEF_FONT_SIZE_SP = 16;
-    /**
-     * 控件的初始宽度，随着输入文本的变化，控件的宽度可能会改变
-     */
-    private int mInitWidgetWidth;
     private boolean mResetWidgetSize;
+    /**
+     * 文本有效显示宽度，随着输入文本的变化，该值可能会改变
+     */
+    private int mValidShowWidth;
     /**
      * 文本有效的显示高度
      */
@@ -73,8 +72,8 @@ public class AutomaticEditText extends AppCompatEditText {
         if((w != oldw || h != oldh) && !mResetWidgetSize){
             mResetWidgetSize = false;
             mValidShowHeight = h - getPaddingTop() - getPaddingBottom();
-            mInitWidgetWidth = w;
-            mMaxTextWidth = w - getPaddingLeft() - getPaddingRight() - SizeUtils.dp2px(WIDTH_OFFSET);
+            mValidShowWidth = w - getPaddingLeft() - getPaddingRight();
+            mMaxTextWidth = mValidShowWidth - SizeUtils.dp2px(WIDTH_OFFSET);
             Log.d("hyh", "AutomaticEditText: onSizeChanged: mValidShowHeight="+ mValidShowHeight
                 + " ,mMaxTextWidth="+mMaxTextWidth);
         }
@@ -82,7 +81,6 @@ public class AutomaticEditText extends AppCompatEditText {
 
     @Override
     public boolean onPreDraw() {
-        Log.d("hyh", "AutomaticEditText: onPreDraw");
         boolean result = super.onPreDraw();
         refresh();
         return result;
@@ -179,10 +177,9 @@ public class AutomaticEditText extends AppCompatEditText {
             if(!TextUtils.isEmpty(lineText)){
                 Paint paint = copyPaint();
                 float textWidth = paint.measureText(lineText);
-                float lineMaxWidth = getLineMaxWidth();
-                Log.d("hyh", "AutomaticEditText: matchMaxWidthFontSize: textWidth="+textWidth+" ,lineMaxWidth="+lineMaxWidth);
+                Log.d("hyh", "AutomaticEditText: matchMaxWidthFontSize: textWidth="+textWidth);
                 //按照宽比缩放字体
-                float textSize = lineMaxWidth / textWidth * mDefFontSizePx;
+                float textSize = mValidShowWidth / textWidth * mDefFontSizePx;
                 Log.d("hyh", "AutomaticEditText: matchMaxWidthFontSize: textSize="+textSize);
                 paint.setTextSize(textSize);
                 //缩放字体后还得检查行宽度是否大于最大文本宽度，如果大于则还需要调小字体
@@ -258,7 +255,7 @@ public class AutomaticEditText extends AppCompatEditText {
     private float calculateMaxLengthLineWidth(LineData lineData){
         Paint paint = copyPaint();
         float width = paint.measureText(lineData.getLineText());
-        float rate = getLineMaxWidth() / width;
+        float rate = mValidShowWidth / width;
         paint.setTextSize(lineData.getFontSizePx());
         float textWidth = paint.measureText(lineData.getLineText());
         float maxWidth = textWidth * rate;
@@ -267,15 +264,10 @@ public class AutomaticEditText extends AppCompatEditText {
 
     private Layout getCorrectLayout(){
         TextPaint paint = copyPaint();
-        int width = getLineMaxWidth();
         //注意这里的text是String不是Spannable
         String textString = getText().toString();
-        DynamicLayout dynamicLayout = new DynamicLayout(textString,paint,width,getLayout().getAlignment(),getLayout().getSpacingMultiplier(),getLayout().getSpacingAdd(),getIncludeFontPadding());
+        DynamicLayout dynamicLayout = new DynamicLayout(textString,paint,mValidShowWidth,getLayout().getAlignment(),getLayout().getSpacingMultiplier(),getLayout().getSpacingAdd(),getIncludeFontPadding());
         return dynamicLayout;
-    }
-
-    private int getLineMaxWidth(){
-        return mInitWidgetWidth - getPaddingLeft() - getPaddingRight();
     }
 
     private TextPaint copyPaint(){
