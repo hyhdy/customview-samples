@@ -59,6 +59,7 @@ public class LayoutHelper {
         float textWidth = paint.measureText(lineText);
         //按照宽比缩放字体
         float textSize = mLayoutWidth / textWidth * mFontSize;
+        Log.d("hyh", "LayoutHelper: getMatchWidthFontSize: lineText="+lineText+" ,textWidth="+textWidth+" ,textSize="+textSize);
         paint.setTextSize(textSize);
         //缩放字体后还得检查行宽度是否大于最大文本宽度，如果大于则还需要调小字体
         textSize = mTextSizeAdjustHelper.calculateMatchWidthSize(paint,lineText,mLayoutWidth);

@@ -25,6 +25,7 @@ import static com.sky.hyh.customviewsamples.span.TypeConfig.UNIT_PX;
  * 自动排版输入框,文本每行的字体大小可能不一样
  */
 public class AutomaticEditText extends AppCompatEditText {
+    public static final String SYM_CHANGE_LINE = "\n";
     //默认字体大小
     public static final float DEF_FONT_SIZE_SP = 16;
     private boolean mResetWidgetSize;
@@ -86,7 +87,7 @@ public class AutomaticEditText extends AppCompatEditText {
             if(update) {
                 spliteLineData(correctLayout);
                 matchMaxWidthFontSize();
-                matchMaxHeightFontSize(text);
+                matchMaxHeightFontSize();
                 updateText(text);
                 int maxLineWidth = (int) calculateMaxLineWidth();
                 if(maxLineWidth > 0){
@@ -122,6 +123,10 @@ public class AutomaticEditText extends AppCompatEditText {
                     int start = layout.getLineStart(i);
                     int end =layout.getLineEnd(i);
                     String rowStr = text.substring(start, end);
+                    //去除掉换行符
+                    if(rowStr.contains(SYM_CHANGE_LINE)){
+                        rowStr = rowStr.replace(SYM_CHANGE_LINE,"");
+                    }
                     LineData lineData = mLineDataList.get(i);
                     String lineText = lineData.getLineText();
                     if (!rowStr.equals(lineText)) {
@@ -148,6 +153,10 @@ public class AutomaticEditText extends AppCompatEditText {
             int start = layout.getLineStart(i);
             int end = layout.getLineEnd(i);
             String rowStr = text.substring(start,end);
+            //去除掉换行符
+            if(rowStr.contains(SYM_CHANGE_LINE)){
+                rowStr = rowStr.replace(SYM_CHANGE_LINE,"");
+            }
             CustomSpanData customTextSpanData = new CustomSpanData.Builder(start,end)
                 .setSpanType(TYPE_ABS_SIZE_SPAN)
                 .setTextSize(UNIT_PX,mLayoutHelper.getFontSize())
@@ -175,7 +184,7 @@ public class AutomaticEditText extends AppCompatEditText {
     /**
      * 计算匹配最大文本高度的字体大小
      */
-    private void matchMaxHeightFontSize(String text){
+    private void matchMaxHeightFontSize(){
         List<CustomSpanData> customTextSpanDataList = new ArrayList<>();
         for(LineData lineData: mLineDataList){
             CustomSpanData customTextSpanData = lineData.getCustomTextSpanData();
