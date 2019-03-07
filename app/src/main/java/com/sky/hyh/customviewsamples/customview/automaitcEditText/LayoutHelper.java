@@ -17,12 +17,20 @@ public class LayoutHelper {
     private TextView mHost;
     private float mFontSize;
     private int mLayoutWidth;
+    public static final  String sSeizeText = "111";
+    private float mMinWidth;
     private TextSizeAdjustHelper mTextSizeAdjustHelper;
 
     public LayoutHelper(TextView host,float fontSize) {
         mHost = host;
         mFontSize = fontSize;
         mTextSizeAdjustHelper = new TextSizeAdjustHelper(host);
+        initMinWidth();
+    }
+
+    private void initMinWidth(){
+        Paint paint = copyPaint();
+        mMinWidth = paint.measureText(sSeizeText);
     }
 
     public void setLayoutWidth(int layoutWidth) {
@@ -57,6 +65,10 @@ public class LayoutHelper {
     protected float getMatchWidthFontSize(String lineText){
         Paint paint = copyPaint();
         float textWidth = paint.measureText(lineText);
+        if(textWidth < mMinWidth){
+            textWidth = mMinWidth;
+            lineText = sSeizeText;
+        }
         //按照宽比缩放字体
         float textSize = mLayoutWidth / textWidth * mFontSize;
         Log.d("hyh", "LayoutHelper: getMatchWidthFontSize: lineText="+lineText+" ,textWidth="+textWidth+" ,textSize="+textSize);
