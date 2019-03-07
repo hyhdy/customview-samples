@@ -183,7 +183,7 @@ public class AutomaticEditText extends AppCompatEditText {
         }
         //maxTextHeight不能直接等于mValidShowHeight，需要预留一行的高度，这样在手动换行时就不会出现抖动的问题
         int maxTextHeight = mValidShowHeight - getPaint().getFontMetricsInt(null);
-        mLayoutHelper.claculateMatchHeightFontSize(text,customTextSpanDataList,maxTextHeight);
+        mLayoutHelper.claculateMatchHeightFontSize(customTextSpanDataList,maxTextHeight);
     }
 
     private void updateText(String text){
@@ -262,7 +262,7 @@ public class AutomaticEditText extends AppCompatEditText {
         }
 
         public float getFontSizePx(){
-            return mCustomTextSpanData.getTextSizePx();
+            return mCustomTextSpanData.getTextSize();
         }
 
         public void setFontSizePx(float textSizePx){

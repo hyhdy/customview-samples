@@ -4,6 +4,7 @@ import android.graphics.Paint;
 import android.text.DynamicLayout;
 import android.text.Layout;
 import android.text.TextPaint;
+import android.util.Log;
 import android.widget.TextView;
 import com.sky.hyh.customviewsamples.span.spandata.CustomSpanData;
 import java.util.List;
@@ -21,7 +22,7 @@ public class LayoutHelper {
     public LayoutHelper(TextView host,float fontSize) {
         mHost = host;
         mFontSize = fontSize;
-        mTextSizeAdjustHelper = new TextSizeAdjustHelper(this);
+        mTextSizeAdjustHelper = new TextSizeAdjustHelper(host);
     }
 
     public void setLayoutWidth(int layoutWidth) {
@@ -64,9 +65,8 @@ public class LayoutHelper {
         return textSize;
     }
 
-    protected void claculateMatchHeightFontSize(String text,
-        List<CustomSpanData> customTextSpanDataList, int height){
-        mTextSizeAdjustHelper.calculateMatchHeightSize(text,customTextSpanDataList,height);
+    protected void claculateMatchHeightFontSize(List<CustomSpanData> customTextSpanDataList, int height){
+        mTextSizeAdjustHelper.calculateMatchHeightSize(customTextSpanDataList,height);
     }
 
     protected float calculateMaxLengthLineWidth(String lineText, float fontSize){

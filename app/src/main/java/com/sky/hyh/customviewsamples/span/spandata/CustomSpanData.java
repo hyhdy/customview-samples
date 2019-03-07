@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.support.annotation.IntDef;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.CharacterStyle;
+import android.util.Log;
 import com.sky.hyh.customviewsamples.span.CustomTextSpan;
 import com.sky.hyh.customviewsamples.span.TypeConfig;
 import com.sky.hyh.customviewsamples.utils.SizeUtils;
@@ -61,7 +62,7 @@ public class CustomSpanData extends BaseSpanData {
         return mEndIndex;
     }
 
-    public float getTextSizePx() {
+    public float getTextSize() {
         return mTextSize;
     }
 
@@ -76,7 +77,9 @@ public class CustomSpanData extends BaseSpanData {
                 case TYPE_ABS_SIZE_SPAN:
                     switch (mUnit){
                             case UNIT_PX:
-                                return new AbsoluteSizeSpan((int) mTextSize);
+                                int fontSize = (int) mTextSize;
+                                Log.d("hyh", "CustomSpanData: onCreateSpan: fontSize="+fontSize);
+                                return new AbsoluteSizeSpan(fontSize);
                             case UNIT_SP:
                                 return new AbsoluteSizeSpan((int) mTextSize,true);
                     }
@@ -94,6 +97,16 @@ public class CustomSpanData extends BaseSpanData {
                         mLeftMarginDp,
                         mAlign);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "CustomSpanData{" +
+            "mStartIndex=" + mStartIndex +
+            ", mEndIndex=" + mEndIndex +
+            ", mUnit=" + mUnit +
+            ", mTextSize=" + mTextSize +
+            '}';
     }
 
     public static class Builder{
