@@ -119,6 +119,7 @@ public class TextSizeAdjustHelper {
         float width = paint.measureText(text);
         Log.d("hyh", "TextSizeAdjustHelper: calculateMatchWidthSize: width="+width+" ,maxWidth="+maxWidth);
         if(maxWidth >= width && maxWidth - width <= text.length()){
+            Log.d("hyh", "TextSizeAdjustHelper: calculateMatchWidthSize: return 1 textSize="+textSize);
             return textSize;
         }
 
@@ -127,6 +128,7 @@ public class TextSizeAdjustHelper {
         }else{
             textSize = getZoomFitTextSize(paint,text,maxWidth,1);
         }
+        Log.d("hyh", "TextSizeAdjustHelper: calculateMatchWidthSize: return 2 textSize="+textSize);
         return textSize;
     }
 

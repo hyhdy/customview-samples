@@ -1,12 +1,15 @@
 package com.sky.hyh.customviewsamples.customview.automaitcEditText;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.support.v7.widget.AppCompatEditText;
+import android.text.Editable;
 import android.text.Layout;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
@@ -56,6 +59,22 @@ public class AutomaticEditText extends AppCompatEditText {
         setIncludeFontPadding(false);
         //不设置行间距
         setLineSpacing(0,1);
+
+        addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                refresh();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     @Override
@@ -70,13 +89,6 @@ public class AutomaticEditText extends AppCompatEditText {
         }
     }
 
-    @Override
-    public boolean onPreDraw() {
-        boolean result = super.onPreDraw();
-        refresh();
-        return result;
-    }
-
     private void refresh(){
         if(getLayout() != null){
             //这里的Layout不能用EditText的Layout，不然无法正确拿到每行文本，需要构建一个默认Layout，文本的换行都依据该Layout算出
@@ -86,6 +98,7 @@ public class AutomaticEditText extends AppCompatEditText {
             boolean update = isUpdateText(correctLayout);
             Log.d("hyh", "AutomaticEditText: refresh: update="+update);
             if(update) {
+                mLastText = text;
                 spliteLineData(correctLayout);
                 matchMaxWidthFontSize();
                 matchMaxHeightFontSize();
@@ -100,7 +113,6 @@ public class AutomaticEditText extends AppCompatEditText {
                     setLayoutParams(layoutParams);
                 }
             }
-            mLastText = text;
         }
     }
 
@@ -229,7 +241,6 @@ public class AutomaticEditText extends AppCompatEditText {
         float maxLineWidth = 0;
         for(LineData lineData: mLineDataList){
             String lineText = lineData.getLineText();
-            Log.d("hyh", "AutomaticEditText: calculateMaxLineWidth: lineText="+lineText);
             if(lineText.length() > maxLengthText.length()){
                 maxLengthText = lineText;
                 maxLengthLineData = lineData;

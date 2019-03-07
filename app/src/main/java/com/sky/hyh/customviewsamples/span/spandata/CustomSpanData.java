@@ -78,7 +78,6 @@ public class CustomSpanData extends BaseSpanData {
                     switch (mUnit){
                             case UNIT_PX:
                                 int fontSize = (int) mTextSize;
-                                Log.d("hyh", "CustomSpanData: onCreateSpan: fontSize="+fontSize);
                                 return new AbsoluteSizeSpan(fontSize);
                             case UNIT_SP:
                                 return new AbsoluteSizeSpan((int) mTextSize,true);
