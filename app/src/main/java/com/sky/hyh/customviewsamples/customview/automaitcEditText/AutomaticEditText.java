@@ -25,8 +25,6 @@ import static com.sky.hyh.customviewsamples.span.TypeConfig.UNIT_PX;
  * 自动排版输入框,文本每行的字体大小可能不一样
  */
 public class AutomaticEditText extends AppCompatEditText {
-    public static final int WIDTH_OFFSET = 10;
-
     //默认字体大小
     public static final float DEF_FONT_SIZE_SP = 16;
     private boolean mResetWidgetSize;
@@ -34,10 +32,6 @@ public class AutomaticEditText extends AppCompatEditText {
      * 文本有效的显示高度
      */
     private int mValidShowHeight;
-    /**
-     * 每行可输入文本的最大宽度
-     */
-    private int mMaxTextWidth;
     private List<LineData> mLineDataList;
     private String mLastText = "";
     private LayoutHelper mLayoutHelper;
@@ -67,11 +61,10 @@ public class AutomaticEditText extends AppCompatEditText {
         if((w != oldw || h != oldh) && !mResetWidgetSize){
             mResetWidgetSize = false;
             mValidShowHeight = h - getPaddingTop() - getPaddingBottom();
-            int validShowWidth = w - getPaddingLeft() - getPaddingRight();
-            mLayoutHelper.setLayoutWidth(validShowWidth);
-            mMaxTextWidth = validShowWidth - SizeUtils.dp2px(WIDTH_OFFSET);
+            int maxTextWidth = w - getPaddingLeft() - getPaddingRight();
+            mLayoutHelper.setLayoutWidth(maxTextWidth);
             Log.d("hyh", "AutomaticEditText: onSizeChanged: mValidShowHeight="+ mValidShowHeight
-                + " ,mMaxTextWidth="+mMaxTextWidth);
+                + " ,maxTextWidth="+maxTextWidth);
         }
     }
 
@@ -99,7 +92,7 @@ public class AutomaticEditText extends AppCompatEditText {
                 if(maxLineWidth > 0){
                     mResetWidgetSize = true;
                     ViewGroup.LayoutParams layoutParams = getLayoutParams();
-                    layoutParams.width = maxLineWidth + getPaddingLeft() +getPaddingRight() + SizeUtils.dp2px(WIDTH_OFFSET);
+                    layoutParams.width = maxLineWidth + getPaddingLeft() +getPaddingRight();
                     Log.d("hyh", "AutomaticEditText: refresh: layoutParams.width="+layoutParams.width);
                     setLayoutParams(layoutParams);
                 }
@@ -172,7 +165,7 @@ public class AutomaticEditText extends AppCompatEditText {
         for(LineData lineData: mLineDataList){
             String lineText = lineData.getLineText();
             if(!TextUtils.isEmpty(lineText)){
-                lineData.setFontSizePx(mLayoutHelper.getMatchWidthFontSize(lineText,mMaxTextWidth));
+                lineData.setFontSizePx(mLayoutHelper.getMatchWidthFontSize(lineText));
             }else{
                 lineData.setFontSizePx(mLayoutHelper.getFontSize());
             }
@@ -233,11 +226,10 @@ public class AutomaticEditText extends AppCompatEditText {
         float maxLengthLineWidth = mLayoutHelper.calculateMaxLengthLineWidth(maxLengthLineData.getLineText(),maxLengthLineData.getFontSizePx());
         Log.d("hyh", "AutomaticEditText: calculateMaxLineWidth: maxLineWidth="+maxLineWidth+" ,maxLengthLineWidth="+maxLengthLineWidth);
         float maxWidth = maxLineWidth > maxLengthLineWidth? maxLineWidth:maxLengthLineWidth;
-        Log.d("hyh", "AutomaticEditText: calculateMaxLineWidth: maxWidth="+maxWidth+" ,mMaxTextWidth="+mMaxTextWidth);
-        if(maxWidth > mMaxTextWidth){
-            maxWidth = mMaxTextWidth;
+        if(maxWidth > mLayoutHelper.getLayoutWidth()){
+            maxWidth = mLayoutHelper.getLayoutWidth();
         }
-
+        Log.d("hyh", "AutomaticEditText: calculateMaxLineWidth: maxWidth="+maxWidth);
         return maxWidth;
     }
 
