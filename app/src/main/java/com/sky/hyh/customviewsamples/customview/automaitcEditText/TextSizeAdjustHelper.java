@@ -118,7 +118,7 @@ public class TextSizeAdjustHelper {
         float textSize = paint.getTextSize();
         float width = paint.measureText(text);
         Log.d("hyh", "TextSizeAdjustHelper: calculateMatchWidthSize: width="+width+" ,maxWidth="+maxWidth);
-        if(maxWidth > width && maxWidth - width <= text.length()){
+        if(maxWidth >= width && maxWidth - width <= text.length()){
             return textSize;
         }
 
@@ -136,7 +136,7 @@ public class TextSizeAdjustHelper {
         paint.setTextSize(textSize);
         float width = paint.measureText(text);
         Log.d("hyh", "TextSizeAdjustHelper: getNarrowFitTextSize: width="+width);
-        if(maxWidth > width && maxWidth - width <= text.length()){
+        if(maxWidth >= width && maxWidth - width <= text.length()){
             return textSize;
         }
         //结束条件
@@ -153,7 +153,7 @@ public class TextSizeAdjustHelper {
         paint.setTextSize(textSize);
         float width = paint.measureText(text);
         Log.d("hyh", "TextSizeAdjustHelper: getZoomFitTextSize: width="+width);
-        if(maxWidth > width && maxWidth - width <= text.length()){
+        if(maxWidth >= width && maxWidth - width <= text.length()){
             return textSize;
         }
         //结束条件
