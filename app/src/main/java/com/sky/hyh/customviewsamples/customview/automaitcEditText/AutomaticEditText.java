@@ -9,6 +9,7 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import com.sky.hyh.customviewsamples.span.spandata.CustomSpanData;
@@ -89,6 +90,7 @@ public class AutomaticEditText extends AppCompatEditText {
                 matchMaxWidthFontSize();
                 matchMaxHeightFontSize();
                 updateText(text);
+                updateTextSize();
                 int maxLineWidth = (int) calculateMaxLineWidth();
                 if(maxLineWidth > 0){
                     mResetWidgetSize = true;
@@ -199,13 +201,25 @@ public class AutomaticEditText extends AppCompatEditText {
         SpannableString spannableString = new SpannableString(text);
         for(LineData lineData: mLineDataList){
             Log.d("hyh", "AutomaticEditText: updateText: lineText="+lineData.getLineText()+" ,lineFontSize="+lineData.getFontSizePx());
-            CustomSpanData customTextSpanData = lineData.getCustomTextSpanData();
-            spannableString.setSpan(customTextSpanData.onCreateSpan(),customTextSpanData.getStartIndex(),customTextSpanData.getEndIndex(),
+            CustomSpanData customSpanData = lineData.getCustomTextSpanData();
+            spannableString.setSpan(customSpanData.onCreateSpan(),customSpanData.getStartIndex(),customSpanData.getEndIndex(),
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         int start = getSelectionStart();
         setText(spannableString);
         setSelection(start);
+    }
+
+    private void updateTextSize(){
+        float minFontSize = mLayoutHelper.getFontSize();
+        for(LineData lineData: mLineDataList){
+            CustomSpanData customSpanData = lineData.getCustomTextSpanData();
+            float fontSize = customSpanData.getTextSize();
+            if(fontSize < minFontSize){
+                minFontSize = fontSize;
+            }
+        }
+        setTextSize(TypedValue.COMPLEX_UNIT_PX,minFontSize);
     }
 
     private float calculateMaxLineWidth(){
