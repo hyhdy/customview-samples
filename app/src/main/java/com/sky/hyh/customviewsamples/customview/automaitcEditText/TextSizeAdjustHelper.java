@@ -118,10 +118,15 @@ public class TextSizeAdjustHelper {
         float textSize = paint.getTextSize();
         float width = paint.measureText(text);
         Log.d("hyh", "TextSizeAdjustHelper: calculateMatchWidthSize: width="+width+" ,maxWidth="+maxWidth);
+        if(maxWidth > width && maxWidth - width <= text.length()){
+            return textSize;
+        }
+
         if(width > maxWidth){
             textSize = getNarrowFitTextSize(paint,text,maxWidth,1);
+        }else{
+            textSize = getZoomFitTextSize(paint,text,maxWidth,1);
         }
-        Log.d("hyh", "TextSizeAdjustHelper: calculateMatchWidthSize: fontSize="+paint.getTextSize());
         return textSize;
     }
 
@@ -131,9 +136,29 @@ public class TextSizeAdjustHelper {
         paint.setTextSize(textSize);
         float width = paint.measureText(text);
         Log.d("hyh", "TextSizeAdjustHelper: getNarrowFitTextSize: width="+width);
-        //结束条件
-        if(width <= maxWidth){
+        if(maxWidth > width && maxWidth - width <= text.length()){
             return textSize;
+        }
+        //结束条件
+        if(width < maxWidth){
+            return getZoomFitTextSize(paint,text,maxWidth,rate);
+        }else{
+            return getNarrowFitTextSize(paint,text,maxWidth,rate);
+        }
+    }
+
+    private float getZoomFitTextSize(Paint paint,String text,int maxWidth,float rate){
+        float textSize = paint.getTextSize();
+        textSize += 1 * rate;
+        paint.setTextSize(textSize);
+        float width = paint.measureText(text);
+        Log.d("hyh", "TextSizeAdjustHelper: getZoomFitTextSize: width="+width);
+        if(maxWidth > width && maxWidth - width <= text.length()){
+            return textSize;
+        }
+        //结束条件
+        if(width < maxWidth){
+            return getZoomFitTextSize(paint,text,maxWidth,rate);
         }else{
             return getNarrowFitTextSize(paint,text,maxWidth,rate);
         }
