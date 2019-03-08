@@ -1,8 +1,6 @@
 package com.sky.hyh.customviewsamples.customview.automaitcEditText;
 
 import android.graphics.Paint;
-import android.text.SpannableString;
-import android.text.Spanned;
 import android.util.Log;
 import android.widget.TextView;
 import com.sky.hyh.customviewsamples.span.spandata.CustomSpanData;

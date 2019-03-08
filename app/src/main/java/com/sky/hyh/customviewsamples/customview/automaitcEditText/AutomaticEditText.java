@@ -28,9 +28,9 @@ import static com.sky.hyh.customviewsamples.span.TypeConfig.UNIT_PX;
  * 自动排版输入框,文本每行的字体大小可能不一样
  */
 public class AutomaticEditText extends AppCompatEditText {
-    public static final String SYM_CHANGE_LINE = "\n";
+    private static final String SYM_CHANGE_LINE = "\n";
     //默认字体大小
-    public static final float DEF_FONT_SIZE_SP = 20;
+    private static final float DEF_FONT_SIZE_SP = 20;
     private boolean mResetWidgetSize;
     /**
      * 最大文本高度
@@ -79,12 +79,14 @@ public class AutomaticEditText extends AppCompatEditText {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         if((w != oldw || h != oldh) && !mResetWidgetSize){
-            mResetWidgetSize = false;
             mMaxTextHeight = h - getPaddingTop() - getPaddingBottom();
             int maxTextWidth = w - getPaddingLeft() - getPaddingRight();
             mLayoutHelper.setLayoutWidth(maxTextWidth);
             Log.d("hyh", "AutomaticEditText: onSizeChanged: mMaxTextHeight="+ mMaxTextHeight
                 + " ,maxTextWidth="+maxTextWidth);
+        }
+        if(mResetWidgetSize){
+            mResetWidgetSize = false;
         }
     }
 

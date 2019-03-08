@@ -4,7 +4,6 @@ import android.graphics.Paint;
 import android.text.DynamicLayout;
 import android.text.Layout;
 import android.text.TextPaint;
-import android.util.Log;
 import android.widget.TextView;
 import com.sky.hyh.customviewsamples.span.spandata.CustomSpanData;
 import java.util.List;
@@ -17,7 +16,7 @@ public class LayoutHelper {
     private TextView mHost;
     private float mFontSize;
     private int mLayoutWidth;
-    public static final  String sSeizeText = "111";
+    private static final  String sSeizeText = "111";
     private float mMinWidth;
     private TextSizeAdjustHelper mTextSizeAdjustHelper;
 
@@ -52,8 +51,7 @@ public class LayoutHelper {
      */
     protected Layout buildFakeLayout(CharSequence text){
         TextPaint paint = copyPaint();
-        DynamicLayout dynamicLayout = new DynamicLayout(text,paint,mLayoutWidth,mHost.getLayout().getAlignment(),mHost.getLayout().getSpacingMultiplier(),mHost.getLayout().getSpacingAdd(),mHost.getIncludeFontPadding());
-        return dynamicLayout;
+        return new DynamicLayout(text,paint,mLayoutWidth,mHost.getLayout().getAlignment(),mHost.getLayout().getSpacingMultiplier(),mHost.getLayout().getSpacingAdd(),mHost.getIncludeFontPadding());
     }
 
     protected TextPaint copyPaint(){
