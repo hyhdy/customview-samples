@@ -93,12 +93,12 @@ public class AutomaticEditText extends AppCompatEditText {
     private void refresh(){
         if(getLayout() != null){
             //这里的Layout不能用EditText的Layout，不然无法正确拿到每行文本，需要构建一个辅助Layout，文本的换行都依据该Layout算出
-            Layout correctLayout = getCorrectLayout();
-            String text = correctLayout.getText().toString();
-            boolean update = isUpdateText(correctLayout,text);
+            Layout calculateLayout = getCalculateLayout();
+            String text = calculateLayout.getText().toString();
+            boolean update = isUpdateText(calculateLayout,text);
             if(update) {
                 mLastText = text;
-                spliteLineData(correctLayout,text);
+                spliteLineData(calculateLayout,text);
                 matchMaxWidthFontSize();
                 matchMaxHeightFontSize();
                 updateText(text);
@@ -259,7 +259,7 @@ public class AutomaticEditText extends AppCompatEditText {
         return maxWidth;
     }
 
-    private Layout getCorrectLayout(){
+    private Layout getCalculateLayout(){
         //注意这里的text是String不是Spannable
         String textString = getText().toString();
         return mLayoutHelper.buildFakeLayout(textString);
