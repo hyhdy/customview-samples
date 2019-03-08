@@ -1,9 +1,7 @@
 package com.sky.hyh.customviewsamples.customview.automaitcEditText;
 
 import android.content.Context;
-import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.os.SystemClock;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.Layout;
@@ -35,9 +33,9 @@ public class AutomaticEditText extends AppCompatEditText {
     public static final float DEF_FONT_SIZE_SP = 20;
     private boolean mResetWidgetSize;
     /**
-     * 文本有效的显示高度
+     * 最大文本高度
      */
-    private int mValidShowHeight;
+    private int mMaxTextHeight;
     private List<LineData> mLineDataList;
     private String mLastText = "";
     private LayoutHelper mLayoutHelper;
@@ -68,9 +66,7 @@ public class AutomaticEditText extends AppCompatEditText {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                long stime = SystemClock.elapsedRealtime();
                 refresh();
-                Log.d("hyh", "AutomaticEditText: onTextChanged: consumeTime="+(SystemClock.elapsedRealtime() - stime));
             }
 
             @Override
@@ -84,17 +80,17 @@ public class AutomaticEditText extends AppCompatEditText {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         if((w != oldw || h != oldh) && !mResetWidgetSize){
             mResetWidgetSize = false;
-            mValidShowHeight = h - getPaddingTop() - getPaddingBottom();
+            mMaxTextHeight = h - getPaddingTop() - getPaddingBottom();
             int maxTextWidth = w - getPaddingLeft() - getPaddingRight();
             mLayoutHelper.setLayoutWidth(maxTextWidth);
-            Log.d("hyh", "AutomaticEditText: onSizeChanged: mValidShowHeight="+ mValidShowHeight
+            Log.d("hyh", "AutomaticEditText: onSizeChanged: mMaxTextHeight="+ mMaxTextHeight
                 + " ,maxTextWidth="+maxTextWidth);
         }
     }
 
     private void refresh(){
         if(getLayout() != null){
-            //这里的Layout不能用EditText的Layout，不然无法正确拿到每行文本，需要构建一个默认Layout，文本的换行都依据该Layout算出
+            //这里的Layout不能用EditText的Layout，不然无法正确拿到每行文本，需要构建一个辅助Layout，文本的换行都依据该Layout算出
             Layout correctLayout = getCorrectLayout();
             String text = correctLayout.getText().toString();
             boolean update = isUpdateText(correctLayout,text);
@@ -124,13 +120,11 @@ public class AutomaticEditText extends AppCompatEditText {
     private boolean isUpdateText(Layout layout,String text){
         boolean update = false;
         if(!mLastText.equals(text)) {
-            Log.d("hyh", "AutomaticEditText: isUpdateText: 1");
             update = true;
         }else{
             int lineCount = layout.getLineCount();
             int size = mLineDataList.size();
             if(lineCount != size){
-                Log.d("hyh", "AutomaticEditText: isUpdateText: 2");
                 update = true;
             }else{
                 for (int i = 0; i < lineCount; i++) {
@@ -144,7 +138,6 @@ public class AutomaticEditText extends AppCompatEditText {
                     LineData lineData = mLineDataList.get(i);
                     String lineText = lineData.getLineText();
                     if (!rowStr.equals(lineText)) {
-                        Log.d("hyh", "AutomaticEditText: isUpdateText: 3");
                         //原本的每行文字跟现在的每行文字不相同，说明排版变了，需要重新更新文本
                         update = true;
                         break;
@@ -203,9 +196,7 @@ public class AutomaticEditText extends AppCompatEditText {
             CustomSpanData customTextSpanData = lineData.getCustomTextSpanData();
             customTextSpanDataList.add(customTextSpanData);
         }
-        //maxTextHeight不能直接等于mValidShowHeight，需要预留一行的高度，这样在手动换行时就不会出现抖动的问题
-        int maxTextHeight = mValidShowHeight - getPaint().getFontMetricsInt(null);
-        mLayoutHelper.claculateMatchHeightFontSize(customTextSpanDataList,maxTextHeight);
+        mLayoutHelper.claculateMatchHeightFontSize(customTextSpanDataList, mMaxTextHeight);
     }
 
     private void updateText(String text){
@@ -275,43 +266,35 @@ public class AutomaticEditText extends AppCompatEditText {
     public static class LineData{
         //行文本
         private String mLineText;
-        private CustomSpanData mCustomTextSpanData;
+        private CustomSpanData mCustomSpanData;
 
-        public LineData(String lineStr, CustomSpanData customTextSpanData) {
+        public LineData(String lineStr, CustomSpanData customSpanData) {
             mLineText = lineStr;
-            mCustomTextSpanData = customTextSpanData;
+            mCustomSpanData = customSpanData;
         }
 
         public String getLineText() {
             return mLineText;
         }
 
-        public int getStartIndex() {
-            return mCustomTextSpanData.getStartIndex();
-        }
-
-        public int getEndIndex() {
-            return mCustomTextSpanData.getEndIndex();
-        }
-
         public float getFontSizePx(){
-            return mCustomTextSpanData.getTextSize();
+            return mCustomSpanData.getTextSize();
         }
 
         public void setFontSizePx(float textSizePx){
-            mCustomTextSpanData.setTextSize(UNIT_PX,textSizePx);
+            mCustomSpanData.setTextSize(UNIT_PX,textSizePx);
         }
 
         public CustomSpanData getCustomTextSpanData() {
-            return mCustomTextSpanData;
+            return mCustomSpanData;
         }
 
         @Override
         public String toString() {
             return "LineData{" +
                 "mLineText='" + mLineText + '\'' +
-                ", mStartIndex=" + mCustomTextSpanData.getStartIndex() +
-                ", mEndIndex=" + mCustomTextSpanData.getEndIndex() +
+                ", mStartIndex=" + mCustomSpanData.getStartIndex() +
+                ", mEndIndex=" + mCustomSpanData.getEndIndex() +
                 '}';
         }
     }

@@ -77,8 +77,7 @@ public class CustomSpanData extends BaseSpanData {
                 case TYPE_ABS_SIZE_SPAN:
                     switch (mUnit){
                             case UNIT_PX:
-                                int fontSize = (int) mTextSize;
-                                return new AbsoluteSizeSpan(fontSize);
+                                return new AbsoluteSizeSpan((int) mTextSize);
                             case UNIT_SP:
                                 return new AbsoluteSizeSpan((int) mTextSize,true);
                     }
