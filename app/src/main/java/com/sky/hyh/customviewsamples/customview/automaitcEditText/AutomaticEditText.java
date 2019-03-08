@@ -3,6 +3,7 @@ package com.sky.hyh.customviewsamples.customview.automaitcEditText;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.os.SystemClock;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.Layout;
@@ -31,7 +32,7 @@ import static com.sky.hyh.customviewsamples.span.TypeConfig.UNIT_PX;
 public class AutomaticEditText extends AppCompatEditText {
     public static final String SYM_CHANGE_LINE = "\n";
     //默认字体大小
-    public static final float DEF_FONT_SIZE_SP = 16;
+    public static final float DEF_FONT_SIZE_SP = 20;
     private boolean mResetWidgetSize;
     /**
      * 文本有效的显示高度
@@ -67,7 +68,9 @@ public class AutomaticEditText extends AppCompatEditText {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                long stime = SystemClock.elapsedRealtime();
                 refresh();
+                Log.d("hyh", "AutomaticEditText: onTextChanged: consumeTime="+(SystemClock.elapsedRealtime() - stime));
             }
 
             @Override
