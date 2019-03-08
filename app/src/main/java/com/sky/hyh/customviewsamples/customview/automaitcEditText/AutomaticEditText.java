@@ -97,12 +97,10 @@ public class AutomaticEditText extends AppCompatEditText {
             //这里的Layout不能用EditText的Layout，不然无法正确拿到每行文本，需要构建一个默认Layout，文本的换行都依据该Layout算出
             Layout correctLayout = getCorrectLayout();
             String text = correctLayout.getText().toString();
-            Log.d("hyh", "AutomaticEditText: refresh: text="+text);
-            boolean update = isUpdateText(correctLayout);
-            Log.d("hyh", "AutomaticEditText: refresh: update="+update);
+            boolean update = isUpdateText(correctLayout,text);
             if(update) {
                 mLastText = text;
-                spliteLineData(correctLayout);
+                spliteLineData(correctLayout,text);
                 matchMaxWidthFontSize();
                 matchMaxHeightFontSize();
                 updateText(text);
@@ -123,9 +121,8 @@ public class AutomaticEditText extends AppCompatEditText {
      * 判断是否需要更新文本
      * @return
      */
-    private boolean isUpdateText(Layout layout){
+    private boolean isUpdateText(Layout layout,String text){
         boolean update = false;
-        String text = layout.getText().toString();
         if(!mLastText.equals(text)) {
             Log.d("hyh", "AutomaticEditText: isUpdateText: 1");
             update = true;
@@ -161,9 +158,8 @@ public class AutomaticEditText extends AppCompatEditText {
     /**
      * 按行分割文本
      */
-    private void spliteLineData(Layout layout){
+    private void spliteLineData(Layout layout,String text){
         mLineDataList.clear();
-        String text = layout.getText().toString();
         int lineCount = layout.getLineCount();
         Log.d("hyh", "AutomaticEditText: spliteLineData: text="+text+" ,lineCount="+lineCount);
         for (int i = 0; i < lineCount; i++) {
