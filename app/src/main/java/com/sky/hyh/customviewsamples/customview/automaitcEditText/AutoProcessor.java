@@ -24,7 +24,7 @@ import static com.sky.hyh.customviewsamples.span.TypeConfig.UNIT_PX;
  * Created by hyh on 2019/3/9 17:59
  * E-Mail Address：fjnuhyh122@gmail.com
  */
-public class AutomaticProcessor {
+public class AutoProcessor {
     //默认字体大小
     private static final float DEF_FONT_SIZE_SP = 20;
     private static final String SYM_CHANGE_LINE = "\n";
@@ -38,7 +38,7 @@ public class AutomaticProcessor {
      */
     private int mMaxTextHeight;
 
-    public AutomaticProcessor(AppCompatEditText host) {
+    public AutoProcessor(AppCompatEditText host) {
         mHost = host;
         mHost.setTextSize(DEF_FONT_SIZE_SP);
         mLayoutHelper = new LayoutHelper(mHost, SizeUtils.sp2px(DEF_FONT_SIZE_SP));

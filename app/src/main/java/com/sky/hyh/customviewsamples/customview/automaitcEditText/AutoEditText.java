@@ -10,21 +10,21 @@ import android.view.View;
  * E-Mail Address：fjnuhyh122@gmail.com
  * 自动排版输入框,文本每行的字体大小可能不一样
  */
-public class AutomaticEditText extends AppCompatEditText {
-    private AutomaticProcessor mAutoMaticProcessor;
+public class AutoEditText extends AppCompatEditText {
+    private AutoProcessor mAutoMaticProcessor;
 
-    public AutomaticEditText(Context context) {
+    public AutoEditText(Context context) {
         this(context,null);
     }
 
-    public AutomaticEditText(Context context, AttributeSet attrs) {
+    public AutoEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
     private void init() {
         setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-        mAutoMaticProcessor = new AutomaticProcessor(this);
+        mAutoMaticProcessor = new AutoProcessor(this);
     }
 
     @Override

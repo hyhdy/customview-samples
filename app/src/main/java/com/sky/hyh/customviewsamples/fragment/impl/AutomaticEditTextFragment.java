@@ -3,7 +3,7 @@ package com.sky.hyh.customviewsamples.fragment.impl;
 import android.view.View;
 import com.sky.hyh.customviewsamples.R;
 import com.sky.hyh.customviewsamples.annotation.FindViewByIdAno;
-import com.sky.hyh.customviewsamples.customview.automaitcEditText.AutomaticEditText;
+import com.sky.hyh.customviewsamples.customview.automaitcEditText.AutoEditText;
 import com.sky.hyh.customviewsamples.fragment.BaseFragment;
 
 /**
@@ -12,7 +12,7 @@ import com.sky.hyh.customviewsamples.fragment.BaseFragment;
  */
 public class AutomaticEditTextFragment extends BaseFragment {
     @FindViewByIdAno(R.id.aet_input)
-    private AutomaticEditText mAutomaticEditText;
+    private AutoEditText mAutomaticEditText;
 
     @Override
     protected int getResId() {

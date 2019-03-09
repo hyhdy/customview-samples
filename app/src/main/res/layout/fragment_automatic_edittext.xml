@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.sky.hyh.customviewsamples.customview.automaitcEditText.AutomaticEditText
+    <com.sky.hyh.customviewsamples.customview.automaitcEditText.AutoEditText
         android:id="@+id/aet_input"
         android:layout_width="250dp"
         android:layout_height="280dp"
