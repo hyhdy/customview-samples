@@ -227,42 +227,26 @@ public class AutomaticEditText extends AppCompatEditText {
     }
 
     private float calculateMaxLineWidth(){
-        String maxLengthText = "";
-        LineData maxLengthLineData = null;
         Paint paint = mLayoutHelper.copyPaint();
         float maxLineWidth = 0;
         for(LineData lineData: mLineDataList){
-            String lineText = lineData.getLineText();
-            if(lineText.length() > maxLengthText.length()){
-                maxLengthText = lineText;
-                maxLengthLineData = lineData;
-            }
-
             paint.setTextSize(lineData.getFontSizePx());
             float width = paint.measureText(lineData.getLineText());
             if(width > maxLineWidth){
                 maxLineWidth = width;
             }
         }
-
-        if(maxLengthLineData == null){
-            return maxLineWidth;
+        if(maxLineWidth > mLayoutHelper.getLayoutWidth()){
+            maxLineWidth = mLayoutHelper.getLayoutWidth();
         }
-
-        float maxLengthLineWidth = mLayoutHelper.calculateMaxLengthLineWidth(maxLengthLineData.getLineText(),maxLengthLineData.getFontSizePx());
-        Log.d("hyh", "AutomaticEditText: calculateMaxLineWidth: maxLineWidth="+maxLineWidth+" ,maxLengthLineWidth="+maxLengthLineWidth);
-        float maxWidth = maxLineWidth > maxLengthLineWidth? maxLineWidth:maxLengthLineWidth;
-        if(maxWidth > mLayoutHelper.getLayoutWidth()){
-            maxWidth = mLayoutHelper.getLayoutWidth();
-        }
-        Log.d("hyh", "AutomaticEditText: calculateMaxLineWidth: maxWidth="+maxWidth);
-        return maxWidth;
+        Log.d("hyh", "AutomaticEditText: calculateMaxLineWidth: maxLineWidth="+maxLineWidth);
+        return maxLineWidth;
     }
 
     private Layout getCalculateLayout(){
         //注意这里的text是String不是Spannable
         String textString = getText().toString();
-        return mLayoutHelper.buildFakeLayout(textString);
+        return mLayoutHelper.buildCalculateLayout(textString);
     }
 
     public static class LineData{
