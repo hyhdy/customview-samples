@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#99000000">
 
     <com.sky.hyh.customviewsamples.customview.automaitcEditText.AutoEditText
         android:id="@+id/aet_input"
@@ -10,7 +11,7 @@
         android:padding="10dp"
         android:layout_marginTop="30dp"
         android:layout_centerHorizontal="true"
-        android:background="#44000000"
+        android:background="@null"
         android:gravity="center"
         />
 

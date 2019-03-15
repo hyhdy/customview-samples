@@ -1,6 +1,8 @@
 package com.sky.hyh.customviewsamples.customview.automaitcEditText;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
 import android.view.View;
@@ -24,6 +26,8 @@ public class AutoEditText extends AppCompatEditText {
 
     private void init() {
         setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        setTypeface(Typeface.createFromAsset(getContext().getAssets(),"HYQiHei-55S.ttf"));
+        setTextColor(Color.WHITE);
         mAutoMaticProcessor = new AutoProcessor(this);
     }
 
