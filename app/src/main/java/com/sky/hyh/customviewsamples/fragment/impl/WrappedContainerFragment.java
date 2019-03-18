@@ -1,7 +1,5 @@
 package com.sky.hyh.customviewsamples.fragment.impl;
 
-import android.app.ActionBar;
-import android.support.v7.widget.ViewUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +8,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import com.sky.hyh.customviewsamples.R;
 import com.sky.hyh.customviewsamples.annotation.FindViewByIdAno;
-import com.sky.hyh.customviewsamples.customview.WrappedContainer;
+import com.sky.hyh.customviewsamples.customview.wrappedContainer.WrappedContainer2;
 import com.sky.hyh.customviewsamples.fragment.BaseFragment;
-import com.sky.hyh.customviewsamples.utils.InjectUtil;
 
 /**
  * Created by hyh on 2019/2/13 21:02
@@ -20,7 +17,7 @@ import com.sky.hyh.customviewsamples.utils.InjectUtil;
  */
 public class WrappedContainerFragment extends BaseFragment {
     @FindViewByIdAno(R.id.wc_container)
-    private WrappedContainer mWrappedContainer;
+    private WrappedContainer2 mWrappedContainer;
     @FindViewByIdAno(R.id.btn_add)
     private Button mBtnAdd;
 
@@ -41,7 +38,7 @@ public class WrappedContainerFragment extends BaseFragment {
                 layoutParams.gravity = Gravity.CENTER;
                 imageView.setLayoutParams(layoutParams);
 
-                mWrappedContainer.addChild(imageView);
+                mWrappedContainer.add();
             }
         });
     }

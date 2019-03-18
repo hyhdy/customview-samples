@@ -12,10 +12,10 @@
         android:layout_margin="10dp"
         />
 
-    <com.sky.hyh.customviewsamples.customview.WrappedContainer
+    <com.sky.hyh.customviewsamples.customview.wrappedContainer.WrappedContainer2
         android:id="@+id/wc_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
-    </com.sky.hyh.customviewsamples.customview.WrappedContainer>
+    </com.sky.hyh.customviewsamples.customview.wrappedContainer.WrappedContainer2>
 </FrameLayout>
