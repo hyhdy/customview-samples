@@ -1,4 +1,4 @@
-package com.sky.hyh.customviewsamples.customview;
+package com.sky.hyh.customviewsamples.customview.wrappedContainer;
 
 import android.content.Context;
 import android.graphics.Rect;
