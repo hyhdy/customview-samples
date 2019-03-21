@@ -2,19 +2,15 @@ package com.sky.hyh.customviewsamples.customview.customviewpager;
 
 import android.content.Context;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-
 import com.sky.hyh.customviewsamples.R;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * 通过tablayout加viewpager实现
+ */
 public class GraduleTitleViewpagerV2 extends RelativeLayout{
     private static final int RES_ID = R.layout.gradule_title_view_pager_layout_v2;
 
