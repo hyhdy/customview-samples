@@ -27,8 +27,9 @@ public class HollowTextView extends AppCompatTextView {
         super(context, attrs);
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setColor(Color.WHITE);
-
         mPorterDuffXfermode = new PorterDuffXfermode(PorterDuff.Mode.CLEAR );
+        //mPorterDuffXfermode = new PorterDuffXfermode(PorterDuff.Mode.DST_OUT);
+        //mPorterDuffXfermode = new PorterDuffXfermode(PorterDuff.Mode.XOR);
     }
 
     @Override
@@ -38,6 +39,7 @@ public class HollowTextView extends AppCompatTextView {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        //需要在新的图层上绘制，绘制完后再再叠加到旧的图层上。
         canvas.saveLayer(0,0,canvas.getWidth(),canvas.getHeight(), null, Canvas.ALL_SAVE_FLAG);
         canvas.drawRect(0,0,canvas.getWidth(),canvas.getHeight(),mPaint);
         getPaint().setXfermode(mPorterDuffXfermode);
