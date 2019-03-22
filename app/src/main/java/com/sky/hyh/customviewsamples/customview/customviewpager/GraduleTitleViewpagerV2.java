@@ -34,6 +34,7 @@ public class GraduleTitleViewpagerV2 extends RelativeLayout{
     }
 
     public void setAdapter(String[] titleContents,PagerAdapter pagerAdapter){
+        mTabLayout.removeAllTabs();
         for(int i=0;i<titleContents.length;i++){
             mTabLayout.addTab(mTabLayout.newTab());
         }
