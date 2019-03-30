@@ -9,7 +9,8 @@
     </style>
 
     <style name="MyTabLayoutTextAppearanceInverse" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
-        <item name="android:textSize">20sp</item>
-        <item name="android:textColor">#33000000</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#212121</item>
+        <item name="android:textStyle">bold</item>
     </style>
 </resources>
