@@ -18,6 +18,7 @@ import com.sky.hyh.customviewsamples.factory.impl.DynamicRoundTextViewFactory;
 import com.sky.hyh.customviewsamples.factory.impl.ClipChildrenFactory;
 import com.sky.hyh.customviewsamples.R;
 import com.sky.hyh.customviewsamples.adapter.viewholder.BaseViewHolder;
+import com.sky.hyh.customviewsamples.factory.impl.FlexBoxLayoutManagerFactory;
 import com.sky.hyh.customviewsamples.factory.impl.GraduleTitleViewPagerFactory;
 import com.sky.hyh.customviewsamples.factory.impl.HappyNewYear2019Factory;
 import com.sky.hyh.customviewsamples.factory.impl.HollowTextViewFactory;
@@ -51,6 +52,7 @@ public class DataListAdapter extends RecyclerView.Adapter {
         sDataList.add(WrappedContainerFactory.class);
         sDataList.add(AutomaticEditTextFactory.class);
         sDataList.add(SpanLineEditTextFactory.class);
+        sDataList.add(FlexBoxLayoutManagerFactory.class);
     }
     private OnClickCallBack mOnClickCallBack;
     private Context mContext;
