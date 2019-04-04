@@ -1,15 +1,13 @@
 package com.sky.hyh.customviewsamples.fragment.impl;
 
-import android.content.Context;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.AttributeSet;
 import android.view.View;
 
 import com.sky.hyh.customviewsamples.R;
 import com.sky.hyh.customviewsamples.customview.coordinatelayout.CoordinatePagerAdapter;
-import com.sky.hyh.customviewsamples.customview.customviewpager.ViewPagerAdapter;
+import com.sky.hyh.customviewsamples.customview.coordinatelayout.BaseAppBarLayout;
+import com.sky.hyh.customviewsamples.customview.customviewpager.CustomViewPager;
 import com.sky.hyh.customviewsamples.fragment.BaseFragment;
 
 import java.util.ArrayList;
@@ -20,7 +18,8 @@ import java.util.List;
  */
 public class CoordinatorLayoutFragment extends BaseFragment {
     private TabLayout mTabLayout;
-    private ViewPager mViewPager;
+    private CustomViewPager mViewPager;
+    private BaseAppBarLayout mAppBarLayout;
 
     @Override
     protected int getResId() {
@@ -29,7 +28,11 @@ public class CoordinatorLayoutFragment extends BaseFragment {
 
     @Override
     protected void initViews(View rootView) {
+        mAppBarLayout = rootView.findViewById(R.id.app_bar_layout);
+        mAppBarLayout.addOffsetListener();
+
         mViewPager = findViewById(R.id.vp_content);
+        mViewPager.setPagingEnabled(false);
         mTabLayout = findViewById(R.id.tablayout);
         mTabLayout.setupWithViewPager(mViewPager,false);
 
