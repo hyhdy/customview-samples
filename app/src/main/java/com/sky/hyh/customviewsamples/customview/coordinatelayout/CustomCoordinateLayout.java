@@ -37,20 +37,59 @@ public class CustomCoordinateLayout extends CoordinatorLayout {
         mAppBarLayout.addOffsetListener();
 
         mViewPager = findViewById(R.id.vp_content);
-        mViewPager.setPagingEnabled(false);
+        mViewPager.setPagingEnabled(true);
         mTabLayout = findViewById(R.id.tablayout);
         mTabLayout.setupWithViewPager(mViewPager,false);
 
-        List<String> datas=new ArrayList<>();
-        datas.add("#990000");
-        datas.add("#271309");
-        datas.add("#213456");
-        datas.add("#016716");
-        datas.add("#170456");
-        datas.add("#ff11ff");
-        datas.add("#016755");
-        datas.add("#170111");
-        datas.add("#3001ff");
+        List<List<Integer>> datas=new ArrayList<>();
+        int num = 30;
+        List<Integer> l1 = new ArrayList<>();
+        for(int i=0; i< num;i++){
+            l1.add(R.drawable.cat_1);
+        }
+        datas.add(l1);
+
+        List<Integer> l2 = new ArrayList<>();
+        for(int i=0; i< num;i++){
+            l2.add(R.drawable.cat_2);
+        }
+        datas.add(l2);
+
+        List<Integer> l3 = new ArrayList<>();
+        for(int i=0; i< num;i++){
+            l3.add(R.drawable.cat_3);
+        }
+        datas.add(l3);
+
+        List<Integer> l4 = new ArrayList<>();
+        for(int i=0; i< num;i++){
+            l4.add(R.drawable.cat_4);
+        }
+        datas.add(l4);
+
+        List<Integer> l5 = new ArrayList<>();
+        for(int i=0; i< num;i++){
+            l5.add(R.drawable.cat_5);
+        }
+        datas.add(l5);
+
+        List<Integer> l6 = new ArrayList<>();
+        for(int i=0; i< num;i++){
+            l6.add(R.drawable.cat_6);
+        }
+        datas.add(l6);
+
+        List<Integer> l7 = new ArrayList<>();
+        for(int i=0; i< num;i++){
+            l7.add(R.drawable.cat_7);
+        }
+        datas.add(l7);
+
+        List<Integer> l8 = new ArrayList<>();
+        for(int i=0; i< num;i++){
+            l8.add(R.drawable.cat_8);
+        }
+        datas.add(l8);
 
         String[] titleContents = new String[datas.size()];
         for(int i=0;i<datas.size();i++){

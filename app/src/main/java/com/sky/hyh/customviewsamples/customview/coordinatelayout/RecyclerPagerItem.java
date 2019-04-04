@@ -11,12 +11,15 @@ import android.widget.FrameLayout;
 import com.sky.hyh.customviewsamples.R;
 import com.sky.hyh.customviewsamples.entity.CatAdapter;
 
+import java.util.List;
+
 /**
  * created by hyh on 2019/4/4
  */
 public class RecyclerPagerItem extends FrameLayout {
     public static final int RES_ID = R.layout.layout_recycler_pager_item;
     private RecyclerView mRvList;
+    private CatAdapter mCatAdapter;
 
     public RecyclerPagerItem(Context context) {
         this(context,null);
@@ -31,6 +34,12 @@ public class RecyclerPagerItem extends FrameLayout {
     private void initViews(View view){
         mRvList = view.findViewById(R.id.rv_list);
         mRvList.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRvList.setAdapter(new CatAdapter());
+        mCatAdapter = new CatAdapter();
+        mRvList.setAdapter(mCatAdapter);
+    }
+
+    public void setList(List<Integer> dataList){
+        mCatAdapter.setDataList(dataList);
+        mCatAdapter.notifyDataSetChanged();
     }
 }

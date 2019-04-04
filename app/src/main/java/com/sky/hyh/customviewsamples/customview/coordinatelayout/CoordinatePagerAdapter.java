@@ -16,9 +16,9 @@ import java.util.List;
  */
 public class CoordinatePagerAdapter extends PagerAdapter {
     private Context mContext;
-    private List<String> mDataList;
+    private List<List<Integer>> mDataList;
 
-    public CoordinatePagerAdapter(Context context, List<String> dataList){
+    public CoordinatePagerAdapter(Context context, List<List<Integer>> dataList){
         mContext=context;
         mDataList = dataList;
     }
@@ -40,6 +40,7 @@ public class CoordinatePagerAdapter extends PagerAdapter {
     @Override
     public View instantiateItem(@NonNull ViewGroup container, int position) {
         RecyclerPagerItem recyclerPagerItem = new RecyclerPagerItem(mContext);
+        recyclerPagerItem.setList(mDataList.get(position));
         container.addView(recyclerPagerItem,new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));
         return recyclerPagerItem;
