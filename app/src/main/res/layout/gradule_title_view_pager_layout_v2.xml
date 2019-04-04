@@ -12,11 +12,9 @@
         android:paddingTop="12dp"
         app:tabMode="scrollable"
         app:tabBackground="@color/transparent"
-        app:tabRippleColor="@color/transparent"
         app:tabIndicatorColor="#FFFC48"
         app:tabIndicatorHeight="3dp"
         app:tabSelectedTextColor="@color/pure_black"
-        app:tabIndicatorFullWidth="false"
         app:tabTextAppearance="@style/MyTabLayoutTextAppearanceInverse"/>
 
     <com.sky.hyh.customviewsamples.customview.customviewpager.CustomViewPager

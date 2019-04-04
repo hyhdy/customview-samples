@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import com.sky.hyh.customviewsamples.R;
@@ -33,6 +34,7 @@ public abstract class BaseAppBarLayout extends AppBarLayout {
         addOnOffsetChangedListener(new OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int offset) {
+                Log.d("hyh","BaseAppBarLayout: onOffsetChanged: offset="+offset);
                 boolean isTop = false;
                 if(Math.abs(offset) == mTabLayout.getTop()){
                     mTabLayout.setBackgroundColor(0xff9EA19F);
