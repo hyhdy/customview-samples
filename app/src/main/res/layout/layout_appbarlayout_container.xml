@@ -2,21 +2,12 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-        <FrameLayout
-            android:id="@+id/fl_item_1"
+        <com.sky.hyh.customviewsamples.customview.coordinatelayout.TabLayoutContainer
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="@color/colorAccent"
-            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed">
-        </FrameLayout>
-
-        <FrameLayout
-            android:id="@+id/fl_item_2"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:background="@color/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed">
-        </FrameLayout>
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
+            >
+        </com.sky.hyh.customviewsamples.customview.coordinatelayout.TabLayoutContainer>
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tablayout"

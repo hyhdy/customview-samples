@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.sky.hyh.customviewsamples.customview.coordinatelayout.MyAppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="com.sky.hyh.customviewsamples.customview.coordinatelayout.WhlBehavior"
+        >
+    </com.sky.hyh.customviewsamples.customview.coordinatelayout.MyAppBarLayout>
+
+    <com.sky.hyh.customviewsamples.customview.customviewpager.CustomViewPager
+        android:id="@+id/vp_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
+    </com.sky.hyh.customviewsamples.customview.customviewpager.CustomViewPager>
+</merge>
