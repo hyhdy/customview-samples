@@ -43,6 +43,14 @@ public class CatAdapter extends RecyclerView.Adapter {
 //            R.drawable.cat_19
 //    };
 
+
+    public CatAdapter(List<Integer> mDataList) {
+        this.mDataList = mDataList;
+    }
+
+    public CatAdapter() {
+    }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {

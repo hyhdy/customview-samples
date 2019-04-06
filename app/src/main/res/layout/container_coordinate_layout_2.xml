@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.sky.hyh.customviewsamples.customview.coordinatelayout.CustomRecyclerView
+        android:id="@+id/rv_outer_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
+
+    </com.sky.hyh.customviewsamples.customview.coordinatelayout.CustomRecyclerView>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tablayout"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_gravity="center_vertical"
+        android:paddingBottom="12dp"
+        android:paddingTop="12dp"
+        app:tabMode="scrollable"
+        app:tabBackground="@color/transparent"
+        app:tabIndicatorColor="#FFFC48"
+        app:tabIndicatorHeight="3dp"
+        app:tabSelectedTextColor="@color/pure_black"
+        app:tabTextAppearance="@style/MyTabLayoutTextAppearanceInverse"/>
+
+    <com.sky.hyh.customviewsamples.customview.customviewpager.CustomViewPager
+        android:id="@+id/vp_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
+    </com.sky.hyh.customviewsamples.customview.customviewpager.CustomViewPager>
+</merge>

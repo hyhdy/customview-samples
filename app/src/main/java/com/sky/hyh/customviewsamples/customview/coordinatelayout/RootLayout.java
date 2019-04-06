@@ -31,8 +31,9 @@ public class RootLayout extends FrameLayout {
         mHaveList = haveList;
         removeAllViews();
         if(haveList){
-            CustomCoordinateLayout customCoordinateLayout = new CustomCoordinateLayout(getContext());
-            addView(customCoordinateLayout,new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            //NestedParentView parentView = new NestedParentView(getContext());
+            CustomCoordinateLayout parentView = new CustomCoordinateLayout(getContext());
+            addView(parentView,new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         }else{
             TabLayoutContainer tabLayoutContainer = new TabLayoutContainer(getContext());
             addView(tabLayoutContainer,new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
