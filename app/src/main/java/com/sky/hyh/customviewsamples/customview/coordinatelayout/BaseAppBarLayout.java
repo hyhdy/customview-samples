@@ -34,7 +34,7 @@ public abstract class BaseAppBarLayout extends AppBarLayout {
         addOnOffsetChangedListener(new OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int offset) {
-                Log.d("hyh","BaseAppBarLayout: onOffsetChanged: offset="+offset);
+                //Log.d("hyh","BaseAppBarLayout: onOffsetChanged: offset="+offset);
                 boolean isTop = false;
                 if(Math.abs(offset) == mTabLayout.getTop()){
                     mTabLayout.setBackgroundColor(0xff9EA19F);

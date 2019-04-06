@@ -155,13 +155,14 @@ public class CustomCoordinateLayout extends CoordinatorLayout {
 
     @Override
     public boolean onNestedFling(View target, float velocityX, float velocityY, boolean consumed) {
-        Log.d("hyh","CustomCoordinateLayout: onNestedFling: ");
+        Log.d("hyh","CustomCoordinateLayout: onNestedFling: velocityY="+
+                velocityY+" ,consumed="+consumed);
         return super.onNestedFling(target, velocityX, velocityY, consumed);
     }
 
     @Override
     public boolean onNestedPreFling(View target, float velocityX, float velocityY) {
-        Log.d("hyh","CustomCoordinateLayout: onNestedPreFling: ");
+        Log.d("hyh","CustomCoordinateLayout: onNestedPreFling: velocityY="+velocityY);
         return super.onNestedPreFling(target, velocityX, velocityY);
     }
 

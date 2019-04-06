@@ -40,52 +40,12 @@ public interface NestedChild {
     boolean isNestedScrollingEnabled();
 
     /**
-     * Begin a nestable scroll operation along the given axes.
-     *
-     * <p>A view starting a nested scroll promises to abide by the following contract:</p>
-     *
-     * <p>The view will call startNestedScroll upon initiating a scroll operation. In the case
-     * of a touch scroll this corresponds to the initial {@link MotionEvent#ACTION_DOWN}.
-     * In the case of touch scrolling the nested scroll will be terminated automatically in
-     * the same manner as {@link ViewParent#requestDisallowInterceptTouchEvent(boolean)}.
-     * In the event of programmatic scrolling the caller must explicitly call
-     * {@link #stopNestedScroll()} to indicate the end of the nested scroll.</p>
-     *
-     * <p>If <code>startNestedScroll</code> returns true, a cooperative parent was found.
-     * If it returns false the caller may ignore the rest of this contract until the next scroll.
-     * Calling startNestedScroll while a nested scroll is already in progress will return true.</p>
-     *
-     * <p>At each incremental step of the scroll the caller should invoke
-     * {@link #dispatchNestedPreScroll(int, int, int[], int[]) dispatchNestedPreScroll}
-     * once it has calculated the requested scrolling delta. If it returns true the nested scrolling
-     * parent at least partially consumed the scroll and the caller should adjust the amount it
-     * scrolls by.</p>
-     *
-     * <p>After applying the remainder of the scroll delta the caller should invoke
-     * {@link #dispatchNestedScroll(int, int, int, int, int[]) dispatchNestedScroll}, passing
-     * both the delta consumed and the delta unconsumed. A nested scrolling parent may treat
-     * these values differently. See
-     * {@link NestedScrollingParent#onNestedScroll(View, int, int, int, int)}.
-     * </p>
-     *
-     * @param axes Flags consisting of a combination of {@link ViewCompat#SCROLL_AXIS_HORIZONTAL}
-     *             and/or {@link ViewCompat#SCROLL_AXIS_VERTICAL}.
-     * @return true if a cooperative parent was found and nested scrolling has been enabled for
-     *         the current gesture.
-     *
-     * @see #stopNestedScroll()
-     * @see #dispatchNestedPreScroll(int, int, int[], int[])
-     * @see #dispatchNestedScroll(int, int, int, int, int[])
+     * 开始嵌套滑动，一般在down事件触发
+     * @param axes：嵌套滑动方向
+     * @return
      */
     boolean startNestedScroll(@ViewCompat.ScrollAxis int axes);
 
-    /**
-     * Stop a nested scroll in progress.
-     *
-     * <p>Calling this method when a nested scroll is not currently in progress is harmless.</p>
-     *
-     * @see #startNestedScroll(int)
-     */
     void stopNestedScroll();
 
     /**
@@ -125,23 +85,12 @@ public interface NestedChild {
                                  int dxUnconsumed, int dyUnconsumed, @Nullable int[] offsetInWindow);
 
     /**
-     * Dispatch one step of a nested scroll in progress before this view consumes any portion of it.
-     *
-     * <p>Nested pre-scroll events are to nested scroll events what touch intercept is to touch.
-     * <code>dispatchNestedPreScroll</code> offers an opportunity for the parent view in a nested
-     * scrolling operation to consume some or all of the scroll operation before the child view
-     * consumes it.</p>
-     *
-     * @param dx Horizontal scroll distance in pixels
-     * @param dy Vertical scroll distance in pixels
-     * @param consumed Output. If not null, consumed[0] will contain the consumed component of dx
-     *                 and consumed[1] the consumed dy.
-     * @param offsetInWindow Optional. If not null, on return this will contain the offset
-     *                       in local view coordinates of this view from before this operation
-     *                       to after it completes. View implementations may use this to adjust
-     *                       expected input coordinate tracking.
-     * @return true if the parent consumed some or all of the scroll delta
-     * @see #dispatchNestedScroll(int, int, int, int, int[])
+     * 分发相邻的两次move事件的坐标差值
+     * @param dx：手指move过程x轴的偏移量
+     * @param dy：手指move过程y轴的偏移量
+     * @param consumed
+     * @param offsetInWindow
+     * @return
      */
     boolean dispatchNestedPreScroll(int dx, int dy, @Nullable int[] consumed,
                                     @Nullable int[] offsetInWindow);
