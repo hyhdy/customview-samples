@@ -13,6 +13,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.sky.hyh.customviewsamples.R;
@@ -22,7 +23,7 @@ import com.sky.hyh.customviewsamples.entity.CatAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NestedParentView extends RelativeLayout implements NestedScrollingParent2 {
+public class NestedParentView extends LinearLayout implements NestedScrollingParent2 {
     public static final int RES_ID = R.layout.container_nested_parent_layout;
     private NestedScrollView mNestedScrollView;
 
@@ -32,6 +33,7 @@ public class NestedParentView extends RelativeLayout implements NestedScrollingP
 
     public NestedParentView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        setOrientation(VERTICAL);
         setBackgroundColor(getResources().getColor(R.color.pure_black));
         View root = inflate(context,RES_ID,this);
         initViews(root);
@@ -140,7 +142,16 @@ public class NestedParentView extends RelativeLayout implements NestedScrollingP
     @Override
     public void onNestedScroll(@NonNull View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed, int type) {
         Log.d("hyh","NestedParentView: onNestedScroll: dyConsumed="+dyConsumed+" ,dyUnconsumed="+dyUnconsumed);
-        scrollBy(0,dyUnconsumed);
+        //scrollTo(0,getMeasuredHeight());
+        Log.d("hyh","NestedParentView: onNestedScroll: vp height="+mViewPager.getMeasuredHeight());
+        if(dyUnconsumed <= mViewPager.getMeasuredHeight()+mTabLayout.getMeasuredHeight()){
+            scrollBy(0,dyUnconsumed);
+        }else{
+            scrollBy(0,mViewPager.getMeasuredHeight()+mTabLayout.getMeasuredHeight());
+            findViewById(R.id.rv_list).scrollBy(0,dyUnconsumed - mViewPager.getMeasuredHeight() - mTabLayout.getMeasuredHeight());
+        }
+
+
     }
 
     @Override

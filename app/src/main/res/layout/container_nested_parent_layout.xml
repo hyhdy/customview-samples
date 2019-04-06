@@ -45,7 +45,6 @@
         android:id="@+id/tablayout"
         android:layout_width="match_parent"
         android:layout_height="52dp"
-        android:layout_below="@+id/nsv_list"
         android:background="@color/pure_white"
         android:layout_gravity="center_vertical"
         android:paddingBottom="12dp"
@@ -60,8 +59,7 @@
     <com.sky.hyh.customviewsamples.customview.customviewpager.CustomViewPager
         android:id="@+id/vp_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/tablayout"
+        android:layout_height="500dp"
         android:background="@color/pure_white"
         >
     </com.sky.hyh.customviewsamples.customview.customviewpager.CustomViewPager>
