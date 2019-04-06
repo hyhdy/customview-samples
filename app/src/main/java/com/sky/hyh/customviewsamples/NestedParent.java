@@ -78,31 +78,14 @@ public interface NestedParent {
                         int dxUnconsumed, int dyUnconsumed);
 
     /**
-     * React to a nested scroll in progress before the target view consumes a portion of the scroll.
-     *
-     * <p>When working with nested scrolling often the parent view may want an opportunity
-     * to consume the scroll before the nested scrolling child does. An example of this is a
-     * drawer that contains a scrollable list. The user will want to be able to scroll the list
-     * fully into view before the list itself begins scrolling.</p>
-     *
-     * <p><code>onNestedPreScroll</code> is called when a nested scrolling child invokes
-     * {@link View#dispatchNestedPreScroll(int, int, int[], int[])}. The implementation should
-     * report how any pixels of the scroll reported by dx, dy were consumed in the
-     * <code>consumed</code> array. Index 0 corresponds to dx and index 1 corresponds to dy.
-     * This parameter will never be null. Initial values for consumed[0] and consumed[1]
-     * will always be 0.</p>
-     *
-     * @param target View that initiated the nested scroll
-     * @param dx Horizontal scroll distance in pixels
-     * @param dy Vertical scroll distance in pixels
-     * @param consumed Output. The horizontal and vertical scroll distance consumed by this parent
-     */
-    /**
-     *
+     * 在嵌套滑动的子View未滑动之前告诉父控件准备滑动的情况
      * @param target
-     * @param dx
-     * @param dy
-     * @param consumed
+     * @param dx：水平方向嵌套滑动子view想要变化的距离
+     * @param dy：竖直方向嵌套滑动子view想要变化的距离
+     * @param consumed：父控件消耗的距离，onsumed[0]表示水平方向消耗的距离，consumed[1]表示竖直方向消耗的距离。
+     *                父控件将消耗的距离存储在这个数组，然后告诉嵌套滑动子view我已经消耗一些距离，子view应做出相应调整，
+     *                通常得出嵌套滑动子view水平方向滑动的值等于dx - consumed[0]，嵌套滑动子view水平方向滑动的值等于dy - consumed[1]。
+     *
      */
     void onNestedPreScroll(@NonNull View target, int dx, int dy, @NonNull int[] consumed);
 
