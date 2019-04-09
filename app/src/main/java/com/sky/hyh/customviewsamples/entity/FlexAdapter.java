@@ -17,6 +17,7 @@ import java.util.List;
 import static com.sky.hyh.customviewsamples.constant.FlexTypeValue.ITEM_TYPE_1;
 import static com.sky.hyh.customviewsamples.constant.FlexTypeValue.ITEM_TYPE_2;
 import static com.sky.hyh.customviewsamples.constant.FlexTypeValue.ITEM_TYPE_3;
+import static com.sky.hyh.customviewsamples.constant.FlexTypeValue.ITEM_TYPE_4;
 
 /**
  * created by hyh on 2019/4/3
@@ -38,8 +39,14 @@ public class FlexAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(getLayoutId(viewType), viewGroup, false);
-        Pair<Integer,Integer> pair = getWHRatioByType(viewGroup.getWidth(),ITEM_HEIGHT,viewType);
-        view.setLayoutParams(new ViewGroup.LayoutParams(pair.first,pair.second));
+        if(viewType != ITEM_TYPE_4) {
+            Pair<Integer, Integer> pair = getWHRatioByType(viewGroup.getWidth(), ITEM_HEIGHT, viewType);
+            view.setLayoutParams(new ViewGroup.LayoutParams(pair.first, pair.second));
+        }else{
+            StaggeredGridLayoutManager.LayoutParams layoutParams = new StaggeredGridLayoutManager.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,SizeUtils.dp2px(50));
+            layoutParams.setFullSpan(true);
+            view.setLayoutParams(layoutParams);
+        }
         return new FlexViewHolder(view);
     }
 
@@ -58,6 +65,9 @@ public class FlexAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
+        if(position == getItemCount() -1){
+            return ITEM_TYPE_4;
+        }
         int type = ITEM_TYPE_1;
 
         int i = position / FLEX_COUNT_PER_ITEM;
@@ -92,6 +102,8 @@ public class FlexAdapter extends RecyclerView.Adapter {
             layoutId = R.layout.staggerd_layout_2;
         }else if(type == ITEM_TYPE_3){
             layoutId = R.layout.staggerd_layout_3;
+        }else if(type == ITEM_TYPE_4){
+            layoutId = R.layout.stag_item_tail;
         }
 
         return layoutId;
