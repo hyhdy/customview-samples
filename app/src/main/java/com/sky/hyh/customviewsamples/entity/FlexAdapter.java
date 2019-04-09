@@ -2,11 +2,15 @@ package com.sky.hyh.customviewsamples.entity;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.sky.hyh.customviewsamples.R;
+import com.sky.hyh.customviewsamples.utils.SizeUtils;
 
 import java.util.List;
 
@@ -18,6 +22,10 @@ import static com.sky.hyh.customviewsamples.constant.FlexTypeValue.ITEM_TYPE_3;
  * created by hyh on 2019/4/3
  */
 public class FlexAdapter extends RecyclerView.Adapter {
+    public static final int ITEM_HEIGHT = SizeUtils.dp2px(354);
+    public static final float RATIO_W = 0.5f;
+    public static final float RATIO_H = 0.62f;
+
     public static final int FLEX_COUNT_PER_ITEM = 3;
     private List<FlexModel> mDataList;
 
@@ -27,9 +35,11 @@ public class FlexAdapter extends RecyclerView.Adapter {
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(getLayoutId(i), viewGroup, false);
+                .inflate(getLayoutId(viewType), viewGroup, false);
+        Pair<Integer,Integer> pair = getWHRatioByType(viewGroup.getWidth(),ITEM_HEIGHT,viewType);
+        view.setLayoutParams(new ViewGroup.LayoutParams(pair.first,pair.second));
         return new FlexViewHolder(view);
     }
 
@@ -74,16 +84,67 @@ public class FlexAdapter extends RecyclerView.Adapter {
     }
 
     private int getLayoutId(int type){
-        int layoutId = R.layout.flex_layout_1;
+        int layoutId = R.layout.staggerd_layout_1;
 
         if(type == ITEM_TYPE_1){
-            layoutId = R.layout.flex_layout_1;
+            layoutId = R.layout.staggerd_layout_1;
         }else if(type == ITEM_TYPE_2){
-            layoutId = R.layout.flex_layout_2;
+            layoutId = R.layout.staggerd_layout_2;
         }else if(type == ITEM_TYPE_3){
-            layoutId = R.layout.flex_layout_3;
+            layoutId = R.layout.staggerd_layout_3;
         }
 
         return layoutId;
+    }
+
+    public Pair<Integer,Integer> getWHRatioByType(int totalWidth,int totalHeight,int type) {
+        int width = totalWidth;
+        int height = totalHeight;
+
+        if(type == ITEM_TYPE_1){
+            width = (int) (totalWidth * RATIO_W);
+            height = totalHeight;
+        }else if(type == ITEM_TYPE_2){
+            width = totalWidth - (int) (totalWidth * RATIO_W);
+            height = (int) (totalHeight * RATIO_H);
+        }else if(type == ITEM_TYPE_3){
+            width = totalWidth - (int) (totalWidth * RATIO_W);
+            height = totalHeight - (int) (totalHeight * RATIO_H);
+        }
+        Log.d("hyh","FlexAdapter: getWHRatioByType: totalWidth="+totalWidth+" ,totalHeight="+totalHeight+" ,width="+width+" ,height="+height+" ,type="+type);
+        return Pair.create(width,height);
+    }
+
+    public Pair<Float,Float> getWHRatio(int position) {
+        float wRatio = 1;
+        float hRatio = 1;
+
+        int i = position / FLEX_COUNT_PER_ITEM;
+        int j = position % FLEX_COUNT_PER_ITEM;
+        if(i % 2 == 0){
+            if(j == 0){
+                wRatio = 0.60f;
+                hRatio = 1;
+            }else if(j == 1){
+                wRatio = 0.40f;
+                hRatio = 0.62f;
+            }else if(j == 2){
+                wRatio = 0.40f;
+                hRatio = 0.38f;
+            }
+        }else{
+            if(j == 0){
+                wRatio = 0.40f;
+                hRatio = 0.38f;
+            }else if(j == 1){
+                wRatio = 0.60f;
+                hRatio = 1;
+            }else if(j == 2){
+                wRatio = 0.40f;
+                hRatio = 0.62f;
+            }
+        }
+
+        return Pair.create(wRatio,hRatio);
     }
 }

@@ -1,6 +1,7 @@
 package com.sky.hyh.customviewsamples.fragment.impl;
 
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
 import com.google.android.flexbox.FlexDirection;
@@ -31,11 +32,9 @@ public class FlexBoxLayoutManagerFragment extends BaseFragment {
 
     @Override
     protected void initViews(View rootView) {
-        FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(getContext());
-        layoutManager.setFlexDirection(FlexDirection.ROW);
-        layoutManager.setFlexWrap(FlexWrap.WRAP);
-        layoutManager.setJustifyContent(JustifyContent.FLEX_START);
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
         mRvList.setLayoutManager(layoutManager);
+        mRvList.setHasFixedSize(true);
         List<FlexModel> dataList = new ArrayList<>();
         dataList.add(new FlexModel());
         dataList.add(new FlexModel());
@@ -51,7 +50,7 @@ public class FlexBoxLayoutManagerFragment extends BaseFragment {
         dataList.add(new FlexModel());
         dataList.add(new FlexModel());
         dataList.add(new FlexModel());
-        dataList.add(new FlexModel());
+        //dataList.add(new FlexModel());
         mRvList.setAdapter(new FlexAdapter(dataList));
     }
 }
