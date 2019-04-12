@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 import com.sky.hyh.customviewsamples.R;
+import com.sky.hyh.customviewsamples.utils.SizeUtils;
 
 /**
  * 通过tablayout加viewpager实现
@@ -30,6 +31,13 @@ public class GraduleTitleViewpagerV2 extends RelativeLayout{
     private void initViews(){
         mViewPager = findViewById(R.id.vp_content);
         mTabLayout = findViewById(R.id.tablayout);
+        mTabLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                IndicatorLineUtil.setIndicator(mTabLayout, 10,10);
+            }
+        });
+
         mTabLayout.setupWithViewPager(mViewPager,false);
     }
 
