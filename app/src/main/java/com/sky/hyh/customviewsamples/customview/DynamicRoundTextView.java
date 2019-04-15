@@ -20,7 +20,7 @@ import com.facebook.rebound.Spring;
 import com.facebook.rebound.SpringConfig;
 import com.facebook.rebound.SpringListener;
 import com.facebook.rebound.SpringSystem;
-import com.sky.hyh.customviewsamples.utils.SizeUtils;
+import com.hyh.base_lib.utils.SizeUtils;
 
 /**
  * Created by hyh on 2018/9/11 17:48

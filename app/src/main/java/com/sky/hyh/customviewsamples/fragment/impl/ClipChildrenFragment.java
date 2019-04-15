@@ -2,8 +2,8 @@ package com.sky.hyh.customviewsamples.fragment.impl;
 
 import android.view.View;
 
+import com.hyh.base_lib.fragment.BaseFragment;
 import com.sky.hyh.customviewsamples.R;
-import com.sky.hyh.customviewsamples.fragment.BaseFragment;
 
 /**
  * 1.android:clipChildren必须设置在祖父布局上，也就是要想让某个view在该view的父布局外显示，那么clipChildren需要在该view的父布局的父布局设置，也就是他的祖父布局上。

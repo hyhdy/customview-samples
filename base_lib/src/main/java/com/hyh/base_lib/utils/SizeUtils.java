@@ -1,9 +1,7 @@
 
-package com.sky.hyh.customviewsamples.utils;
+package com.hyh.base_lib.utils;
 
-import android.content.Context;
-
-import com.sky.hyh.customviewsamples.MyApplication;
+import com.hyh.base_lib.MyApplication;
 
 public class SizeUtils {
 

@@ -3,11 +3,12 @@ package com.sky.hyh.customviewsamples.fragment.impl;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.View;
+
+import com.hyh.base_lib.annotation.FindViewByIdAno;
+import com.hyh.base_lib.fragment.BaseFragment;
+import com.hyh.base_lib.utils.InjectUtil;
 import com.sky.hyh.customviewsamples.R;
-import com.sky.hyh.customviewsamples.annotation.FindViewByIdAno;
 import com.sky.hyh.customviewsamples.customview.StrokeTextView;
-import com.sky.hyh.customviewsamples.fragment.BaseFragment;
-import com.sky.hyh.customviewsamples.utils.InjectUtil;
 
 /**
  * Created by hyh on 2018/12/24 15:33

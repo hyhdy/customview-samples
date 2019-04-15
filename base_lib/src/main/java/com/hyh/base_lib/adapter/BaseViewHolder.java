@@ -1,4 +1,4 @@
-package com.sky.hyh.customviewsamples.adapter.viewholder;
+package com.hyh.base_lib.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

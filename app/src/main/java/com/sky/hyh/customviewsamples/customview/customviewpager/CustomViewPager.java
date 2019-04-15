@@ -7,8 +7,6 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 
-import com.sky.hyh.customviewsamples.utils.SizeUtils;
-
 public class CustomViewPager extends ViewPager {
     private boolean mIsPagingEnabled = true;
 

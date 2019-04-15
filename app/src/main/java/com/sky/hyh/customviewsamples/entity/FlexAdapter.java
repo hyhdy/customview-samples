@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sky.hyh.customviewsamples.R;
-import com.sky.hyh.customviewsamples.utils.SizeUtils;
+import com.hyh.base_lib.utils.SizeUtils;
 
 import java.util.List;
 

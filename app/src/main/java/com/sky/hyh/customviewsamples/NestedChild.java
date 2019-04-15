@@ -1,13 +1,9 @@
 package com.sky.hyh.customviewsamples;
 
 import android.support.annotation.Nullable;
-import android.support.v4.view.NestedScrollingParent;
 import android.support.v4.view.ViewCompat;
-import android.view.MotionEvent;
 import android.view.VelocityTracker;
-import android.view.View;
 import android.view.ViewConfiguration;
-import android.view.ViewParent;
 
 public interface NestedChild {
     /**

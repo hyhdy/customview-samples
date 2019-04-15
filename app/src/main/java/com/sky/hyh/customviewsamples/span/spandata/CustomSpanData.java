@@ -2,15 +2,11 @@ package com.sky.hyh.customviewsamples.span.spandata;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.support.annotation.IntDef;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.CharacterStyle;
-import android.util.Log;
+
 import com.sky.hyh.customviewsamples.span.CustomTextSpan;
 import com.sky.hyh.customviewsamples.span.TypeConfig;
-import com.sky.hyh.customviewsamples.utils.SizeUtils;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 
 import static com.sky.hyh.customviewsamples.span.TypeConfig.ALIGN_BOTTOM;
 import static com.sky.hyh.customviewsamples.span.TypeConfig.TYPE_ABS_SIZE_SPAN;

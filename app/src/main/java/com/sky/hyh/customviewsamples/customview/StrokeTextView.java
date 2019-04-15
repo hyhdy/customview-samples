@@ -9,7 +9,7 @@ import android.support.v7.widget.AppCompatTextView;
 import android.text.Layout;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
-import com.sky.hyh.customviewsamples.utils.SizeUtils;
+import com.hyh.base_lib.utils.SizeUtils;
 
 /**
  * Created by hyh on 2018/12/26 21:56

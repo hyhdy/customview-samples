@@ -11,7 +11,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
-import com.sky.hyh.customviewsamples.utils.SizeUtils;
+import com.hyh.base_lib.utils.SizeUtils;
 import java.util.ArrayList;
 import java.util.List;
 

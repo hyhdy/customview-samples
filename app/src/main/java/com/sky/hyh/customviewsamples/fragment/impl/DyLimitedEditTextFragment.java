@@ -2,8 +2,8 @@ package com.sky.hyh.customviewsamples.fragment.impl;
 
 import android.view.View;
 
+import com.hyh.base_lib.fragment.BaseFragment;
 import com.sky.hyh.customviewsamples.R;
-import com.sky.hyh.customviewsamples.fragment.BaseFragment;
 
 public class DyLimitedEditTextFragment extends BaseFragment {
     @Override

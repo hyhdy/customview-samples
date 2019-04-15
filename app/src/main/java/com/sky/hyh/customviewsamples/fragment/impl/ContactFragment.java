@@ -8,15 +8,17 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
+import com.hyh.base_lib.annotation.FindViewByIdAno;
+import com.hyh.base_lib.fragment.BaseFragment;
 import com.sky.hyh.customviewsamples.R;
-import com.sky.hyh.customviewsamples.adapter.viewholder.ContactListAdapter;
-import com.sky.hyh.customviewsamples.annotation.FindViewByIdAno;
+import com.sky.hyh.customviewsamples.adapter.ContactListAdapter;
 import com.sky.hyh.customviewsamples.entity.MobileContactSingleton;
 import com.sky.hyh.customviewsamples.entity.PhoneInfo;
-import com.sky.hyh.customviewsamples.fragment.BaseFragment;
+
 import java.util.List;
 
 /**

@@ -3,13 +3,10 @@ package com.sky.hyh.customviewsamples.customview.coordinatelayout;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CoordinatorLayout;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-
-import com.sky.hyh.customviewsamples.R;
 
 /**
  * created by hyh on 2019/4/4

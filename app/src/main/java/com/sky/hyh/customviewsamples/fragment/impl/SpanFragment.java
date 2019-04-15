@@ -7,11 +7,10 @@ import android.text.Spanned;
 import android.view.View;
 import android.widget.TextView;
 
+import com.hyh.base_lib.annotation.FindViewByIdAno;
+import com.hyh.base_lib.fragment.BaseFragment;
 import com.sky.hyh.customviewsamples.R;
-import com.sky.hyh.customviewsamples.annotation.FindViewByIdAno;
-import com.sky.hyh.customviewsamples.fragment.BaseFragment;
 import com.sky.hyh.customviewsamples.span.CustomTextSpan;
-import com.sky.hyh.customviewsamples.utils.SizeUtils;
 
 import static com.sky.hyh.customviewsamples.span.TypeConfig.ALIGN_CENTER;
 import static com.sky.hyh.customviewsamples.span.TypeConfig.UNIT_SP;

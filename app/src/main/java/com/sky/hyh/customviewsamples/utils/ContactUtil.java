@@ -6,8 +6,8 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
-import android.util.Log;
-import com.sky.hyh.customviewsamples.MyApplication;
+
+import com.hyh.base_lib.MyApplication;
 import com.sky.hyh.customviewsamples.entity.MobileContactObserver;
 import com.sky.hyh.customviewsamples.entity.PhoneInfo;
 import java.util.ArrayList;

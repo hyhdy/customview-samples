@@ -2,11 +2,10 @@ package com.sky.hyh.customviewsamples.customview.wrappedContainer;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
-import com.sky.hyh.customviewsamples.utils.SizeUtils;
+import com.hyh.base_lib.utils.SizeUtils;
 import java.util.ArrayList;
 import java.util.List;
 

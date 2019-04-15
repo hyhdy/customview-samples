@@ -7,7 +7,6 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 import com.sky.hyh.customviewsamples.R;
-import com.sky.hyh.customviewsamples.utils.SizeUtils;
 
 /**
  * 通过tablayout加viewpager实现

@@ -25,3 +25,13 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext {
+    vcompileSdkVersion = 26
+    versionCode = 1
+    versionName = "1.0"
+    vtargetSdkVersion = 26
+    vminSdkVersion = 16
+    vSupport_appcompat_v7 = "com.android.support:appcompat-v7:26.0.0"
+    vSupport_recyclerview_v7 = "com.android.support:recyclerview-v7:26.0.0"
+}

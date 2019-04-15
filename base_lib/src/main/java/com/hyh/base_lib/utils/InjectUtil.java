@@ -1,6 +1,6 @@
-package com.sky.hyh.customviewsamples.utils;
+package com.hyh.base_lib.utils;
 
-import com.sky.hyh.customviewsamples.annotation.FindViewByIdAno;
+import com.hyh.base_lib.annotation.FindViewByIdAno;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;

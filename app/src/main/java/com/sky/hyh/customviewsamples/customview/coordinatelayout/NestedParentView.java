@@ -7,18 +7,13 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.NestedScrollingParent2;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.NestedScrollView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.sky.hyh.customviewsamples.R;
 import com.sky.hyh.customviewsamples.customview.customviewpager.CustomViewPager;
-import com.sky.hyh.customviewsamples.entity.CatAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

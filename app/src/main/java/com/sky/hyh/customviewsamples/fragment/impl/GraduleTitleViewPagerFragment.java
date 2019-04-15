@@ -2,13 +2,11 @@ package com.sky.hyh.customviewsamples.fragment.impl;
 
 import android.view.View;
 
+import com.hyh.base_lib.annotation.FindViewByIdAno;
+import com.hyh.base_lib.fragment.BaseFragment;
 import com.sky.hyh.customviewsamples.R;
-import com.sky.hyh.customviewsamples.annotation.FindViewByIdAno;
-import com.sky.hyh.customviewsamples.customview.customviewpager.GraduleTitleViewpager;
 import com.sky.hyh.customviewsamples.customview.customviewpager.GraduleTitleViewpagerV2;
 import com.sky.hyh.customviewsamples.customview.customviewpager.ViewPagerAdapter;
-import com.sky.hyh.customviewsamples.fragment.BaseFragment;
-import com.sky.hyh.customviewsamples.utils.InjectUtil;
 
 import java.util.ArrayList;
 import java.util.List;

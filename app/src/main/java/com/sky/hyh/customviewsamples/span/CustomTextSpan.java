@@ -5,7 +5,7 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.text.style.ReplacementSpan;
 import android.util.Log;
-import com.sky.hyh.customviewsamples.utils.SizeUtils;
+import com.hyh.base_lib.utils.SizeUtils;
 import static com.sky.hyh.customviewsamples.span.TypeConfig.ALIGN_BOTTOM;
 import static com.sky.hyh.customviewsamples.span.TypeConfig.ALIGN_CENTER;
 import static com.sky.hyh.customviewsamples.span.TypeConfig.ALIGN_TOP;

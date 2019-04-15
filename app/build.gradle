@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion rootProject.ext.vcompileSdkVersion
     defaultConfig {
         applicationId "com.lmy.hyh.customviewdemo"
-        minSdkVersion 16
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion rootProject.ext.vminSdkVersion
+        targetSdkVersion rootProject.ext.vtargetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -26,9 +26,10 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.facebook.rebound:rebound:0.3.8'
-    implementation 'com.android.support:appcompat-v7:26.0.0'
-    implementation 'com.android.support:recyclerview-v7:26.0.0'
+    implementation rootProject.ext.vSupport_appcompat_v7
+    implementation rootProject.ext.vSupport_recyclerview_v7
     implementation 'com.googlecode.libphonenumber:libphonenumber:8.2.0'
     implementation 'com.android.support:design:26.0.0'
     implementation 'com.google.android:flexbox:1.0.0'
+    implementation project(path: ':base_lib')
 }

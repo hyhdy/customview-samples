@@ -1,4 +1,4 @@
-package com.sky.hyh.customviewsamples.adapter.viewholder;
+package com.sky.hyh.customviewsamples.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.sky.hyh.customviewsamples.R;
 import com.sky.hyh.customviewsamples.entity.PhoneInfo;
 import java.util.List;
-import java.util.zip.Inflater;
 
 /**
  * Created by hyh on 2019/1/2 16:51

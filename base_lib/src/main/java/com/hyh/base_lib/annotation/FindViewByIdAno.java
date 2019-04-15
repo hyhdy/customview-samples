@@ -1,4 +1,4 @@
-package com.sky.hyh.customviewsamples.annotation;
+package com.hyh.base_lib.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

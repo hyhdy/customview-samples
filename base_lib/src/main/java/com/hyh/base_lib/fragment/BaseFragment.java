@@ -1,4 +1,4 @@
-package com.sky.hyh.customviewsamples.fragment;
+package com.hyh.base_lib.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.sky.hyh.customviewsamples.utils.InjectUtil;
+import com.hyh.base_lib.utils.InjectUtil;
 
 public abstract class BaseFragment extends Fragment {
     private OnDestroyCallBack mOnDestroyCallBack;

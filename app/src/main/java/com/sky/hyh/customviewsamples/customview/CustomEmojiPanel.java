@@ -13,7 +13,7 @@ import android.util.AttributeSet;
 import android.widget.Toast;
 
 import com.sky.hyh.customviewsamples.R;
-import com.sky.hyh.customviewsamples.utils.SizeUtils;
+import com.hyh.base_lib.utils.SizeUtils;
 
 import java.util.HashMap;
 import java.util.Map;

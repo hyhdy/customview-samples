@@ -4,9 +4,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.SeekBar;
 
+import com.hyh.base_lib.fragment.BaseFragment;
 import com.sky.hyh.customviewsamples.R;
 import com.sky.hyh.customviewsamples.customview.ColorMatrixView;
-import com.sky.hyh.customviewsamples.fragment.BaseFragment;
 
 /**
  * Created by hyh on 2018/10/27 20:45

@@ -6,10 +6,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+
+import com.hyh.base_lib.annotation.FindViewByIdAno;
+import com.hyh.base_lib.fragment.BaseFragment;
 import com.sky.hyh.customviewsamples.R;
-import com.sky.hyh.customviewsamples.annotation.FindViewByIdAno;
 import com.sky.hyh.customviewsamples.customview.wrappedContainer.WrappedContainer2;
-import com.sky.hyh.customviewsamples.fragment.BaseFragment;
 
 /**
  * Created by hyh on 2019/2/13 21:02

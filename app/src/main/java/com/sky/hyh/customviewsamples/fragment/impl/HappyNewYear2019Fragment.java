@@ -1,11 +1,9 @@
 package com.sky.hyh.customviewsamples.fragment.impl;
 
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 
+import com.hyh.base_lib.fragment.BaseFragment;
 import com.sky.hyh.customviewsamples.R;
-import com.sky.hyh.customviewsamples.fragment.BaseFragment;
 
 public class HappyNewYear2019Fragment extends BaseFragment {
     @Override

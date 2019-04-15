@@ -1,7 +1,6 @@
-package com.sky.hyh.customviewsamples;
+package com.hyh.base_lib;
 
 import android.app.Application;
-import android.content.Context;
 
 /**
  * Created by hyh on 2018/12/14 16:26

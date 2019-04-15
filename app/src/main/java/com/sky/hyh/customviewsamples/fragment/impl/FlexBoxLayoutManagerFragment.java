@@ -4,16 +4,11 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
-import com.google.android.flexbox.FlexDirection;
-import com.google.android.flexbox.FlexWrap;
-import com.google.android.flexbox.FlexboxLayoutManager;
-import com.google.android.flexbox.JustifyContent;
+import com.hyh.base_lib.annotation.FindViewByIdAno;
+import com.hyh.base_lib.fragment.BaseFragment;
 import com.sky.hyh.customviewsamples.R;
-import com.sky.hyh.customviewsamples.annotation.FindViewByIdAno;
-import com.sky.hyh.customviewsamples.entity.CatAdapter;
 import com.sky.hyh.customviewsamples.entity.FlexAdapter;
 import com.sky.hyh.customviewsamples.entity.FlexModel;
-import com.sky.hyh.customviewsamples.fragment.BaseFragment;
 
 import java.util.ArrayList;
 import java.util.List;

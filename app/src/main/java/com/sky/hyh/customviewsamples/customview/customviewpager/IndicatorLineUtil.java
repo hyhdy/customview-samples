@@ -1,12 +1,10 @@
 package com.sky.hyh.customviewsamples.customview.customviewpager;
 
-import android.content.res.Resources;
 import android.support.design.widget.TabLayout;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.sky.hyh.customviewsamples.utils.SizeUtils;
+import com.hyh.base_lib.utils.SizeUtils;
 
 import java.lang.reflect.Field;
 

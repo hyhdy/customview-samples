@@ -1,19 +1,17 @@
 package com.sky.hyh.customviewsamples;
 
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 
-import com.sky.hyh.customviewsamples.annotation.FindViewByIdAno;
-import com.sky.hyh.customviewsamples.factory.BaseFragmentFactory;
-import com.sky.hyh.customviewsamples.adapter.DataListAdapter;
-import com.sky.hyh.customviewsamples.fragment.BaseFragment;
+import com.hyh.base_lib.factory.BaseFragmentFactory;
+import com.hyh.base_lib.fragment.BaseFragment;
+import com.hyh.base_lib.adapter.DataListAdapter;
 import com.sky.hyh.customviewsamples.fragment.impl.InputFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -45,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("hyh", "MainActivity: onClick ");
                 rvList.setVisibility(View.GONE);
             }
-        });
+        },FragmentRepotity.sDataList);
         rvList.setAdapter(dataListAdapter);
 
         view.setOnLongClickListener(new View.OnLongClickListener() {

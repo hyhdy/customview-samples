@@ -4,7 +4,7 @@ import android.graphics.Paint;
 import android.util.Log;
 import android.widget.TextView;
 import com.sky.hyh.customviewsamples.span.spandata.CustomSpanData;
-import com.sky.hyh.customviewsamples.utils.SizeUtils;
+import com.hyh.base_lib.utils.SizeUtils;
 import java.util.ArrayList;
 import java.util.List;
 
