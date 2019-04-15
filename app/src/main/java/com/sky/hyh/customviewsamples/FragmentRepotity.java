@@ -8,6 +8,7 @@ import com.sky.hyh.customviewsamples.factory.impl.ContactFactory;
 import com.sky.hyh.customviewsamples.factory.impl.CoordinatorLayoutFactory;
 import com.sky.hyh.customviewsamples.factory.impl.CustomEmojiPanelFactory;
 import com.sky.hyh.customviewsamples.factory.impl.DyLimitedEditTextFactory;
+import com.sky.hyh.customviewsamples.factory.impl.DynamicProxyFactory;
 import com.sky.hyh.customviewsamples.factory.impl.DynamicRoundTextViewFactory;
 import com.sky.hyh.customviewsamples.factory.impl.FlexBoxLayoutManagerFactory;
 import com.sky.hyh.customviewsamples.factory.impl.GraduleTitleViewPagerFactory;
@@ -43,5 +44,6 @@ public class FragmentRepotity {
         sDataList.add(SpanLineEditTextFactory.class);
         sDataList.add(FlexBoxLayoutManagerFactory.class);
         sDataList.add(CoordinatorLayoutFactory.class);
+        sDataList.add(DynamicProxyFactory.class);
     }
 }
