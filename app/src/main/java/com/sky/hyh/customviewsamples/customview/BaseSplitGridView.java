@@ -8,7 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.sky.hyh.customviewsamples.utils.LongClickHelper;
-import com.sky.hyh.customviewsamples.utils.RectUtil;
+import com.hyh.base_lib.utils.RectUtil;
 
 import java.util.ArrayList;
 import java.util.List;

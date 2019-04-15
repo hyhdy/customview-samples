@@ -1,4 +1,4 @@
-package com.sky.hyh.customviewsamples.utils;
+package com.hyh.base_lib.utils;
 
 public class ColorUtils {
     public static final int A_MASK = 0xff000000;
