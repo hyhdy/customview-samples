@@ -3,11 +3,12 @@ package com.sky.hyh.customviewsamples.fragment.impl;
 import android.view.View;
 import android.widget.TextView;
 
+import com.hyh.annotation.InjectFragment;
+import com.hyh.base_lib.BaseFragment;
 import com.hyh.base_lib.annotation.FindViewByIdAno;
-import com.hyh.base_lib.fragment.BaseFragment;
 import com.sky.hyh.customviewsamples.R;
 import com.sky.hyh.customviewsamples.customview.DynamicRoundTextView;
-
+@InjectFragment()
 public class DynamicRoundTextViewFragment extends BaseFragment implements View.OnClickListener{
     @FindViewByIdAno(R.id.drt_round)
     DynamicRoundTextView mDynamicRoundTextView;

@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.hyh.base_lib.R;
-import com.hyh.base_lib.factory.BaseFragmentFactory;
+import com.hyh.base_lib.BaseFragmentFactory;
 
 import java.util.List;
 

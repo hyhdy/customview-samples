@@ -1,4 +1,4 @@
-package com.hyh.base_lib.fragment;
+package com.hyh.base_lib;
 
 import android.os.Bundle;
 import android.support.annotation.IdRes;

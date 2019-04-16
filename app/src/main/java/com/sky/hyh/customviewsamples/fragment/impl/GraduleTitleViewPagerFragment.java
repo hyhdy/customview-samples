@@ -2,15 +2,16 @@ package com.sky.hyh.customviewsamples.fragment.impl;
 
 import android.view.View;
 
+import com.hyh.annotation.InjectFragment;
+import com.hyh.base_lib.BaseFragment;
 import com.hyh.base_lib.annotation.FindViewByIdAno;
-import com.hyh.base_lib.fragment.BaseFragment;
 import com.sky.hyh.customviewsamples.R;
 import com.sky.hyh.customviewsamples.customview.customviewpager.GraduleTitleViewpagerV2;
 import com.sky.hyh.customviewsamples.customview.customviewpager.ViewPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@InjectFragment()
 public class GraduleTitleViewPagerFragment extends BaseFragment {
     @FindViewByIdAno(R.id.gtv_view_pager)
     private GraduleTitleViewpagerV2 mGraduleTitleViewpager;

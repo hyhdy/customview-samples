@@ -2,7 +2,8 @@ package com.sky.hyh.customviewsamples.fragment.impl;
 
 import android.view.View;
 
-import com.hyh.base_lib.fragment.BaseFragment;
+import com.hyh.annotation.InjectFragment;
+import com.hyh.base_lib.BaseFragment;
 import com.sky.hyh.customviewsamples.R;
 
 /**
@@ -10,6 +11,7 @@ import com.sky.hyh.customviewsamples.R;
  * 2.android:clipChildren只有在祖父布局为其父布局有留下足够的显示空间才能生效。比如某个view的父布局高度是50dp，他的祖父布局高度也是50dp，那么设置android:clipChildren属性后
  * 也是没办法让该veiw在父布局之外显示的，因为其父布局之外已经没有其他空间了。
  */
+@InjectFragment()
 public class ClipChildrenFragment extends BaseFragment {
     @Override
     protected int getResId() {

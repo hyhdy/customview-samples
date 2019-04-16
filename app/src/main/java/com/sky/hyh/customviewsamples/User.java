@@ -1,4 +1,4 @@
-package com.sky.hyh.customviewsamples.fragment.impl;
+package com.sky.hyh.customviewsamples;
 
 import com.hyh.annotation.Builder;
 

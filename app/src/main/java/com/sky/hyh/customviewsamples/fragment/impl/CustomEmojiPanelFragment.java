@@ -6,9 +6,10 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 
-import com.hyh.base_lib.fragment.BaseFragment;
+import com.hyh.annotation.InjectFragment;
+import com.hyh.base_lib.BaseFragment;
 import com.sky.hyh.customviewsamples.R;
-
+@InjectFragment()
 public class CustomEmojiPanelFragment extends BaseFragment {
     public static final int RES_ID = R.layout.fragment_custom_emoji_panel;
     @Override

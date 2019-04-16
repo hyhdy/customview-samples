@@ -7,14 +7,15 @@ import android.text.Spanned;
 import android.view.View;
 import android.widget.TextView;
 
+import com.hyh.annotation.InjectFragment;
+import com.hyh.base_lib.BaseFragment;
 import com.hyh.base_lib.annotation.FindViewByIdAno;
-import com.hyh.base_lib.fragment.BaseFragment;
 import com.sky.hyh.customviewsamples.R;
 import com.sky.hyh.customviewsamples.span.CustomTextSpan;
 
 import static com.sky.hyh.customviewsamples.span.TypeConfig.ALIGN_CENTER;
 import static com.sky.hyh.customviewsamples.span.TypeConfig.UNIT_SP;
-
+@InjectFragment()
 public class SpanFragment extends BaseFragment {
     @FindViewByIdAno(R.id.tv_tip1)
     private TextView mTvTip1;

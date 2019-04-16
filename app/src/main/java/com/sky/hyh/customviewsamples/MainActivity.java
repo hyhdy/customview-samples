@@ -9,9 +9,10 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
-import com.hyh.base_lib.factory.BaseFragmentFactory;
-import com.hyh.base_lib.fragment.BaseFragment;
+import com.hyh.base_lib.BaseFragment;
+import com.hyh.base_lib.BaseFragmentFactory;
 import com.hyh.base_lib.adapter.DataListAdapter;
+import com.sky.hyh.customviewsamples.fragment.impl.FragmentRepotity;
 import com.sky.hyh.customviewsamples.fragment.impl.InputFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("hyh", "MainActivity: onClick ");
                 rvList.setVisibility(View.GONE);
             }
-        },FragmentRepotity.sDataList);
+        }, FragmentRepotity.sDataList);
         rvList.setAdapter(dataListAdapter);
 
         view.setOnLongClickListener(new View.OnLongClickListener() {

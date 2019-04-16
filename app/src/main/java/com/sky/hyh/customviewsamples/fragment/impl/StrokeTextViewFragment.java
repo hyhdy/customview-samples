@@ -4,8 +4,9 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.View;
 
+import com.hyh.annotation.InjectFragment;
+import com.hyh.base_lib.BaseFragment;
 import com.hyh.base_lib.annotation.FindViewByIdAno;
-import com.hyh.base_lib.fragment.BaseFragment;
 import com.hyh.base_lib.utils.InjectUtil;
 import com.sky.hyh.customviewsamples.R;
 import com.sky.hyh.customviewsamples.customview.StrokeTextView;
@@ -14,6 +15,7 @@ import com.sky.hyh.customviewsamples.customview.StrokeTextView;
  * Created by hyh on 2018/12/24 15:33
  * E-Mail Address：fjnuhyh122@gmail.com
  */
+@InjectFragment()
 public class StrokeTextViewFragment extends BaseFragment {
     @FindViewByIdAno(R.id.stv_text_1)
     private StrokeTextView mStrokeTextView;

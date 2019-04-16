@@ -3,13 +3,18 @@ package com.hyh.ioc_compile.processor;
 import com.google.auto.service.AutoService;
 import com.hyh.annotation.InjectFragment;
 import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.CodeBlock;
+import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.annotation.processing.AbstractProcessor;
@@ -24,12 +29,14 @@ import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
+import javax.tools.Diagnostic;
 
 @AutoService(Processor.class)
 public class InjectProcessor extends AbstractProcessor {
     private Messager mMessager;
     private Elements mElementUtils;
     private Filer mFiler;
+    private String packageName = "com.hyh.base_lib";
 
     @Override
     public synchronized void init(ProcessingEnvironment processingEnv) {
@@ -53,33 +60,82 @@ public class InjectProcessor extends AbstractProcessor {
 
     @Override
     public boolean process(Set<? extends TypeElement> anotations, RoundEnvironment roundEnvironment) {
+        String packageName = "";
+        List<ClassName> factoryList = new ArrayList<>();
         for (Element element : roundEnvironment.getElementsAnnotatedWith(InjectFragment.class)) {
-            if(element.getKind() != ElementKind.CLASS){
+            if (element.getKind() != ElementKind.CLASS) {
+                onError("Builder annotation can only be applied to class", element);
                 return false;
             }
-            String packageName = mElementUtils.getPackageOf(element).getQualifiedName().toString();
+
+            packageName = mElementUtils.getPackageOf(element).getQualifiedName().toString();
             String elementName = element.getSimpleName().toString();
             ClassName builderClassName = ClassName.get(packageName, String.format("%sFactory", elementName));
+            factoryList.add(builderClassName);
 
-            TypeName elementType = TypeName.get(element.asType());
-            MethodSpec createFragment = MethodSpec.methodBuilder("createFragment")
-                    .addModifiers(Modifier.PUBLIC)
-                    .returns(elementType)
-                    .addStatement("return new $T()", element)
-                    .build();
+            TypeSpec typeSpec = createFactoryTypeSpec(element, builderClassName, elementName);
 
-            TypeSpec factory = TypeSpec.classBuilder(builderClassName)
-                    .addModifiers(Modifier.PUBLIC)
-                    .addMethod(createFragment)
-                    .build();
-
-            JavaFile javaFile = JavaFile.builder(packageName, factory).build();
+            JavaFile javaFile = JavaFile.builder(packageName, typeSpec).build();
             try {
-            javaFile.writeTo(mFiler);
+                javaFile.writeTo(mFiler);
             } catch (IOException e) {
+                onError("Failed to write java file: " + e.getMessage(), element);
             }
         }
 
+        if(!packageName.equals("")){
+            ClassName repotityClassName = ClassName.get(packageName, "FragmentRepotity");
+            TypeSpec typeSpec = createRepotityTypeSpec(repotityClassName,factoryList);
+            JavaFile javaFile = JavaFile.builder(packageName, typeSpec).build();
+            try {
+                javaFile.writeTo(mFiler);
+            } catch (IOException e) {
+            }
+        }
         return true;
+    }
+
+    private TypeSpec createFactoryTypeSpec(Element element, ClassName builderClassName, String elementName) {
+        ClassName returnClass = ClassName.bestGuess(String.format("%s%s",packageName, ".BaseFragment"));
+        MethodSpec createFragment = MethodSpec.methodBuilder("createFragment")
+                .addAnnotation(Override.class)
+                .addModifiers(Modifier.PUBLIC)
+                .addStatement("return new $T()", element)
+                .returns(returnClass)
+                .build();
+        ClassName superClass = ClassName.bestGuess(String.format("%s%s",packageName, ".BaseFragmentFactory"));
+        return TypeSpec
+                .classBuilder(builderClassName)
+                .addModifiers(Modifier.PUBLIC)
+                .addMethod(createFragment)
+                .superclass(superClass)
+                .build();
+    }
+
+    private TypeSpec createRepotityTypeSpec(ClassName builderClassName,List<ClassName> factoryList) {
+        ClassName list = ClassName.get("java.util", "List");
+        ClassName arrayList = ClassName.get("java.util", "ArrayList");
+        TypeName listType = ParameterizedTypeName.get(list, ClassName.get("java.lang","Class"));
+
+        FieldSpec fieldSpec = FieldSpec.builder(listType, "sDataList")
+                .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+                .initializer("new $T()", arrayList)
+                .build();
+
+        CodeBlock.Builder blockBuilder = CodeBlock.builder();
+        for(int i =0; i< factoryList.size();i++){
+            blockBuilder.addStatement("sDataList.add($T.class)",factoryList.get(i));
+        }
+
+        return TypeSpec
+                .classBuilder(builderClassName)
+                .addModifiers(Modifier.PUBLIC)
+                .addStaticBlock(blockBuilder.build())
+                .addField(fieldSpec)
+                .build();
+    }
+
+    private void onError(String message, Element element) {
+        mMessager.printMessage(Diagnostic.Kind.ERROR, message, element);
     }
 }

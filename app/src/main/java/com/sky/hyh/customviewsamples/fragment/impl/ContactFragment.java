@@ -12,8 +12,9 @@ import android.widget.Toast;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
+import com.hyh.annotation.InjectFragment;
+import com.hyh.base_lib.BaseFragment;
 import com.hyh.base_lib.annotation.FindViewByIdAno;
-import com.hyh.base_lib.fragment.BaseFragment;
 import com.sky.hyh.customviewsamples.R;
 import com.sky.hyh.customviewsamples.adapter.ContactListAdapter;
 import com.sky.hyh.customviewsamples.entity.MobileContactSingleton;
@@ -25,6 +26,7 @@ import java.util.List;
  * Created by hyh on 2019/1/2 16:28
  * E-Mail Address：fjnuhyh122@gmail.com
  */
+@InjectFragment()
 public class ContactFragment extends BaseFragment {
     @FindViewByIdAno(R.id.rv_contact_list)
     private RecyclerView mRvContactList;

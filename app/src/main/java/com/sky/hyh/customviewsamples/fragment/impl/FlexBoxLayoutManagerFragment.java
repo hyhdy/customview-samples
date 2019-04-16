@@ -4,8 +4,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
+import com.hyh.annotation.InjectFragment;
+import com.hyh.base_lib.BaseFragment;
 import com.hyh.base_lib.annotation.FindViewByIdAno;
-import com.hyh.base_lib.fragment.BaseFragment;
 import com.sky.hyh.customviewsamples.R;
 import com.sky.hyh.customviewsamples.entity.FlexAdapter;
 import com.sky.hyh.customviewsamples.entity.FlexModel;
@@ -16,6 +17,7 @@ import java.util.List;
 /**
  * created by hyh on 2019/4/3
  */
+@InjectFragment()
 public class FlexBoxLayoutManagerFragment extends BaseFragment {
     @FindViewByIdAno(R.id.rv_list)
     private RecyclerView mRvList;

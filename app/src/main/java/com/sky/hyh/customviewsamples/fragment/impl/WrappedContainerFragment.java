@@ -7,8 +7,9 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.hyh.annotation.InjectFragment;
+import com.hyh.base_lib.BaseFragment;
 import com.hyh.base_lib.annotation.FindViewByIdAno;
-import com.hyh.base_lib.fragment.BaseFragment;
 import com.sky.hyh.customviewsamples.R;
 import com.sky.hyh.customviewsamples.customview.wrappedContainer.WrappedContainer2;
 
@@ -16,6 +17,7 @@ import com.sky.hyh.customviewsamples.customview.wrappedContainer.WrappedContaine
  * Created by hyh on 2019/2/13 21:02
  * E-Mail Address：fjnuhyh122@gmail.com
  */
+@InjectFragment()
 public class WrappedContainerFragment extends BaseFragment {
     @FindViewByIdAno(R.id.wc_container)
     private WrappedContainer2 mWrappedContainer;

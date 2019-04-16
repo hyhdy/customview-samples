@@ -3,13 +3,15 @@ package com.sky.hyh.customviewsamples.fragment.impl;
 import android.view.View;
 import android.widget.Button;
 
-import com.hyh.base_lib.fragment.BaseFragment;
+import com.hyh.annotation.InjectFragment;
+import com.hyh.base_lib.BaseFragment;
 import com.sky.hyh.customviewsamples.R;
 import com.sky.hyh.customviewsamples.customview.coordinatelayout.RootLayout;
 
 /**
  * created by hyh on 2019/4/4
  */
+@InjectFragment()
 public class CoordinatorLayoutFragment extends BaseFragment {
     private RootLayout mRootLayout;
     private Button mBtnSwitch;
