@@ -12,12 +12,32 @@ import com.sky.hyh.customviewsamples.proxy.CachedProxy;
 import com.sky.hyh.customviewsamples.proxy.ConsumeProxy;
 import com.sky.hyh.customviewsamples.proxy.RealSubject;
 import com.sky.hyh.customviewsamples.proxy.Subject;
+import com.sky.hyh.customviewsamples.proxy.ViewClickProxy;
+
 @InjectFragment()
-public class DynamicProxyFragment extends BaseFragment implements View.OnClickListener {
+public class DynamicProxyFragment extends BaseFragment{
     @FindViewByIdAno(R.id.proxy_a)
     private TextView mTvProxyA;
     @FindViewByIdAno(R.id.proxy_b)
     private TextView mTvProxyB;
+    private View.OnClickListener mClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            //缓存代理
+            CachedProxy proxy = new CachedProxy();
+            Subject subject = (Subject) proxy.bind(new RealSubject());
+            Log.e("Shawn", subject.operationA());
+            Log.e("Shawn", subject.operationB());
+            Log.e("Shawn", subject.operationC());
+
+            //计算耗时代理
+            ConsumeProxy consumeProxy = new ConsumeProxy();
+            subject = (Subject) consumeProxy.bind(new RealSubject());
+            Log.e("Shawn", subject.operationA());
+            Log.e("Shawn", subject.operationB());
+            Log.e("Shawn", subject.operationC());
+        }
+    };
 
     @Override
     protected int getResId() {
@@ -26,24 +46,12 @@ public class DynamicProxyFragment extends BaseFragment implements View.OnClickLi
 
     @Override
     protected void initViews(View rootView) {
-        mTvProxyA.setOnClickListener(this);
-        mTvProxyB.setOnClickListener(this);
-    }
+        //点击事件代理
+        ViewClickProxy viewClickProxy = new ViewClickProxy();
+        View.OnClickListener clickListener = (View.OnClickListener) viewClickProxy.bind(mClickListener);
 
-    @Override
-    public void onClick(View v) {
-        //缓存代理
-        CachedProxy proxy = new CachedProxy();
-        Subject subject = (Subject) proxy.bind(new RealSubject());
-        Log.e("Shawn", subject.operationA());
-        Log.e("Shawn", subject.operationB());
-        Log.e("Shawn", subject.operationC());
+        mTvProxyA.setOnClickListener(clickListener);
+        mTvProxyB.setOnClickListener(clickListener);
 
-        //计算耗时代理
-        ConsumeProxy consumeProxy = new ConsumeProxy();
-        subject = (Subject) consumeProxy.bind(new RealSubject());
-        Log.e("Shawn", subject.operationA());
-        Log.e("Shawn", subject.operationB());
-        Log.e("Shawn", subject.operationC());
     }
 }
