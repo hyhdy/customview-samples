@@ -4,7 +4,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.hyh.annotation.InjectFragment;
 import com.hyh.base_lib.BaseFragment;
 import com.hyh.base_lib.annotation.FindViewByIdAno;
 import com.sky.hyh.customviewsamples.R;
@@ -14,7 +13,6 @@ import com.sky.hyh.customviewsamples.proxy.RealSubject;
 import com.sky.hyh.customviewsamples.proxy.Subject;
 import com.sky.hyh.customviewsamples.proxy.ViewClickProxy;
 
-@InjectFragment()
 public class DynamicProxyFragment extends BaseFragment{
     @FindViewByIdAno(R.id.proxy_a)
     private TextView mTvProxyA;

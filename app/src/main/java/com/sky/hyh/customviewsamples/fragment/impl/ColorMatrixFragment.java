@@ -4,7 +4,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.SeekBar;
 
-import com.hyh.annotation.InjectFragment;
 import com.hyh.base_lib.BaseFragment;
 import com.sky.hyh.customviewsamples.R;
 import com.sky.hyh.customviewsamples.customview.ColorMatrixView;
@@ -13,7 +12,6 @@ import com.sky.hyh.customviewsamples.customview.ColorMatrixView;
  * Created by hyh on 2018/10/27 20:45
  * E-Mail Address：fjnuhyh122@gmail.com
  */
-@InjectFragment()
 public class ColorMatrixFragment extends BaseFragment {
     private SeekBar sb_red, sb_green, sb_blue;
     private ColorMatrixView mColorMatrixView;

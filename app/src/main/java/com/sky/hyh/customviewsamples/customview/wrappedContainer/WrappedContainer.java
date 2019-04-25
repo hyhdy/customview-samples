@@ -102,6 +102,7 @@ public class WrappedContainer extends FrameLayout {
                     }
                 break;
                 case MotionEvent.ACTION_POINTER_DOWN:
+                    //有非主要手指按下
                 break;
 
                 case MotionEvent.ACTION_MOVE:
@@ -128,6 +129,7 @@ public class WrappedContainer extends FrameLayout {
                 break;
 
                 case MotionEvent.ACTION_POINTER_UP:
+                    //有非主要手指抬起
                     int index = event.getActionIndex();
                     final int pointerId = event.getPointerId(index);
                     if (pointerId == mActivePointerId) {

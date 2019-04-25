@@ -76,6 +76,11 @@ public class WrappedContainer2 extends FrameLayout {
         int action = event.getActionMasked();
         switch (action){
             case MotionEvent.ACTION_DOWN: {
+                //第一根手指按下
+                Log.d("hyh","WrappedContainer2: onTouchEvent: ACTION_DOWN");
+                int index = event.getActionIndex();
+                Log.d("hyh","WrappedContainer2: onTouchEvent: index="+index);
+
                 mCurTouchDrawable = null;
                 //获取第1个手指的id
                 mActivePointerId = event.getPointerId(0);
@@ -99,11 +104,19 @@ public class WrappedContainer2 extends FrameLayout {
                 }
             }
                 break;
-            case MotionEvent.ACTION_POINTER_DOWN:
+            case MotionEvent.ACTION_POINTER_DOWN: {
+                //不是第一根手指按下
+                Log.d("hyh", "WrappedContainer2: onTouchEvent: ACTION_POINTER_DOWN");
+                int index = event.getActionIndex();
+                Log.d("hyh", "WrappedContainer2: onTouchEvent: index=" + index);
+            }
                 break;
 
-            case MotionEvent.ACTION_MOVE:
-                if(mCurTouchDrawable!=null) {
+            case MotionEvent.ACTION_MOVE: {
+                int index = event.getActionIndex();
+                Log.d("hyh","WrappedContainer2: onTouchEvent: ACTION_MOVE");
+                Log.d("hyh", "WrappedContainer2: onTouchEvent: index=" + index);
+                if (mCurTouchDrawable != null) {
                     final float x = getActiveX(event);
                     final float y = getActiveY(event);
                     final int dx = (int) (x - mLastTouchX);
@@ -114,21 +127,26 @@ public class WrappedContainer2 extends FrameLayout {
                     }
 
                     if (mIsDragging) {
-                        mCurTouchDrawable.setX(mCurTouchDrawable.getX()+dx);
-                        mCurTouchDrawable.setY(mCurTouchDrawable.getY()+dy);
+                        mCurTouchDrawable.setX(mCurTouchDrawable.getX() + dx);
+                        mCurTouchDrawable.setY(mCurTouchDrawable.getY() + dy);
                         mContainerView.invalidate();
                         mLastTouchX = x;
                         mLastTouchY = y;
                     }
                 }
+            }
                 break;
 
             case MotionEvent.ACTION_CANCEL:
                 mActivePointerId = INVALID_POINTER_ID;
                 break;
 
-            case MotionEvent.ACTION_POINTER_UP:
+            case MotionEvent.ACTION_POINTER_UP: {
+                //不是最后一根手指抬起
+                Log.d("hyh", "WrappedContainer2: onTouchEvent: ACTION_POINTER_UP");
                 int index = event.getActionIndex();
+                Log.d("hyh", "WrappedContainer2: onTouchEvent: index=" + index);
+
                 final int pointerId = event.getPointerId(index);
                 if (pointerId == mActivePointerId) {
                     //当控制move的主手指抬起时需要更换另一个手指为主手指
@@ -137,11 +155,18 @@ public class WrappedContainer2 extends FrameLayout {
                     mLastTouchX = event.getX(newPointerIndex);
                     mLastTouchY = event.getY(newPointerIndex);
                 }
+            }
 
                 break;
 
-            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_UP: {
+                //最后一根手指抬起
+                Log.d("hyh", "WrappedContainer2: onTouchEvent: ACTION_UP");
+                int index = event.getActionIndex();
+                Log.d("hyh", "WrappedContainer2: onTouchEvent: index=" + index);
+
                 mActivePointerId = INVALID_POINTER_ID;
+            }
                 break;
 
 
