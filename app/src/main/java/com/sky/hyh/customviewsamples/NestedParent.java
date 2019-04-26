@@ -15,7 +15,7 @@ public interface NestedParent {
      * 询问父控件是否处理嵌套滑动的方法。
      * 当某个继承NestedScrollingChild接口的孩子（包括直接孩子和间接孩子）
      * 通过startNestedScroll发起一个嵌套滑动事件后会调用到该方法，询问父控件是否接受嵌套滑动。
-     * @param child：继承本接口的ViewGroup的一个直接孩子，child可能是target也可能是target的父控件（不一定是直接父亲）。
+     * @param child：父控件的一个直接孩子，child可能是target也可能是target的父亲（不一定是直接父亲）。
      * @param target：发起嵌套滑动事件的控件。也就是调用startNestedScroll方法的view
      * @param axes ：嵌套滑动方向，包括水平和竖直或都有
      * @return ：返回true接受。
@@ -23,20 +23,11 @@ public interface NestedParent {
     boolean onStartNestedScroll(@NonNull View child, @NonNull View target, @ViewCompat.ScrollAxis int axes);
 
     /**
-     * React to the successful claiming of a nested scroll operation.
-     *
-     * <p>This method will be called after
-     * {@link #onStartNestedScroll(View, View, int) onStartNestedScroll} returns true. It offers
-     * an opportunity for the view and its superclasses to perform initial configuration
-     * for the nested scroll. Implementations of this method should always call their superclass's
-     * implementation of this method if one is present.</p>
-     *
-     * @param child Direct child of this ViewParent containing target
-     * @param target View that initiated the nested scroll
-     * @param axes Flags consisting of {@link ViewCompat#SCROLL_AXIS_HORIZONTAL},
-     *                         {@link ViewCompat#SCROLL_AXIS_VERTICAL} or both
-     * @see #onStartNestedScroll(View, View, int)
-     * @see #onStopNestedScroll(View)
+     * onStartNestedScroll返回true会调用该方法，表示父控件接受嵌套滑动。
+     * 它给父控件一个时机去初始化一些为了嵌套滑动做准备的配置
+     * @param child：父控件的一个直接孩子，child可能是target也可能是target的父亲（不一定是直接父亲）。
+     * @param target：发起嵌套滑动事件的控件。也就是调用startNestedScroll方法的view
+     * @param axes ：嵌套滑动方向，包括水平和竖直或都有
      */
     void onNestedScrollAccepted(@NonNull View child, @NonNull View target, @ViewCompat.ScrollAxis int axes);
 

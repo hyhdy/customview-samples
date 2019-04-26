@@ -7,31 +7,14 @@ import android.view.ViewConfiguration;
 
 public interface NestedChild {
     /**
-     * Enable or disable nested scrolling for this view.
-     *
-     * <p>If this property is set to true the view will be permitted to initiate nested
-     * scrolling operations with a compatible parent view in the current hierarchy. If this
-     * view does not implement nested scrolling this will have no effect. Disabling nested scrolling
-     * while a nested scroll is in progress has the effect of {@link #stopNestedScroll() stopping}
-     * the nested scroll.</p>
-     *
-     * @param enabled true to enable nested scrolling, false to disable
-     *
-     * @see #isNestedScrollingEnabled()
+     * 设置是否支持嵌套滑动，Recyclerview会在初始化时默认设置为true，
+     * @param enabled
      */
     void setNestedScrollingEnabled(boolean enabled);
 
     /**
-     * Returns true if nested scrolling is enabled for this view.
-     *
-     * <p>If nested scrolling is enabled and this View class implementation supports it,
-     * this view will act as a nested scrolling child view when applicable, forwarding data
-     * about the scroll operation in progress to a compatible and cooperating nested scrolling
-     * parent.</p>
-     *
-     * @return true if nested scrolling is enabled
-     *
-     * @see #setNestedScrollingEnabled(boolean)
+     * 是否支持嵌套滑动
+     * @return
      */
     boolean isNestedScrollingEnabled();
 
