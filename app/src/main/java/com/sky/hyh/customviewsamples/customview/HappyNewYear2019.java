@@ -142,6 +142,7 @@ public class HappyNewYear2019 extends View {
             }
         });
         animatorSet.start();
+        
     }
 
     private Animator startBubbleEnterAnimSpring(int index,long startTime) {
