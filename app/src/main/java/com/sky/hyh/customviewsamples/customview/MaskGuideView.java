@@ -80,25 +80,31 @@ public class MaskGuideView extends View {
         if(targetView == null){
             return;
         }
-        buildShapeParam(targetView,shape);
+        int[] location = new int[2];
+        targetView.getLocationOnScreen(location);
+        int[] guideLocation= new int[2];
+        getLocationOnScreen(guideLocation);
+        location[0] -= guideLocation[0];
+        location[1] -= guideLocation[1];
+        buildShapeParam(location,targetView,shape);
         invalidate();
     }
 
-    private void buildShapeParam(View targetView,@LightAreaShape int shape){
+    private void buildShapeParam(int[] location,View targetView,@LightAreaShape int shape){
         mShapeParam = new ShapeParam(shape);
         if(shape == SHAPE_ROUND_RECT){
             RectF rectF = new RectF();
-            rectF.left = targetView.getLeft() - mMargin;
-            rectF.top = targetView.getTop() - mMargin;
-            rectF.right = targetView.getRight() + mMargin;
-            rectF.bottom = targetView.getBottom() + mMargin;
+            rectF.left = location[0] - mMargin;
+            rectF.top = location[1] - mMargin;
+            rectF.right = location[0] + targetView.getWidth() + mMargin;
+            rectF.bottom = location[1] + targetView.getHeight() + mMargin;
             //圆角矩形区域
             mShapeParam.mRectF = rectF;
             mShapeParam.mRoundRadius = mRoundRadius;
         }else if(shape == SHAPE_CIRCLE){
             //圆心点坐标
-            mShapeParam.mCenterX = (targetView.getLeft()+targetView.getRight())/2;
-            mShapeParam.mCenterY = (targetView.getTop()+targetView.getBottom())/2;
+            mShapeParam.mCenterX = location[0] + targetView.getWidth()/2;
+            mShapeParam.mCenterY = location[1] + targetView.getHeight()/2;
             //圆的半径，这里算的是目标控件矩形区域对角线的长度一半加上margin的值作为半径
             mShapeParam.mRadius = (int) (Math.sqrt(Math.pow(targetView.getWidth()/2,2)+Math.pow(targetView.getHeight()/2,2))+mMargin);
         }
