@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RatingGridView">
+        <attr name="starbg" format="reference" />
+        <attr name="starfront" format="reference" />
+        <attr name="lineCount" format="integer" />
+        <attr name="columeCount" format="integer" />
+        <attr name="starW" format="dimension" />
+        <attr name="starH" format="dimension" />
+    </declare-styleable>
+</resources>
