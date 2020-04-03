@@ -12,7 +12,7 @@
         <RelativeLayout
             android:layout_width="300dp"
             android:layout_height="200dp"
-            android:layout_marginLeft="100dp"
+            android:layout_marginLeft="50dp"
             android:layout_marginTop="100dp"
             >
             <TextView
@@ -21,7 +21,7 @@
                 android:layout_height="wrap_content"
                 android:text="我是目标控件"
                 android:textColor="@color/colorAccent"
-                android:textSize="30dp"
+                android:textSize="25dp"
                 android:layout_centerInParent="true"
                 android:textStyle="bold" />
         </RelativeLayout>
