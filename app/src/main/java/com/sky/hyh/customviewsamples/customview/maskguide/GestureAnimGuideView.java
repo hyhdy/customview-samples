@@ -1,4 +1,4 @@
-package com.sky.hyh.customviewsamples.customview;
+package com.sky.hyh.customviewsamples.customview.maskguide;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

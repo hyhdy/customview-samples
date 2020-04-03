@@ -10,8 +10,8 @@ import com.hyh.annotation.InjectFragment;
 import com.hyh.base_lib.BaseFragment;
 import com.hyh.base_lib.annotation.FindViewByIdAno;
 import com.sky.hyh.customviewsamples.R;
-import com.sky.hyh.customviewsamples.customview.GestureAnimGuideView;
-import com.sky.hyh.customviewsamples.customview.MaskGuideView;
+import com.sky.hyh.customviewsamples.customview.maskguide.GestureAnimGuideView;
+import com.sky.hyh.customviewsamples.customview.maskguide.MaskGuideView;
 
 /**
  * created by curdyhuang on 2019-10-21

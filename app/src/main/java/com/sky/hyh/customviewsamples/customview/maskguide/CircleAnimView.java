@@ -1,4 +1,4 @@
-package com.sky.hyh.customviewsamples.customview;
+package com.sky.hyh.customviewsamples.customview.maskguide;
 
 import android.animation.Keyframe;
 import android.animation.PropertyValuesHolder;
