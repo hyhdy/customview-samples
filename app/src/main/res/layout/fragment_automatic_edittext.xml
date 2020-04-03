@@ -13,6 +13,7 @@
         android:layout_centerHorizontal="true"
         android:background="@null"
         android:gravity="center"
+        android:textColor="@color/pure_white"
         />
 
 </RelativeLayout>

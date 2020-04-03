@@ -95,7 +95,8 @@ public class TextSizeAdjustHelper {
     private int getSingleLineHeight(float fontSize){
         Paint paint = new Paint(mHost.getPaint());
         paint.setTextSize(fontSize);
-        return paint.getFontMetricsInt(null);
+        Paint.FontMetrics fontMetrics = paint.getFontMetrics();
+        return (int) (fontMetrics.bottom - fontMetrics.top);
     }
 
     private void scaleFontSizeByRate(float rate){
