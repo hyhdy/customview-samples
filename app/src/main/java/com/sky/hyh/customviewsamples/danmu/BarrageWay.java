@@ -22,7 +22,7 @@ import java.util.Queue;
  */
 public class BarrageWay {
     public static final int MIN_DISTANCE = SizeUtils.dp2px(10);
-    public static final float SPEED = 150;//每秒移动100dp
+    public static final float SPEED = SizeUtils.dp2px(100);//每秒移动100dp
     private ViewGroup mContainer;//弹道通道
     private BarrageViewFactory mFactory;//弹幕控件工厂
     private Queue<BarrageItem> mQueue = new LinkedList<>();//弹幕队列
@@ -70,9 +70,18 @@ public class BarrageWay {
 
         startAnim(view);
 
-        int delayDistance = view.getMeasuredWidth() + MIN_DISTANCE;
         mIsLock = true;
-        mHandler.postDelayed(mTask, (long) (delayDistance/SPEED*1000));
+        mHandler.postDelayed(mTask, getDelayTime(view.getMeasuredWidth(),mContainer.getWidth()));
+    }
+
+    private long getDelayTime(int viewWidth,int containerWidth){
+        int delayDistance = (viewWidth>containerWidth?containerWidth:viewWidth) + MIN_DISTANCE;
+        return  (long) (delayDistance/SPEED*1000);
+    }
+
+    private long getDuration(int viewWidth,int containerWidth){
+        int delayDistance = (viewWidth>containerWidth?containerWidth:viewWidth) + containerWidth;
+        return  (long) (delayDistance/SPEED*1000);
     }
 
     /**
@@ -81,8 +90,7 @@ public class BarrageWay {
     private void startAnim(BarrageView view){
         ObjectAnimator animator = ObjectAnimator.ofFloat(view,"translationX",mContainer.getWidth(),-view.getMeasuredWidth());
         animator.setInterpolator(new LinearInterpolator());
-        int distance = mContainer.getWidth() + view.getMeasuredWidth();
-        animator.setDuration((long) (distance/SPEED*1000));
+        animator.setDuration(getDuration(view.getMeasuredWidth(),mContainer.getWidth()));
         animator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {

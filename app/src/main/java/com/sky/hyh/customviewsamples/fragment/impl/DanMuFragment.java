@@ -32,7 +32,7 @@ public class DanMuFragment extends BaseFragment {
         rootView.findViewById(R.id.btn_add_danmu1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BarrageWay.BarrageItem item = new BarrageWay.BarrageItem("小姐姐哈哈哈","");
+                BarrageWay.BarrageItem item = new BarrageWay.BarrageItem("小姐姐哈哈哈thyth是而VR我VG如果热个反而服务","");
                 mDispatch.dispatch(item);
             }
         });
