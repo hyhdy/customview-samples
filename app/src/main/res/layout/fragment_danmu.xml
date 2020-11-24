@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#99000000">
+
+    <FrameLayout
+        android:id="@+id/fl_barrage_way_1"
+        android:layout_width="match_parent"
+        android:layout_marginTop="200dp"
+        android:layout_height="30dp"
+        />
+
+    <FrameLayout
+        android:id="@+id/fl_barrage_way_2"
+        android:layout_below="@id/fl_barrage_way_1"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="30dp"/>
+
+    <FrameLayout
+        android:id="@+id/fl_barrage_way_3"
+        android:layout_below="@id/fl_barrage_way_2"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"/>
+
+    <Button
+        android:id="@+id/btn_add_danmu1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="添加普通弹幕"
+        android:layout_marginLeft="50dp"
+        android:layout_marginBottom="100dp"
+        android:layout_alignParentBottom="true"
+        />
+
+    <Button
+        android:id="@+id/btn_add_danmu2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="添加特殊弹幕"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        />
+
+</RelativeLayout>
