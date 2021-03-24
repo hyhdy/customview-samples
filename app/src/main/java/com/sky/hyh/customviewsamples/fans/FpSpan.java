@@ -135,12 +135,12 @@ public class FpSpan extends ReplacementSpan {
         //文本高度
         int textHeight = bottom - top;
 
-        //1.绘制全局区域背景
+        //1.绘制背景
         paint.setColor(mBgColor);
         mDrawArea.set(x,(textHeight-mHeight)/2f,x+mWidth,(textHeight+mHeight)/2f);
         canvas.drawRoundRect(mDrawArea,mRadius,mRadius,paint);
 
-        //2.绘制等级区域的背景
+        //2.绘制背景
         paint.setColor(mLevelBgColor);
         mDrawArea.set(x + calculateWitdth(mIconParam, mNameParam),mDrawArea.top,x + calculateWitdth(mIconParam, mNameParam, mLevelParam),mDrawArea.bottom);
         canvas.drawRoundRect(mDrawArea,mRadius,mRadius,paint);
@@ -159,7 +159,7 @@ public class FpSpan extends ReplacementSpan {
             canvas.drawText(mRequestParam.mName, x + calculateWitdth(mIconParam)+mNameParam.mPaddingLeft, y, mPaint);
         }
 
-        //5.绘制等级
+        //5.绘制数字
         if(mLevelParam !=null){
             y = (int) ((textHeight - mLevelParam.mHeight) / 2 - mPaint.getFontMetrics().top);
             canvas.drawText(String.valueOf(mRequestParam.mLevel), x + calculateWitdth(mIconParam,mNameParam)+mLevelParam.mPaddingLeft, y, mPaint);
@@ -170,15 +170,15 @@ public class FpSpan extends ReplacementSpan {
         Drawable icon = null;
          switch (type) {
               case Style1:{
-                icon = context.getResources().getDrawable(R.drawable.fx_pub_icon_doufen_26x28);
+                icon = context.getResources().getDrawable(R.drawable.icon_1_26x28);
               }
               break;
               case Style2:{
-                   icon = context.getResources().getDrawable(R.drawable.fx_pub_icon_yueshou_34x28);
+                   icon = context.getResources().getDrawable(R.drawable.icon_2_34x28);
                }
                break;
               case Style3:{
-                   icon = context.getResources().getDrawable(R.drawable.fx_pub_icon_nianshou_40x28);
+                   icon = context.getResources().getDrawable(R.drawable.icon_3_40x28);
                }
                break;
               default:
