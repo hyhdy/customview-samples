@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#99000000"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <com.sky.hyh.customviewsamples.customview.DivideEqualLayout
+        android:id="@+id/del_container"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="100dp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        >
+
+        <FrameLayout
+            android:id="@+id/fl_left_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical|left"
+            >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/cat_1"
+                android:scaleType="fitXY"
+                />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/fl_right_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical|right"
+            >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/cat_5"
+                android:scaleType="fitXY"
+                />
+
+        </FrameLayout>
+
+    </com.sky.hyh.customviewsamples.customview.DivideEqualLayout>
+
+    <ImageView
+        android:id="@+id/iv_lighting"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/del_container"
+        android:layout_alignBottom="@+id/del_container"
+        android:layout_centerHorizontal="true"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="500dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        >
+
+        <TextView
+            android:id="@+id/tv_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="显示"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/pure_white"
+            android:textSize="30dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="往左"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/pure_white"
+            android:textSize="30dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_mid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="往中"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/pure_white"
+            android:textSize="30dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="往右"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/pure_white"
+            android:textSize="30dp"
+            />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

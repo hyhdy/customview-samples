@@ -170,15 +170,15 @@ public class FpSpan extends ReplacementSpan {
         Drawable icon = null;
          switch (type) {
               case Style1:{
-                icon = context.getResources().getDrawable(R.drawable.icon_1_26x28);
+                //icon = context.getResources().getDrawable(R.drawable.icon_1_26x28);
               }
               break;
               case Style2:{
-                   icon = context.getResources().getDrawable(R.drawable.icon_2_34x28);
+                   //icon = context.getResources().getDrawable(R.drawable.icon_2_34x28);
                }
                break;
               case Style3:{
-                   icon = context.getResources().getDrawable(R.drawable.icon_3_40x28);
+                   //icon = context.getResources().getDrawable(R.drawable.icon_3_40x28);
                }
                break;
               default:
