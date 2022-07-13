@@ -8,4 +8,11 @@
         <attr name="starW" format="dimension" />
         <attr name="starH" format="dimension" />
     </declare-styleable>
+
+    <string-array name="anim_type">
+        <item>fade</item>
+        <item>slide </item>
+        <item>rotate</item>
+        <item>scale</item>
+    </string-array>
 </resources>
